@@ -1,16 +1,9 @@
 import mongoose from mongoose;
 
-const likesSchema = new mongoose.Schema({
+const likedBySchema = new mongoose.Schema({
     likedBy:[
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-            required: true
-        }
-    ],
-    liked:[
-        {
-            type:mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true
         }
@@ -21,4 +14,4 @@ const likesSchema = new mongoose.Schema({
     }
 },{timestamps: true})
 
-export const Likes = mongoose.model("Likes",likesSchema)
+export const LikedBy = mongoose.model("LikedBy",likedBySchema)

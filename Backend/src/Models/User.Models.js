@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { LikedBy } from "./LikedBy.Models";
 
 // Define the schema
 const UserSchema = new Schema(
@@ -47,6 +48,18 @@ const UserSchema = new Schema(
             {
                 type: Schema.Types.ObjectId,
                 ref: "Like"
+            }
+        ],
+        likedBy: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "LikedBy"
+            }
+        ],
+        likedTo: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "LikedTo"
             }
         ],
         skills: [
