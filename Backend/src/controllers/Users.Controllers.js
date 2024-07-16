@@ -2,6 +2,7 @@ import {User} from '../Models/User.Models.js';
 import {Experiance} from '../Models/Experiance.Models.js';
 import {APiError} from '../utils/ApiError.js'
 import {AsyncHandler} from '../utils/AsyncHandler.js'
+import {Skill} from '../Models/Skills.Models.js'
 import ApiResponse from '../utils/ApiResponse.js'
 
 
@@ -27,17 +28,23 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
             throw new APiError(400,"all fields are required")
         }
         
-    const existedUser=await User.findOne({
-        $or:[{username},{email}]
-    })
+    // const existedUser=await User.findOne({
+    //     $or:[{username},{email}]
+    // })
     
-    if(existedUser===true){
-        throw new APiError(400,"User is Alerady Present")
-    }
+    // if(existedUser===true){
+    //     throw new APiError(400,"User is Alerady Present")
+    // }
     const experiencid=await Promise.all(experience.map(async(experiance)=>{
         const exp=new Experiance(experiance)
         await exp.save();
         return exp._id;
+    }))
+
+    const skillsId=await Promise.all(skills.map(async(skill)=>{
+        const skillstore=new Skill(skill)
+        await skillstore.save();
+        return skillstore._id;
     }))
     console.log("experience 2",experiencid);
     const user=await User.create({
@@ -49,7 +56,7 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
         summary:summary|| "ee",
         profilePicture:profilePicture||" " ,
         introVideo:introVideo||" ",
-        skills:skills,
+        skills:skillsId,
         achievements:achievements,
         projects:projects,
         codingProfiles:codingProfiles,
