@@ -1,11 +1,16 @@
 import mongoose, { Schema } from "mongoose";
+<<<<<<< HEAD
 import { LikedBy } from "./LikedBy.Models";
 
+=======
+import { v4 as uuidv4 } from "uuid";
+>>>>>>> a43f322a15b8397bd97db6af27980f5af296a011
 // Define the schema
 const UserSchema = new Schema(
     {
         _id: {
             type: String,
+            default: uuidv4 ,
             required: true
         },
         username: {
@@ -38,7 +43,7 @@ const UserSchema = new Schema(
         },
         profilePicture: {
             type: String, // cloudinary URL
-            required: true,
+            // required: true,
         },
         introVideo: {
             type: String, // cloudinary URL
@@ -71,7 +76,7 @@ const UserSchema = new Schema(
         experiences: [
             {
                 type: Schema.Types.ObjectId,
-                ref: "Experience"
+                ref: "Experiance"
             }
         ],
         achievements: [
