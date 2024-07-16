@@ -3,6 +3,11 @@ import {Experiance} from '../Models/Experiance.Models.js';
 import {APiError} from '../utils/ApiError.js'
 import {AsyncHandler} from '../utils/AsyncHandler.js'
 import {Skill} from '../Models/Skills.Models.js'
+import {awards} from '../Models/Awards.Models.js'
+import {Education} from '../Models/Education.Models.js'
+import {Achivements} from '../Models/Achivements.Models.js'
+import {Tags} from '../Models/Tags.Models.js'
+
 import ApiResponse from '../utils/ApiResponse.js'
 
 
@@ -19,7 +24,7 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
     //return response to client
     //console.log("req",req.query,req.body);
     const {
-        username,email,password,fullName,summary,introVideo,skills ,experience ,achievements, projects ,resume ,codingProfiles ,feed ,profilePicture
+        username,email,password,fullName,summary,introVideo,skills ,experience ,achievements, award,projects ,resume ,codingProfiles ,feed ,profilePicture,educations
     }=req.body
     
     if([username,email,password,fullName].some((fields)=>
@@ -46,6 +51,26 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
         await skillstore.save();
         return skillstore._id;
     }))
+    //awards
+    const awardsid=await Promise.all(award.map(async(award)=>{
+        const newaward=new awards(award)
+        await newaward.save();
+        return newaward._id;
+    }))
+    //education
+    const educationid=await Promise.all(educations.map(async(education)=>{
+        const educationdetails=new awards(education)
+        await educationdetails.save();
+        return educationdetails._id;
+    }))
+    //achiements
+    const achievementsdetailsid=await Promise.all(achievements.map(async(achievement)=>{
+        const achievementsdetails=new awards(achievements)
+        await achievementsdetails.save();
+        return achievementsdetails._id;
+    }))
+    //tags
+
     console.log("experience 2",experiencid);
     const user=await User.create({
         
@@ -57,12 +82,14 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
         profilePicture:profilePicture||" " ,
         introVideo:introVideo||" ",
         skills:skillsId,
-        achievements:achievements,
+        achievements:achievementsdetailsid,
         projects:projects,
         codingProfiles:codingProfiles,
         experiences:experiencid,
+        awards:awardsid,
         feed:feed||" " ,
-        resume:resume||" " 
+        resume:resume||" " ,
+        education:educationid
 
 
     })

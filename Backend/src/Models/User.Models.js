@@ -1,10 +1,9 @@
 import mongoose, { Schema } from "mongoose";
-<<<<<<< HEAD
-import { LikedBy } from "./LikedBy.Models";
+// HEAD
+import { LikedBy } from "./LikedBy.Models.js";
 
-=======
+
 import { v4 as uuidv4 } from "uuid";
->>>>>>> a43f322a15b8397bd97db6af27980f5af296a011
 // Define the schema
 const UserSchema = new Schema(
     {
@@ -55,13 +54,13 @@ const UserSchema = new Schema(
                 ref: "Like"
             }
         ],
-        likedBy: [
+        LikedBy: [
             {
                 type: Schema.Types.ObjectId,
                 ref: "LikedBy"
             }
         ],
-        likedTo: [
+        LikedTo: [
             {
                 type: Schema.Types.ObjectId,
                 ref: "LikedTo"
@@ -131,6 +130,12 @@ const UserSchema = new Schema(
             {
                 type: Schema.Types.ObjectId,
                 ref: "CodingProfile"
+            }
+        ],
+        awards:[
+            {
+                type: Schema.Types.ObjectId,
+                ref: "awards"
             }
         ],
         refreshToken: {
