@@ -7,6 +7,12 @@ router.route("/RegisterUser").post(
         {
             name:'profilePicture',
             maxCount:1
+        },{
+            name:'resume',
+            maxCount:1
+        },{
+            name:'introVideo',
+            maxCount:1
         }
     ]),
     RegisteredUser

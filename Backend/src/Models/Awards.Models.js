@@ -6,8 +6,8 @@ const awardsSchema = mongoose.Schema({
     },
     userId: {
         type: Schema.Types.ObjectId,
-        ref:"Users",
-        required: true 
+        ref:"Users"
+         
     },
     awardName: {
         type: String,

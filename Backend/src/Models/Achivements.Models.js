@@ -2,12 +2,12 @@ import mongoose ,{Schema} from "mongoose";
 const AchivementsSchema = mongoose.Schema({
     achievementId: {
         type: String,
-        required: true // Consider making this required
+        
     },
     UserId:{
         type:Schema.Types.ObjectId,
-        ref:"User",
-        required: true // Consider making this required
+        ref:"User"
+        
     },
     description: {
         type: String,

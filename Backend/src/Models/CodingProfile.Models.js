@@ -8,16 +8,13 @@ const codingProfilesSchema = new mongoose.Schema({
   },
   userId: { 
     type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User', 
-    required: true 
+    ref: 'User'    
   },
   profileName: {
-    type: String,
-    required: true
+    type: String
   },
   profileUrl: {
-    type: String,
-    required: true
+    type: String
   }
 });
 

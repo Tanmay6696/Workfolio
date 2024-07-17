@@ -2,12 +2,12 @@ import mongoose ,{Schema} from "mongoose";
 const educationSchema = mongoose.Schema({
     educationId: {
         type: String,
-        required: true // Consider making this required
+        
     },
     UserId:{
         type:Schema.Types.ObjectId,
-        ref:"User",
-        required: true // Consider making this required
+        ref:"User"
+        // Consider making this required
     },
     instituteName: {
         type: String,
