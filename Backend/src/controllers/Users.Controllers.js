@@ -24,7 +24,7 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
     //return response to client
     //console.log("req",req.query,req.body);
     const {
-        username,email,password,fullName,summary,introVideo,skills ,experience ,achievements, award,projects ,resume ,codingProfiles ,feed ,profilePicture,educations
+        username,email,password,fullName,summary,introVideo,skills ,experience ,achievements, Awards,projects ,resume ,codingProfiles ,feed ,profilePicture,educations
     }=req.body
     
     if([username,email,password,fullName].some((fields)=>
@@ -46,18 +46,15 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
         return exp._id;
     }))
 
-    const skillsId=await Promise.all(skills.map(async(skill)=>{
-        const skillstore=new Skill(skill)
-        await skillstore.save();
-        return skillstore._id;
-    }))
+   
     //awards
-    const awardsid=await Promise.all(award.map(async(award)=>{
+    const awardsid=await Promise.all(Awards.map(async(award)=>{
         const newaward=new awards(award)
         await newaward.save();
         return newaward._id;
     }))
     //education
+    console.log("experience 2");
     const educationid=await Promise.all(educations.map(async(education)=>{
         const educationdetails=new awards(education)
         await educationdetails.save();
@@ -70,8 +67,13 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
         return achievementsdetails._id;
     }))
     //tags
+    const skillsId=await Promise.all(skills.map(async(skill)=>{
+        const skillstore=new Skill(skill)
+        await skillstore.save();
+        return skillstore._id;
+    }))
 
-    console.log("experience 2",experiencid);
+    
     const user=await User.create({
         
         username,

@@ -4,7 +4,8 @@ const AchivementsSchema = mongoose.Schema({
         type: String
     },
     userId: {
-        type: String
+        type: String,
+        ref:"User"
     },
     description: {
         type: String
@@ -26,10 +27,7 @@ const AchivementsSchema = mongoose.Schema({
     },
     level: {
         type: String
-    },
-    tags: {
-        type: ['']
-    },
+    },    
     public_visibility: {
         type: Boolean
     },
