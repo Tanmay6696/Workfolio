@@ -7,6 +7,7 @@ import {awards} from '../Models/Awards.Models.js'
 import {Education} from '../Models/Education.Models.js'
 import {Achivements} from '../Models/Achivements.Models.js'
 import {Tags} from '../Models/Tags.Models.js'
+import {uploadoncloudinary} from '../utils/Cloudinary.js';
 
 import ApiResponse from '../utils/ApiResponse.js'
 
@@ -26,20 +27,14 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
     const {
         username,email,password,fullName,summary,introVideo,skills ,experience ,achievements, Awards,projects ,resume ,codingProfiles ,feed ,profilePicture,educations
     }=req.body
-    
+    console.log("profilePicture  ",req.files);
     if([username,email,password,fullName].some((fields)=>
         fields.trim===""
         )){
             throw new APiError(400,"all fields are required")
         }
-        
-    // const existedUser=await User.findOne({
-    //     $or:[{username},{email}]
-    // })
-    
-    // if(existedUser===true){
-    //     throw new APiError(400,"User is Alerady Present")
-    // }
+    //console.log("profilePicture  ",req.body);
+    //console.log("profilePicture  ",req.body);
     const experiencid=await Promise.all(experience.map(async(experiance)=>{
         const exp=new Experiance(experiance)
         await exp.save();
@@ -54,7 +49,7 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
         return newaward._id;
     }))
     //education
-    console.log("experience 2");
+    //console.log("experience 2");
     const educationid=await Promise.all(educations.map(async(education)=>{
         const educationdetails=new awards(education)
         await educationdetails.save();
@@ -73,7 +68,12 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
         return skillstore._id;
     }))
 
-    
+    //file uploads
+    //coberimage
+    const profilephotolocalurloath=req.files?.profilePicture[0].path;
+    //console.log("profilephotolocalurloath",req.files,profilePicture);
+    const profilephotourl=await uploadoncloudinary(profilephotolocalurloath);
+    //console.log("profilephotourl",profilephotourl,profilephotourl.url);
     const user=await User.create({
         
         username,
@@ -81,7 +81,7 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
         password,
         fullName,
         summary:summary|| "ee",
-        profilePicture:profilePicture||" " ,
+        profilePicture:profilephotourl.url||" " ,
         introVideo:introVideo||" ",
         skills:skillsId,
         achievements:achievementsdetailsid,
@@ -98,7 +98,7 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
     const Createduser=await User.findOne({
         $or:[{username},{email}]
     })
-    console.log("experience ",Createduser.experiences);
+    //console.log("experience ",Createduser.experiences);
     if(Createduser!=null)
     {
         return res.status(201).json(
