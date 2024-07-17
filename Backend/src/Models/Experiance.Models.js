@@ -2,27 +2,31 @@ import mongoose ,{Schema} from "mongoose";
 const  ExperianceSchema=new Schema(
     {
         companyName:{
-            type:String
+            type:String,
+            required: true // Consider making this required
         },
         role:{
-            type:String
+            type:String,
+            required: true // Consider making this required
         },
         description:{
-            type:String
+            type:String,
+            required: true // Consider making this required
         },
         DurationFrom:{
-            type:Date
+            type:Date,
+            required: true // Consider making this required
         },
         DurationTo:{
-            type:Date
+            type:Date,
+            required: true // Consider making this required
+        },
+        UserId:{
+            type:Schema.Types.ObjectId,
+            ref:"User",
+            required: true // Consider making this required
         }
-        /*companyName:"cognizant",
-        role:"Programmer anlayst"
-        description:"descriptiondescriptiondescription"
-        DurationFrom:10/6/2022
-        DurationTo:10/6/2024
-
-        */
+        
 
     }
 );

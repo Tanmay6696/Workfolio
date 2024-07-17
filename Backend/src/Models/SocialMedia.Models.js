@@ -1,3 +1,24 @@
 import mongoose from "mongoose";
-const educationSchema=mongoose.Schema({})
-export const Education=mongoose.model("Education",educationSchema)
+
+const socialMediaSchema = new mongoose.Schema({
+  socialmediaProfileId: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    auto: true, 
+    primaryKey: true 
+  },
+  userId: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User', 
+    required: true 
+  },
+  profileName: {
+    type: String,
+    required: true
+  },
+  profileUrl: {
+    type: String,
+    required: true
+  }
+});
+
+export const SocialMedia = mongoose.model("SocialMedia", socialMediaSchema);

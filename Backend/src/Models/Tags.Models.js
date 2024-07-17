@@ -1,20 +1,25 @@
 import mongoose ,{Schema} from "mongoose";
 const TagsSchema = mongoose.Schema({
     tagId: {
-        type: String
+        type: String,
+        required: true
     },
-
     name: {
-        type: String
+        type: String,
+        required: true
     },
     created_at: {
-        type: Date
+        type: Date,
+        required: true
     },
     popularity: {
-        type: Number
+        type: Number,
+        default:0
     },
     userId: {
-        type: String
+        type: Schema.Types.ObjectId,
+        ref:"Users",
+        required: true
     }
 })
 export const Tags = mongoose.model("Tags", TagsSchema)

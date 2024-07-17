@@ -1,23 +1,29 @@
 import mongoose ,{Schema} from "mongoose";
 const awardsSchema = mongoose.Schema({
     awardId: {
-        type: String
+        type: String,
+        required: true
     },
     userId: {
         type: Schema.Types.ObjectId,
-        ref:"Users"
+        ref:"Users",
+        required: true 
     },
     awardName: {
-        type: String
+        type: String,
+        required: true 
     },
     issuingOrganization: {
-        type: String
+        type: String,
+        required: true 
     },
     issueDate: {
-        type: Date
+        type: Date,
+        required: true 
     },
     description: {
-        type: String
+        type: String,
+        required: true 
     },
 })
 export const awards = mongoose.model("awards", awardsSchema)

@@ -1,20 +1,25 @@
 import mongoose ,{Schema} from "mongoose";
 const AchivementsSchema = mongoose.Schema({
     achievementId: {
-        type: String
-    },
-    userId: {
         type: String,
-        ref:"User"
+        required: true // Consider making this required
+    },
+    UserId:{
+        type:Schema.Types.ObjectId,
+        ref:"User",
+        required: true // Consider making this required
     },
     description: {
-        type: String
+        type: String,
+        required: true // Consider making this required
     },
     title: {
-        type: String
+        type: String,
+        required: true // Consider making this required
     },
     date_awarded: {
-        type: Date
+        type: Date,
+        required: true // Consider making this required
     },
     category: {
         type: String
@@ -29,7 +34,9 @@ const AchivementsSchema = mongoose.Schema({
         type: String
     },    
     public_visibility: {
-        type: Boolean
+        type: Boolean,
+        default:true
+
     },
 })
 export const Achivements = mongoose.model("Achivements", AchivementsSchema)

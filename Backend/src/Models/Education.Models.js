@@ -1,29 +1,37 @@
 import mongoose ,{Schema} from "mongoose";
 const educationSchema = mongoose.Schema({
     educationId: {
-        type: String
+        type: String,
+        required: true // Consider making this required
     },
-
-    userId: {
-        type: String
+    UserId:{
+        type:Schema.Types.ObjectId,
+        ref:"User",
+        required: true // Consider making this required
     },
     instituteName: {
-        type: String
+        type: String,
+        required: true // Consider making this required
     },
     education: {
-        type: String
+        type: String,
+        required: true // Consider making this required
     },
     course: {
-        type: String
+        type: String,
+        required: true // Consider making this required
     },
     specialization: {
-        type: String
+        type: String,
+        required: true // Consider making this required
     },
     courseDuration: {
-        type: String
+        type: String,
+        required: true // Consider making this required
     },
     gradingSystem: {
-        type: String
+        type: String,
+        required: true // Consider making this required
     }
 })
 export const Education = mongoose.model("Education", educationSchema)
