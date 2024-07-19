@@ -235,4 +235,34 @@ const logout=AsyncHandler(async(req,res)=>{
     .clearCookie("refreshToken",options)
     .json(new ApiResponse(200),{},"User logout")
 })
-export {RegisteredUser,logout,LoginUser}
+
+const updateUserSummary = async (req, res) => {
+    const { email } = req.params;
+    const { summary } = req.body;
+//   console.log("hi1 ");
+    try {
+      // Validate user input
+      if (!summary) {
+        return res.status(400).send({ message: 'Summary is required' });
+      }
+  
+      // Find user by ID
+      const user = await User.findOne(email);
+      if (!user) {
+        return res.status(404).send({ message: 'User not found ' });
+      }
+
+      // Update summary
+      user.summary = summary;
+      await user.save();
+  
+      res.status(200).send({
+        message: 'Summary updated successfully',
+        user
+      });
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  };
+
+export {RegisteredUser,logout,LoginUser,updateUserSummary}
