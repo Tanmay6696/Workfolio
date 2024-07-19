@@ -1,6 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 // HEAD
 import { LikedBy } from "./LikedBy.Models.js";
+import bcrypt from "bcrypt";// for password
+import jwt from 'jsonwebtoken';
 
 
 import { v4 as uuidv4 } from "uuid";
@@ -12,7 +14,7 @@ const UserSchema = new Schema(
             default: uuidv4 ,
             required: true
         },
-        username: {
+        username: {//no updates in future
             type: String,
             required: true,
             unique: true,
@@ -20,125 +22,126 @@ const UserSchema = new Schema(
             trim: true,
             index: true
         },
-        fullName: {
+        fullName: {//can update
             type: String,
             required: true,
             trim: true,
             index: true
         },
-        email: {
+        email: {//no updates in future
             type: String,
             required: true,
             unique: true,
             lowercase: true,
             trim: true,
+            index:true
         },
-        summary: {
+        summary: {//can update
             type: String,
         },
-        password: {
+        password: {//can update
             type: String,
-            required: [true, 'Password is required']
+            required: [true, "Password is required"]
         },
-        profilePicture: {
+        profilePicture: {//can update
             type: String, // cloudinary URL
             // required: true,
         },
-        introVideo: {
+        introVideo: {//can update
             type: String, // cloudinary URL
             required: true,
         },
-        likes: [
+        likes: [//can update
             {
                 type: Schema.Types.ObjectId,
                 ref: "Like"
             }
         ],
-        LikedBy: [
+        LikedBy: [//can update
             {
                 type: Schema.Types.ObjectId,
                 ref: "LikedBy"
             }
         ],
-        LikedTo: [
+        LikedTo: [//can update
             {
                 type: Schema.Types.ObjectId,
                 ref: "LikedTo"
             }
         ],
-        skills: [
+        skills: [//can update
             {
                 type: Schema.Types.ObjectId,
                 ref: "Skill"
             }
         ],
-        experiences: [
+        experiences: [//can update
             {
                 type: Schema.Types.ObjectId,
                 ref: "Experiance"
             }
         ],
-        achievements: [
+        achievements: [//can update
             {
                 type: Schema.Types.ObjectId,
                 ref: "Achievement"
             }
         ],
-        feeds: [
+        feeds: [//can update
             {
                 type: Schema.Types.ObjectId,
                 ref: "Feed"
             }
         ],
-        comments: [
+        comments: [//can update
             {
                 type: Schema.Types.ObjectId,
                 ref: "Comment"
             }
         ],
-        projects: [
+        projects: [//can update
             {
                 type: Schema.Types.ObjectId,
                 ref: "Project"
             }
         ],
-        socialMediaProfiles: [
+        socialMediaProfiles: [//can update
             {
                 type: Schema.Types.ObjectId,
                 ref: "SocialMediaProfile"
             }
         ],
-        ratings: [
+        ratings: [//can update
             {
                 type: Schema.Types.ObjectId,
                 ref: "Rating"
             }
         ],
-        likesCount: {
+        likesCount: {//can update
             type: Number
         },
-        ratingCount: {
+        ratingCount: {//can update
             type: Number
         },
-        averageRating: {
+        averageRating: {//can update
             type: Number
         },
-        resume: {
+        resume: {//can update
             type: String // cloudinary URL
         },
-        codingProfiles: [
+        codingProfiles: [//can update
             {
                 type: Schema.Types.ObjectId,
                 ref: "CodingProfile"
             }
         ],
-        awards:[
+        awards:[//can update
             {
                 type: Schema.Types.ObjectId,
                 ref: "awards"
             }
         ],
-        refreshToken: {
+        refreshtoken: {
             type: String
         }
     },
@@ -146,6 +149,38 @@ const UserSchema = new Schema(
         timestamps: true
     }
 );
+
+UserSchema.methods.isPasswordCorrect=async function(password){
+    console.log("password",password,this.password);
+    const check=await password===this.password;
+    console.log("check  ",check);
+    return check
+};
+UserSchema.methods.generateAccessToken=function() {
+    return jwt.sign(
+        {
+            _id:this.id,
+            email:this.email,
+            username:this.username,
+            fullname:this.fullname,
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+            expiresIn:process.env.ACCESS_TOKEN_EXPIRAY
+        }
+    )
+}
+UserSchema.methods.generateRefreshToken=function() {
+    return jwt.sign(
+        {
+            _id:this.id
+        },
+        process.env.REFRESH_TOKRN_SECRET,
+        {
+            expiresIn:process.env.REFRESH_TOKRN_EXPIRAY
+        }
+    )
+}
 
 // Export the model
 export const User = mongoose.model("User", UserSchema);

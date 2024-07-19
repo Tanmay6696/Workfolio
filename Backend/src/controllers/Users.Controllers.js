@@ -1,6 +1,6 @@
 import {User} from '../Models/User.Models.js';
 import {Experiance} from '../Models/Experiance.Models.js';
-import {APiError} from '../utils/ApiError.js'
+import {APiError} from '../utils/ApiError.js';
 import {AsyncHandler} from '../utils/AsyncHandler.js'
 import {Skill} from '../Models/Skills.Models.js'
 import {awards} from '../Models/Awards.Models.js'
@@ -11,8 +11,30 @@ import {uploadoncloudinary} from '../utils/Cloudinary.js';
 import {Projects} from '../Models/Projects.Models.js';
 import {SocialMedia} from '../Models/SocialMedia.Models.js';
 import {CodingProfiles} from '../Models/CodingProfile.Models.js';
+import jwt from 'jsonwebtoken';
 
 import ApiResponse from '../utils/ApiResponse.js'
+
+const generateaccessandrefershtokens =async(UserId)=>{
+    
+    try{
+        
+        const user =await User.findById(UserId)
+        const accessToken=user.generateAccessToken()
+        const refreshToken=user.generateRefreshToken()
+        console.log("UserId1 ",UserId);
+        user.refreshtoken=refreshToken
+        await user.save({validatebeforesave:false})
+        return {accessToken,refreshToken}
+    }
+    catch(error){
+        console.log("UserId2",error);
+
+        throw new APiError(401,"something went wrong",error);
+        
+    }
+
+}
 
 
 const RegisteredUser=AsyncHandler(async(req,res)=>{
@@ -143,15 +165,74 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
     
 
 })
+// 
 const LoginUser=AsyncHandler(async(req,res)=>{
-    //import username and password
-    //checked is userpresnt or not
-        //if yes then compare password (access & refresh token -> to user),send secure cookies
-        //else return no user presnt
-    
+    //todos
+    //import username password email
+    //check in database that user is presnt or not
+    //if yes -> then check password (access & refresh token -> to user),send secure cookies
+    //if no then show error 
+    console.log("req ",req.body);
+    const {email,username,password}=req.body;
+    if(!email){
+        throw new APiError(400,"email is not present");
+    }
+    const findUser=await User.findOne({ email });
+    //console.log("findUser",findUser);
+    if(!findUser){
+        throw new APiError(400,"User  is not present");
+    }
+    const IsPasswordCorrect=await findUser.isPasswordCorrect(password)
+    let {AccessToken,RefreshToken}=" ";
+    //let AccessToken=" ",RefreshToken="";
+    if(IsPasswordCorrect){
+        //create access and refresh tokens 
+        AccessToken,RefreshToken=await generateaccessandrefershtokens(findUser._id)
+    }
+    else{
+        throw new APiError(401,"password  is not correct");
+    }
+    console.log("findUser._id",findUser._id)
+    const loggedInUser=await User.findById(findUser._id).select("-password -refreshtoken")
+    const options={
+        httpOnly:true,
+        secure:true
+    }
+    return res
+    .status(200)
+    .cookie("accessToken",AccessToken)
+    .cookie("refreshToken",RefreshToken)
+    .json(
+        new ApiResponse(
+            200,
+            {
+                findUser:loggedInUser,AccessToken,RefreshToken
+            },
+            "User Logged In suceesfully"
+        )
+    )
     
 })
-const LogoutUser=AsyncHandler(async(req,res)=>{
-    
+const logout=AsyncHandler(async(req,res)=>{
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {   
+            $set:{
+                refreshtoken:undefined
+            }
+        },
+        {
+        new:true
+        }
+    ) 
+    const options={
+        httpOnly:true,
+        secure:true
+    }
+    return res 
+    .status(200)
+    .clearCookie("accessToken",options)
+    .clearCookie("refreshToken",options)
+    .json(new ApiResponse(200),{},"User logout")
 })
-export {RegisteredUser,LogoutUser,LoginUser}
+export {RegisteredUser,logout,LoginUser}
