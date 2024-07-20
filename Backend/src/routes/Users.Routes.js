@@ -20,7 +20,7 @@ router.route("/RegisterUser").post(
 );
 router.route("/login").post(LoginUser);
 router.route("/logout").post(verifedJWT,logout);
-router.route("/summary").post(updateUserSummary);
+router.route("/summary").post(verifedJWT,updateUserSummary);
 router.route("/Experienceupdate").post(verifedJWT,updateUserExperience);
 
 export default router;
