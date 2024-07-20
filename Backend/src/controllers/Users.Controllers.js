@@ -12,6 +12,7 @@ import {Projects} from '../Models/Projects.Models.js';
 import {SocialMedia} from '../Models/SocialMedia.Models.js';
 import {CodingProfiles} from '../Models/CodingProfile.Models.js';
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 
 import ApiResponse from '../utils/ApiResponse.js'
 
@@ -282,4 +283,46 @@ const updateUserSummary = async (req, res) => {
     }
   };
 
-export {RegisteredUser,logout,LoginUser,updateUserSummary,updateUserExperience}
+  const updateUserSkills = async (req, res) => {
+    const { skillName, proficiency, skillid } = req.body;
+    const userSkillId = req.user?.skills[0]?._id.toString();
+
+    try {
+        // Fetch skill details
+        const skilldetail = await Skill.findOne({ _id: userSkillId });
+        if (!skilldetail) {
+            return res.status(404).json({ message: 'Skill not found' });
+        }
+
+        // Update the skill
+        const result = await Skill.findByIdAndUpdate(
+            userSkillId,
+            {
+                $set: {
+                    'SkillName': skillName,
+                    'proficiency': proficiency
+                }
+            },
+            {
+                new: true,  // Return the updated document
+                runValidators: true  // Validate the update against schema
+            }
+        );
+
+        if (!result) {
+            return res.status(404).json({ message: "Skill update failed" });
+        }
+
+        // Send the final success response
+        return res.status(200).json({ message: "Skill updated successfully", result });
+
+    } catch (error) {
+        console.error('Error updating skill:', error);
+        // Ensure headers are not sent before this catch block runs
+        if (!res.headersSent) {
+            return res.status(500).json({ message: "Server error", error: error.message });
+        }
+    }
+};
+
+export {RegisteredUser,logout,LoginUser,updateUserSummary,updateUserExperience,updateUserSkills}
