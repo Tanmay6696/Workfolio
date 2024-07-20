@@ -22,7 +22,7 @@ const generateaccessandrefershtokens =async(UserId)=>{
         const user =await User.findById(UserId)
         const accessToken=user.generateAccessToken()
         const refreshToken=user.generateRefreshToken()
-        //console.log("UserId1 ",UserId);
+        console.log("accessToken in accessToken ",accessToken);
         
         user.refreshtoken=refreshToken
        // console.log("UserId1",user.refreshtoken);
@@ -33,7 +33,7 @@ const generateaccessandrefershtokens =async(UserId)=>{
     catch(error){
         console.log("UserId2",error);
 
-        throw new APiError(401,"something went wrong",error);
+        throw new ApiError(500, "Something went wrong while generating referesh and access token");
         
     }
 
@@ -175,7 +175,7 @@ const LoginUser=AsyncHandler(async(req,res)=>{
     //check in database that user is presnt or not
     //if yes -> then check password (access & refresh token -> to user),send secure cookies
     //if no then show error 
-    console.log("req ",req.body);
+    //console.log("req ",req.body);
     const {email,username,password}=req.body;
     if(!email){
         throw new APiError(400,"email is not present");
@@ -192,9 +192,10 @@ const LoginUser=AsyncHandler(async(req,res)=>{
         //create access and refresh tokens 
         
     }    
-    const { AccessToken, RefreshToken } = await generateaccessandrefershtokens(findUser._id);
+    console.log("AccessToken ",findUser._id)
+    const {accessToken,refreshToken} = await generateaccessandrefershtokens(findUser._id);
 
-    console.log("AccessToken ",AccessToken)
+    console.log("AccessToken ",accessToken)
     const loggedInUser=await User.findById(findUser._id).select("-password -refreshtoken")
     const options={
         httpOnly:true,
@@ -202,13 +203,13 @@ const LoginUser=AsyncHandler(async(req,res)=>{
     }
     return res
     .status(200)
-    .cookie("accessToken",AccessToken,options)
-    .cookie("refreshToken",RefreshToken,options)
+    .cookie("accessToken",accessToken,options)
+    .cookie("refreshToken",refreshToken,options)
     .json(
         new ApiResponse(
             200,
             {
-                findUser:loggedInUser,AccessToken,RefreshToken
+                findUser:loggedInUser,accessToken,refreshToken
             },
             "User Logged In suceesfully"
         )
