@@ -22,9 +22,12 @@ const generateaccessandrefershtokens =async(UserId)=>{
         const user =await User.findById(UserId)
         const accessToken=user.generateAccessToken()
         const refreshToken=user.generateRefreshToken()
-        console.log("UserId1 ",UserId);
+        //console.log("UserId1 ",UserId);
+        
         user.refreshtoken=refreshToken
-        await user.save({validatebeforesave:false})
+       // console.log("UserId1",user.refreshtoken);
+        const check=await user.save({validatebeforesave:false})
+        //console.log(check);
         return {accessToken,refreshToken}
     }
     catch(error){
@@ -183,16 +186,15 @@ const LoginUser=AsyncHandler(async(req,res)=>{
         throw new APiError(400,"User  is not present");
     }
     const IsPasswordCorrect=await findUser.isPasswordCorrect(password)
-    let {AccessToken,RefreshToken}=" ";
-    //let AccessToken=" ",RefreshToken="";
-    if(IsPasswordCorrect){
-        //create access and refresh tokens 
-        AccessToken,RefreshToken=await generateaccessandrefershtokens(findUser._id)
-    }
-    else{
+    
+    if(!IsPasswordCorrect){
         throw new APiError(401,"password  is not correct");
-    }
-    console.log("findUser._id",findUser._id)
+        //create access and refresh tokens 
+        
+    }    
+    const { AccessToken, RefreshToken } = await generateaccessandrefershtokens(findUser._id);
+
+    console.log("AccessToken ",AccessToken)
     const loggedInUser=await User.findById(findUser._id).select("-password -refreshtoken")
     const options={
         httpOnly:true,
@@ -200,8 +202,8 @@ const LoginUser=AsyncHandler(async(req,res)=>{
     }
     return res
     .status(200)
-    .cookie("accessToken",AccessToken)
-    .cookie("refreshToken",RefreshToken)
+    .cookie("accessToken",AccessToken,options)
+    .cookie("refreshToken",RefreshToken,options)
     .json(
         new ApiResponse(
             200,
@@ -265,4 +267,18 @@ const updateUserSummary = async (req, res) => {
     }
   };
 
-export {RegisteredUser,logout,LoginUser,updateUserSummary}
+  const updateUserExperience = async (req, res) => {
+    const { experience } = req.params;
+    const { companyName,role,description,DurationFrom,DurationTo } = req.body;
+
+    console.log("hi1 ",req.params,req.body,"req.user?._id",req.user?._id);
+    try {
+      // Validate user input
+      console.log("hi1 ",req.params);
+     
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  };
+
+export {RegisteredUser,logout,LoginUser,updateUserSummary,updateUserExperience}
