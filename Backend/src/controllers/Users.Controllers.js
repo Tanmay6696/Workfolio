@@ -1,5 +1,5 @@
 import {User} from '../Models/User.Models.js';
-import {Experiance} from '../Models/Experiance.Models.js';
+import {Experience} from '../Models/Experiance.Models.js';
 import {APiError} from '../utils/ApiError.js';
 import {AsyncHandler} from '../utils/AsyncHandler.js'
 import {Skill} from '../Models/Skills.Models.js'
@@ -54,7 +54,7 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
     //return response to client
     
     const {
-        username,email,password,fullName,summary,introVideo,skills ,experience ,achievements, Awards,projects ,resume ,codingProfiles ,feed ,profilePicture,educations,socialMedia
+        username,email,password,fullName,summary,introVideo,skills ,experiences ,achievements, Awards,projects ,resume ,codingProfiles ,feed ,profilePicture,educations,socialMedia
     }=req.body
     //console.log("req",req.files);
     //console.log("profilePicture  ",req.files);
@@ -65,8 +65,8 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
         }
     //console.log("profilePicture  ",req.body);
     //console.log("profilePicture  ",req.body);
-    const experiencid=await Promise.all(experience.map(async(experiance)=>{
-        const exp=new Experiance(experiance);        
+    const experiencid=await Promise.all(experiences.map(async(experiance)=>{
+        const exp=new Experience(experiance);        
         await exp.save();
         return exp._id;
     }))
@@ -149,7 +149,7 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
         awards:awardsid,
         feed:feed||" " ,
         resume:Resumeurl.url||" " ,
-        education:educationid,
+        educations:educationid,
         socialMediaProfiles:SocialMediaId
 
 
@@ -270,18 +270,293 @@ const updateUserSummary = async (req, res) => {
   };
 
   const updateUserExperience = async (req, res) => {
-    const { experience } = req.params;
+    
     const { companyName,role,description,DurationFrom,DurationTo } = req.body;
-
-    console.log("hi1 ",req.params,req.body,"req.user?._id",req.user?._id);
+    //console.log("req.user?.skills[0]?._id.toString() testing  ",req.user,req.user?.experiences[0]);
+    
     try {
       // Validate user input
-      console.log("hi1 ",req.params);
+      const experiencid=req.user?.experiences[0]?._id.toString();
+     console.log("hfhfh hfhf",experiencid);
+      const result=await Experience.findByIdAndUpdate(
+        experiencid,{
+            $set:{
+                'companyName':companyName,
+                'role':role,
+                'description':description,
+                'DurationFrom':DurationFrom,
+                'DurationTo':DurationTo
+            }
+        }
+      )
+      if(!result){
+        return res.status(404).json({ message: "experoence update failed" });
+      }
+      return res.status(200).json({ message: "experoence update" });
      
     } catch (error) {
       res.status(500).send({ message: error.message });
     }
   };
+  const updateUserAwards = async (req, res) => {
+    
+    const { awardName,issuingOrganization,issueDate,description,awardidfromuser } = req.body;
+    // console.log("req.user?.skills[0]?._id.toString() testing  "," gg gg gg",req.body,req.user?.awards[0]?._id.toString());
+    // console.log("test",awardName,issuingOrganization,issueDate,description);
+    try {
+        let editawardidindex;
+        let allawards=req.user?.awards;
+        for(let i=0;i<allawards.length;i++)
+        {
+            const currawardid=req.user?.awards[0]?._id.toString();
+            if(currawardid==awardidfromuser){
+                editawardidindex=i;
+                break;
+            }
+        }
+        console.log("editawardidindex",editawardidindex);
+        const awardid=req.user?.awards[editawardidindex]?._id.toString();
+        const result=await awards.findByIdAndUpdate(
+            awardid,{
+                $set:{
+                    awardName:awardName,
+                    issuingOrganization:issuingOrganization,
+                    issueDate:issueDate,
+                    description:description
+                }
+            }
+        )
+        console.log("result   ",result);
+        if(!result){
+            return res.status(400).json({ message: "awards not  update" });
+        }
+        return res.status(200).json({ message: "awards update" });
+     
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  };
+  const updateUserEducation = async (req, res) => {
+    const { educationId, instituteName, education, course, specialization, courseDuration, gradingSystem } = req.body;
+    //console.log("req",req.user);
+    try {
+        let editEducationIndex;
+        let allEducations = req.user?.educations; // Assuming user's educations are stored in req.user.educations
+        
+        for (let i = 0; i < allEducations.length; i++) {
+            const currEducationId = req.user?.educations[i]?._id.toString();
+            if (currEducationId == educationId) {
+                editEducationIndex = i;
+                break;
+            }
+        }
+        
+        if (editEducationIndex === undefined) {
+            return res.status(400).json({ message: "Education not found" });
+        }
+        
+        const educationToUpdateId = req.user?.educations[editEducationIndex]?._id.toString();
+        const result = await Education.findByIdAndUpdate(
+            educationToUpdateId,
+            {
+                $set: {
+                    instituteName: instituteName,
+                    education: education,
+                    course: course,
+                    specialization: specialization,
+                    courseDuration: courseDuration,
+                    gradingSystem: gradingSystem
+                }
+            },
+            { new: true } // Return the updated document
+        );
+        
+        console.log("result in education  ", result);
+        if (!result) {
+            return res.status(400).json({ message: "Education not updated" });
+        }
+        return res.status(200).json({ message: "Education updated", updatedEducation: result });
+     
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+  };
+  const updateUserAchievements = async (req, res) => {
+    const { achievementId, title, description, date_awarded, category, issuer, certificate_url, level, tags, public_visibility } = req.body;
+    //console.log(req.user);
+    try {
+        let editAchievementIndex;
+        let allAchievements = req.user?.achievements; // Assuming user's achievements are stored in req.user.achievements
+        
+        for (let i = 0; i < allAchievements.length; i++) {
+            const currAchievementId = req.user?.achievements[i]?._id.toString();
+            if (currAchievementId == achievementId) {
+                editAchievementIndex = i;
+                break;
+            }
+        }
+        //console.log("result  " ,editAchievementIndex);
+        if (editAchievementIndex === undefined) {
+            return res.status(400).json({ message: "Achievement not found" });
+        }
+        
+        const achievementToUpdateId = req.user?.achievements[editAchievementIndex]?._id.toString();
+        const result = await Achivements.findByIdAndUpdate(
+            achievementToUpdateId,
+            {
+                $set: {
+                    title: title,
+                    description: description,
+                    date_awarded: date_awarded,
+                    category: category,
+                    issuer: issuer,
+                    certificate_url: certificate_url,
+                    level: level,
+                    tags: tags,
+                    public_visibility: public_visibility
+                }
+            },
+            { new: true } // Return the updated document
+        );
+        
+        console.log("result in achievements  ", result);
+        if (!result) {
+            return res.status(400).json({ message: "Achievement not updated" });
+        }
+        return res.status(200).json({ message: "Achievement updated", updatedAchievement: result });
+     
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};
+const updateUserSocialMedia = async (req, res) => {
+    const { socialmediaProfileId, profileName, profileUrl } = req.body;
+    try {
+        let editSocialMediaIndex;
+        let allSocialMediaProfiles = req.user?.socialMediaProfiles; // Assuming user's social media profiles are stored in req.user.socialMediaProfiles
+        
+        for (let i = 0; i < allSocialMediaProfiles.length; i++) {
+            const currSocialMediaProfileId = req.user?.socialMediaProfiles[i]?._id.toString();
+            if (currSocialMediaProfileId == socialmediaProfileId) {
+                editSocialMediaIndex = i;
+                break;
+            }
+        }
+
+        if (editSocialMediaIndex === undefined) {
+            return res.status(400).json({ message: "Social Media Profile not found" });
+        }
+        
+        const socialMediaProfileToUpdateId = req.user?.socialMediaProfiles[editSocialMediaIndex]?._id.toString();
+        const result = await SocialMedia.findByIdAndUpdate(
+            socialMediaProfileToUpdateId,
+            {
+                $set: {
+                    profileName: profileName,
+                    profileUrl: profileUrl
+                }
+            },
+            { new: true } // Return the updated document
+        );
+        
+        console.log("result in social media profiles  ", result);
+        if (!result) {
+            return res.status(400).json({ message: "Social Media Profile not updated" });
+        }
+        return res.status(200).json({ message: "Social Media Profile updated", updatedSocialMediaProfile: result });
+     
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};
+const updateUserProjects = async (req, res) => {
+    const { projectId, title, description, url, durationFrom, durationTo } = req.body;
+    try {
+        let editProjectIndex;
+        let allProjects = req.user?.projects; // Assuming user's projects are stored in req.user.projects
+        
+        for (let i = 0; i < allProjects.length; i++) {
+            const currProjectId = req.user?.projects[i]?._id.toString();
+            console.log(currProjectId ," ",projectId);
+            if (currProjectId == projectId) {
+                editProjectIndex = i;
+                break;
+            }
+        }
+        console.log("result",editProjectIndex);
+        if (editProjectIndex === undefined) {
+            return res.status(400).json({ message: "Project not found" });
+        }
+        
+        const projectToUpdateId = req.user?.projects[editProjectIndex]?._id.toString();
+        const result = await Projects.findByIdAndUpdate(
+            projectToUpdateId,
+            {
+                $set: {
+                    title: title,
+                    description: description,
+                    url: url,
+                    durationFrom: durationFrom,
+                    durationTo: durationTo
+                }
+            },
+            { new: true } // Return the updated document
+        );
+        
+        console.log("result in projects  ", result);
+        if (!result) {
+            return res.status(400).json({ message: "Project not updated" });
+        }
+        return res.status(200).json({ message: "Project updated", updatedProject: result });
+     
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};
+const updateUserCodingprofiles = async (req, res) => {
+    const { codingProfileId, profileName, profileUrl } = req.body;
+    try {
+        let editCodingProfileIndex;
+        let allCodingProfiles = req.user?.codingProfiles; // Assuming user's coding profiles are stored in req.user.codingProfiles
+
+        for (let i = 0; i < allCodingProfiles.length; i++) {
+            const currCodingProfileId = req.user?.codingProfiles[i]?._id.toString();
+            if (currCodingProfileId == codingProfileId) {
+                editCodingProfileIndex = i;
+                break;
+            }
+        }
+
+        if (editCodingProfileIndex === undefined) {
+            return res.status(400).json({ message: "Coding Profile not found" });
+        }
+
+        const codingProfileToUpdateId = req.user?.codingProfiles[editCodingProfileIndex]?._id.toString();
+        const result = await CodingProfiles.findByIdAndUpdate(
+            codingProfileToUpdateId,
+            {
+                $set: {
+                    profileName: profileName,
+                    profileUrl: profileUrl
+                }
+            },
+            { new: true } // Return the updated document
+        );
+
+        console.log("result in coding profiles  ", result);
+        if (!result) {
+            return res.status(400).json({ message: "Coding Profile not updated" });
+        }
+        return res.status(200).json({ message: "Coding Profile updated", updatedCodingProfile: result });
+
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};
+
+
+
+
 
   const updateUserSkills = async (req, res) => {
     const { skillName, proficiency, skillid } = req.body;
@@ -325,4 +600,4 @@ const updateUserSummary = async (req, res) => {
     }
 };
 
-export {RegisteredUser,logout,LoginUser,updateUserSummary,updateUserExperience,updateUserSkills}
+export {RegisteredUser,logout,LoginUser,updateUserSummary,updateUserExperience,updateUserSkills,updateUserAwards,updateUserEducation,updateUserAchievements,updateUserSocialMedia,updateUserProjects,updateUserCodingprofiles}

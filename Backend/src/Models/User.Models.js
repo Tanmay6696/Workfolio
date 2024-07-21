@@ -75,10 +75,16 @@ const UserSchema = new Schema(
                 ref: "Skill"
             }
         ],
+        educations: [//can update
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Education"
+            }
+        ],
         experiences: [//can update
             {
                 type: Schema.Types.ObjectId,
-                ref: "Experiance"
+                ref: "Experience"
             }
         ],
         achievements: [//can update

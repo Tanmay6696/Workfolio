@@ -30,4 +30,4 @@ const  ExperianceSchema=new Schema(
 
     }
 );
-export const Experiance=mongoose.model("Experiance",ExperianceSchema);
+export const Experience=mongoose.model("Experience",ExperianceSchema);
