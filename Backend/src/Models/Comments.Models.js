@@ -6,12 +6,12 @@ const commentsSchema = new mongoose.Schema({
     auto: true, 
     primaryKey: true 
   },
-  userId: { 
+  commentonId: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User', 
     required: true 
   },
-  profileId: { 
+  commentbyId: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User', // Assuming profileId refers to another user's profile
     required: true 

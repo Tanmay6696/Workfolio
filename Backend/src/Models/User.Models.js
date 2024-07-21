@@ -57,18 +57,6 @@ const UserSchema = new Schema(
                 ref: "Like"
             }
         ],
-        LikedBy: [//can update
-            {
-                type: Schema.Types.ObjectId,
-                ref: "LikedBy"
-            }
-        ],
-        LikedTo: [//can update
-            {
-                type: Schema.Types.ObjectId,
-                ref: "LikedTo"
-            }
-        ],
         skills: [//can update
             {
                 type: Schema.Types.ObjectId,

@@ -553,12 +553,7 @@ const updateUserCodingprofiles = async (req, res) => {
         res.status(500).send({ message: error.message });
     }
 };
-
-
-
-
-
-  const updateUserSkills = async (req, res) => {
+const updateUserSkills = async (req, res) => {
     const { skillName, proficiency, skillid } = req.body;
     const userSkillId = req.user?.skills[0]?._id.toString();
 
@@ -599,5 +594,12 @@ const updateUserCodingprofiles = async (req, res) => {
         }
     }
 };
+
+
+
+
+
+
+  
 
 export {RegisteredUser,logout,LoginUser,updateUserSummary,updateUserExperience,updateUserSkills,updateUserAwards,updateUserEducation,updateUserAchievements,updateUserSocialMedia,updateUserProjects,updateUserCodingprofiles}
