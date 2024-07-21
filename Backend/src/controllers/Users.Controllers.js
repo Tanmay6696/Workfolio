@@ -269,6 +269,46 @@ const updateUserSummary = async (req, res) => {
     }
   };
 
+  const deleteUserSummary = async (req, res) => {
+    const userId = req.user?._id
+    
+    try {
+        
+        const user = await User.findById(userId)
+        if(!user){
+            return res.status(404).send({ message: 'User not found ' });
+        }
+        const clearsummary = ""
+        // Update the skill
+        const result = await User.findByIdAndUpdate(
+            userId,
+            {
+                $set: {
+                    'summary': clearsummary
+                }
+            },
+            {
+                new: true,  // Return the updated document
+                runValidators: true  // Validate the update against schema
+            }
+        );
+
+        if (!result) {
+            return res.status(404).json({ message: "Summary delete failed" });
+        }
+
+        // Send the final success response
+        return res.status(200).json({ message: "Summary deleted successfully", result });
+
+    } catch (error) {
+        console.error('Error deleting summary:', error);
+        // Ensure headers are not sent before this catch block runs
+        if (!res.headersSent) {
+            return res.status(500).json({ message: "Server error", error: error.message });
+        }
+    }
+};
+
   const updateUserExperience = async (req, res) => {
     
     const { companyName,role,description,DurationFrom,DurationTo } = req.body;
@@ -290,14 +330,37 @@ const updateUserSummary = async (req, res) => {
         }
       )
       if(!result){
-        return res.status(404).json({ message: "experoence update failed" });
+        return res.status(404).json({ message: "Experience update failed" });
       }
-      return res.status(200).json({ message: "experoence update" });
+      return res.status(200).json({ message: "experience update" });
      
     } catch (error) {
       res.status(500).send({ message: error.message });
     }
   };
+
+  const deleteUserExperience = async (req, res) => {
+    const {experienceId} = req.body;
+    try {
+        // Check if the Experience exists
+        const exp = await Experience.findById(experienceId);
+        if (!exp) {
+            return res.status(404).json({ message: 'Experience not found' });
+        }
+
+        // Delete the Experience
+        const result = await Experience.findByIdAndDelete(experienceId);
+        if(!result){
+            return res.status(500).json({ message: 'Experience not deleted' });
+        }
+        // Send success response
+        return res.status(200).json({ message: 'Experience deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting Experience:', error);
+        return res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
   const updateUserAwards = async (req, res) => {
     
     const { awardName,issuingOrganization,issueDate,description,awardidfromuser } = req.body;
@@ -336,6 +399,29 @@ const updateUserSummary = async (req, res) => {
       res.status(500).send({ message: error.message });
     }
   };
+
+  const deleteUserAwards = async (req, res) => {
+    const {awardId} = req.body;
+    try {
+        // Check if the award exists
+        const award = await awards.findById(awardId);
+        if (!award) {
+            return res.status(404).json({ message: 'Award not found' });
+        }
+
+        // Delete the award
+        const result = await awards.findByIdAndDelete(awardId);
+        if(!result){
+            return res.status(500).json({ message: 'Award not deleted' });
+        }
+        // Send success response
+        return res.status(200).json({ message: 'Award deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting Award:', error);
+        return res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
   const updateUserEducation = async (req, res) => {
     const { educationId, instituteName, education, course, specialization, courseDuration, gradingSystem } = req.body;
     //console.log("req",req.user);
@@ -381,6 +467,29 @@ const updateUserSummary = async (req, res) => {
         res.status(500).send({ message: error.message });
     }
   };
+
+  const deleteUserEducation = async (req, res) => {
+    const {educationId} = req.body;
+    try {
+        // Check if the Education exists
+        const education = await Education.findById(educationId);
+        if (!education) {
+            return res.status(404).json({ message: 'Education not found' });
+        }
+
+        // Delete the Education
+        const result = await Education.findByIdAndDelete(educationId);
+        if(!result){
+            return res.status(500).json({ message: 'Education not deleted' });
+        }
+        // Send success response
+        return res.status(200).json({ message: 'Education deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting Education:', error);
+        return res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
   const updateUserAchievements = async (req, res) => {
     const { achievementId, title, description, date_awarded, category, issuer, certificate_url, level, tags, public_visibility } = req.body;
     //console.log(req.user);
@@ -429,6 +538,29 @@ const updateUserSummary = async (req, res) => {
         res.status(500).send({ message: error.message });
     }
 };
+
+const deleteUserAchievements = async (req, res) => {
+    const {achievementId} = req.body;
+    try {
+        // Check if the achievement exists
+        const achievement = await Achivements.findById(achievementId);
+        if (!achievement) {
+            return res.status(404).json({ message: 'Achievement not found' });
+        }
+
+        // Delete the achievement
+        const result = await Achivements.findByIdAndDelete(achievementId);
+        if(!result){
+            return res.status(500).json({ message: 'Aachievement not deleted' });
+        }
+        // Send success response
+        return res.status(200).json({ message: 'Achievement deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting Achievement:', error);
+        return res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
 const updateUserSocialMedia = async (req, res) => {
     const { socialmediaProfileId, profileName, profileUrl } = req.body;
     try {
@@ -469,6 +601,29 @@ const updateUserSocialMedia = async (req, res) => {
         res.status(500).send({ message: error.message });
     }
 };
+
+const deleteUserSocialMedia = async (req, res) => {
+    const {socialmediaId} = req.body;
+    try {
+        // Check if the socialmedia exists
+        const socialmedia = await SocialMedia.findById(socialmediaId);
+        if (!socialmedia) {
+            return res.status(404).json({ message: 'Social Media not found' });
+        }
+
+        // Delete the socialmedia
+        const result = await SocialMedia.findByIdAndDelete(socialmediaId);
+        if(!result){
+            return res.status(500).json({ message: 'Social Media not deleted' });
+        }
+        // Send success response
+        return res.status(200).json({ message: 'Social Media deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting socialmedia:', error);
+        return res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
 const updateUserProjects = async (req, res) => {
     const { projectId, title, description, url, durationFrom, durationTo } = req.body;
     try {
@@ -513,6 +668,29 @@ const updateUserProjects = async (req, res) => {
         res.status(500).send({ message: error.message });
     }
 };
+
+const deleteUserProjects = async (req, res) => {
+    const {projectId} = req.body;
+    try {
+        // Check if the project exists
+        const project = await Projects.findById(projectId);
+        if (!project) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        // Delete the project
+        const result = await Projects.findByIdAndDelete(projectId);
+        if(!result){
+            return res.status(500).json({ message: 'Project not deleted' });
+        }
+        // Send success response
+        return res.status(200).json({ message: 'Project deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting project:', error);
+        return res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
 const updateUserCodingprofiles = async (req, res) => {
     const { codingProfileId, profileName, profileUrl } = req.body;
     try {
@@ -553,20 +731,57 @@ const updateUserCodingprofiles = async (req, res) => {
         res.status(500).send({ message: error.message });
     }
 };
-const updateUserSkills = async (req, res) => {
-    const { skillName, proficiency, skillid } = req.body;
-    const userSkillId = req.user?.skills[0]?._id.toString();
+
+const deleteUserCodingprofiles = async (req, res) => {
+    const { codingprofileId } = req.body; // Assuming the skill ID is provided in the request body
 
     try {
-        // Fetch skill details
-        const skilldetail = await Skill.findOne({ _id: userSkillId });
-        if (!skilldetail) {
-            return res.status(404).json({ message: 'Skill not found' });
+        // Check if the skill exists
+        const codingprofile = await CodingProfiles.findById(codingprofileId);
+        if (!codingprofile) {
+            return res.status(404).json({ message: 'CodingProfile not found' });
         }
+
+        // Delete the skill
+        const result = await CodingProfiles.findByIdAndDelete(codingprofileId);
+        if(!result){
+            return res.status(500).json({ message: 'CodingProfile not deleted' });
+        }
+        // Send success response
+        return res.status(200).json({ message: 'CodingProfile deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting CodingProfile:', error);
+        return res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+
+
+  const updateUserSkills = async (req, res) => {
+    const { skillName, proficiency, skillId } = req.body;
+    
+
+    try {
+        let editSkillIndex;
+        let allSkills = req.user?.skills; 
+
+        for (let i = 0; i < allSkills.length; i++) {
+            const currSkillId = req.user?.skills[i]?._id.toString();
+            if (currSkillId == skillId) {
+                editSkillIndex = i;
+                break;
+            }
+        }
+
+        if (editSkillIndex === undefined) {
+            return res.status(400).json({ message: "Skill not found" });
+        }
+
+        const SkillToUpdateId = req.user?.skills[editSkillIndex]?._id.toString();
 
         // Update the skill
         const result = await Skill.findByIdAndUpdate(
-            userSkillId,
+            SkillToUpdateId,
             {
                 $set: {
                     'SkillName': skillName,
@@ -595,11 +810,27 @@ const updateUserSkills = async (req, res) => {
     }
 };
 
+const deleteUserSkills = async (req, res) => {
+    const { skillId } = req.body; // Assuming the skill ID is provided in the request body
 
+    try {
+        // Check if the skill exists
+        const skill = await Skill.findById(skillId);
+        if (!skill) {
+            return res.status(404).json({ message: 'Skill not found' });
+        }
 
+        // Delete the skill
+        const result = await Skill.findByIdAndDelete(skillId);
+        if(!result){
+            return res.status(500).json({ message: 'Skill not deleted' });
+        }
+        // Send success response
+        return res.status(200).json({ message: 'Skill deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting skill:', error);
+        return res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
 
-
-
-  
-
-export {RegisteredUser,logout,LoginUser,updateUserSummary,updateUserExperience,updateUserSkills,updateUserAwards,updateUserEducation,updateUserAchievements,updateUserSocialMedia,updateUserProjects,updateUserCodingprofiles}
+export {RegisteredUser,logout,LoginUser,updateUserSummary,updateUserExperience,updateUserSkills,updateUserAwards,deleteUserAchievements,deleteUserProjects,deleteUserAwards,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,deleteUserEducation,deleteUserExperience}
