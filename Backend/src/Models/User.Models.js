@@ -1,6 +1,5 @@
 import mongoose, { Schema } from "mongoose";
 // HEAD
-import { LikedBy } from "./LikedBy.Models.js";
 import bcrypt from "bcrypt";// for password
 import jwt from 'jsonwebtoken';
 

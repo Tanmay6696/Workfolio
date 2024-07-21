@@ -1,11 +1,7 @@
 import mongoose from "mongoose";
 
 const projectsSchema = new mongoose.Schema({
-  projectId: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    auto: true, 
-    primaryKey: true 
-  },
+
   userId: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User'    

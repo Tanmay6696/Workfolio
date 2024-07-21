@@ -1,9 +1,6 @@
 import mongoose ,{Schema} from "mongoose";
 const awardsSchema = mongoose.Schema({
-    awardId: {
-        type: String,
-        required: true
-    },
+
     userId: {
         type: Schema.Types.ObjectId,
         ref:"Users"

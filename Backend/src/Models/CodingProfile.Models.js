@@ -1,11 +1,7 @@
 import mongoose from "mongoose";
 
 const codingProfilesSchema = new mongoose.Schema({
-  codingProfileId: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    auto: true, 
-    primaryKey: true 
-  },
+
   userId: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User'    

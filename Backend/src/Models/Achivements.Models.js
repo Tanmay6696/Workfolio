@@ -1,9 +1,5 @@
 import mongoose ,{Schema} from "mongoose";
 const AchivementsSchema = mongoose.Schema({
-    achievementId: {
-        type: String,
-        
-    },
     UserId:{
         type:Schema.Types.ObjectId,
         ref:"User"
