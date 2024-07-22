@@ -1,7 +1,7 @@
 import {Router} from "express";
 const router=Router();
 import { verifedJWT } from "../middlewares/Auth.middlewares.js";
-import {RegisteredUser,LoginUser,logout, updateUserSummary,updateUserEducation,updateUserExperience,deleteUserCodingprofiles,deleteUserAchievements,deleteUserEducation, updateUserSkills,updateUserAwards,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,updateUserProjects,deleteUserProjects,updateUserCodingprofiles, deleteUserSkills, deleteUserSummary,deleteUserExperience,deleteUserAwards} from "../controllers/Users.Controllers.js"
+import {RegisteredUser,LoginUser,logout, updateUserSummary,updateUserEducation,updateUserExperience,addUserSkills,deleteUserCodingprofiles,deleteUserAchievements,deleteUserEducation, updateUserSkills,updateUserAwards,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,updateUserProjects,deleteUserProjects,updateUserCodingprofiles, deleteUserSkills, deleteUserSummary,deleteUserExperience,deleteUserAwards} from "../controllers/Users.Controllers.js"
 import {upload} from '../middlewares/multer.middleware.js'
 router.route("/RegisterUser").post(
     upload.fields([
@@ -36,6 +36,7 @@ router.route("/:email/achievementsupdate").post(verifedJWT,updateUserAchievement
 router.route("/:email/achievementsdelete").post(verifedJWT,deleteUserAchievements);
 router.route("/:email/codingprofileupdate").post(verifedJWT,updateUserCodingprofiles);
 router.route("/:email/codingprofiledelete").post(verifedJWT,deleteUserCodingprofiles);
+router.route("/:email/addskill").post(verifedJWT,addUserSkills);
 router.route("/skillsupdate").post(verifedJWT,updateUserSkills);
 router.route("/skillsdelete").post(verifedJWT,deleteUserSkills);
 

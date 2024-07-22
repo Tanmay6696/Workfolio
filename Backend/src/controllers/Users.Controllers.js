@@ -11,6 +11,7 @@ import {uploadoncloudinary} from '../utils/Cloudinary.js';
 import {Projects} from '../Models/Projects.Models.js';
 import {SocialMedia} from '../Models/SocialMedia.Models.js';
 import {CodingProfiles} from '../Models/CodingProfile.Models.js';
+import { createDocument } from '../utils/createDocument.js';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 
@@ -755,7 +756,21 @@ const deleteUserCodingprofiles = async (req, res) => {
     }
 };
 
+const addUserSkills = async (req, res) => {
+    const { SkillName, proficiency } = req.body;
 
+    try {
+        const newSkill = await createDocument(Skill, {
+            SkillName,
+            proficiency
+        });
+
+        return res.status(201).json({ message: "Skill added successfully", skill: newSkill });
+    } catch (error) {
+        console.error('Error adding skill:', error);
+        return res.status(500).send({ message: "Server error", error: error.message });
+    }
+};
 
   const updateUserSkills = async (req, res) => {
     const { skillName, proficiency, skillId } = req.body;
@@ -833,4 +848,4 @@ const deleteUserSkills = async (req, res) => {
     }
 };
 
-export {RegisteredUser,logout,LoginUser,updateUserSummary,updateUserExperience,updateUserSkills,updateUserAwards,deleteUserAchievements,deleteUserProjects,deleteUserAwards,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,deleteUserEducation,deleteUserExperience}
+export {RegisteredUser,logout,LoginUser,updateUserSummary,updateUserExperience,addUserSkills,updateUserSkills,updateUserAwards,deleteUserAchievements,deleteUserProjects,deleteUserAwards,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,deleteUserEducation,deleteUserExperience}
