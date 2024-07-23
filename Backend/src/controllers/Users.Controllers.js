@@ -310,6 +310,25 @@ const updateUserSummary = async (req, res) => {
     }
 };
 
+const addUserExperience = async (req, res) => {
+    const { companyName, role, description, DurationFrom, DurationTo } = req.body;
+
+    try {
+        const newExperience = await createDocument(Experience, {
+            companyName, 
+            role, 
+            description, 
+            DurationFrom, 
+            DurationTo
+        });
+
+        return res.status(201).json({ message: "Experience added successfully", experience: newExperience });
+    } catch (error) {
+        console.error('Error adding Experience:', error);
+        return res.status(500).send({ message: "Server error", error: error.message });
+    }
+};
+
   const updateUserExperience = async (req, res) => {
     
     const { companyName,role,description,DurationFrom,DurationTo } = req.body;
@@ -359,6 +378,24 @@ const updateUserSummary = async (req, res) => {
     } catch (error) {
         console.error('Error deleting Experience:', error);
         return res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+const addUserAwards = async (req, res) => {
+    const { awardName, issuingOrganization, issueDate, description } = req.body;
+
+    try {
+        const newAward = await createDocument(awards, {
+            awardName, 
+            issuingOrganization, 
+            issueDate, 
+            description
+        });
+
+        return res.status(201).json({ message: "Award added successfully", award: newAward });
+    } catch (error) {
+        console.error('Error adding Award:', error);
+        return res.status(500).send({ message: "Server error", error: error.message });
     }
 };
 
@@ -420,6 +457,26 @@ const updateUserSummary = async (req, res) => {
     } catch (error) {
         console.error('Error deleting Award:', error);
         return res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+const addUserEducation = async (req, res) => {
+    const { instituteName, education, course, specialization, courseDuration, gradingSystem} = req.body;
+
+    try {
+        const newEducation = await createDocument(Education, {
+            instituteName, 
+            education, 
+            course, 
+            specialization, 
+            courseDuration, 
+            gradingSystem
+        });
+
+        return res.status(201).json({ message: "Education added successfully", education: newEducation });
+    } catch (error) {
+        console.error('Error adding Education:', error);
+        return res.status(500).send({ message: "Server error", error: error.message });
     }
 };
 
@@ -488,6 +545,28 @@ const updateUserSummary = async (req, res) => {
     } catch (error) {
         console.error('Error deleting Education:', error);
         return res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+const addUserAchievements = async (req, res) => {
+    const { description, title, date_awarded, category, issuer, certificate_url, level, public_visibility } = req.body;
+
+    try {
+        const newAchievement = await createDocument(Achivements, {
+            description, 
+            title, 
+            date_awarded, 
+            category, 
+            issuer, 
+            certificate_url, 
+            level, 
+            public_visibility
+        });
+
+        return res.status(201).json({ message: "Achievements added successfully", achievement: newAchievement });
+    } catch (error) {
+        console.error('Error adding Achievement:', error);
+        return res.status(500).send({ message: "Server error", error: error.message });
     }
 };
 
@@ -562,6 +641,22 @@ const deleteUserAchievements = async (req, res) => {
     }
 };
 
+const addUserSocialMedia = async (req, res) => {
+    const { profileName, profileUrl } = req.body;
+
+    try {
+        const newSocialMedia = await createDocument(SocialMedia, {
+            profileName, 
+            profileUrl
+        });
+
+        return res.status(201).json({ message: "SocialMedia added successfully", socialmedia: newSocialMedia });
+    } catch (error) {
+        console.error('Error adding SocialMedia:', error);
+        return res.status(500).send({ message: "Server error", error: error.message });
+    }
+};
+
 const updateUserSocialMedia = async (req, res) => {
     const { socialmediaProfileId, profileName, profileUrl } = req.body;
     try {
@@ -622,6 +717,25 @@ const deleteUserSocialMedia = async (req, res) => {
     } catch (error) {
         console.error('Error deleting socialmedia:', error);
         return res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+const addUserProject = async (req, res) => {
+    const { title, description, url, durationFrom, durationTo } = req.body;
+
+    try {
+        const newProject = await createDocument(Projects, {
+            title, 
+            description, 
+            url, 
+            durationFrom, 
+            durationTo
+        });
+
+        return res.status(201).json({ message: "Project added successfully", project: newProject });
+    } catch (error) {
+        console.error('Error adding Project:', error);
+        return res.status(500).send({ message: "Server error", error: error.message });
     }
 };
 
@@ -689,6 +803,22 @@ const deleteUserProjects = async (req, res) => {
     } catch (error) {
         console.error('Error deleting project:', error);
         return res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+const addUserCodingProfiles = async (req, res) => {
+    const { profileName, profileUrl } = req.body;
+
+    try {
+        const newCodingProfile = await createDocument(CodingProfiles, {
+            profileName, 
+            profileUrl
+        });
+
+        return res.status(201).json({ message: "Coding Profile added successfully", codingprofile: newCodingProfile });
+    } catch (error) {
+        console.error('Error adding Coding Profile:', error);
+        return res.status(500).send({ message: "Server error", error: error.message });
     }
 };
 
@@ -848,4 +978,4 @@ const deleteUserSkills = async (req, res) => {
     }
 };
 
-export {RegisteredUser,logout,LoginUser,updateUserSummary,updateUserExperience,addUserSkills,updateUserSkills,updateUserAwards,deleteUserAchievements,deleteUserProjects,deleteUserAwards,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,deleteUserEducation,deleteUserExperience}
+export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateUserExperience,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,deleteUserEducation,addUserExperience,deleteUserExperience}
