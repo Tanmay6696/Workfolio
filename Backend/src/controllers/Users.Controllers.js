@@ -16,6 +16,7 @@ import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 
 import ApiResponse from '../utils/ApiResponse.js'
+import { Likes } from '../Models/Likes.Models.js';
 
 const generateaccessandrefershtokens =async(UserId)=>{
     
@@ -267,6 +268,24 @@ const updateUserSummary = async (req, res) => {
       });
     } catch (error) {
       res.status(500).send({ message: error.message });
+    }
+  };
+const updateLike = async (req, res) => {
+    const { email } = req.params;
+    const { anotheruserid } = req.body;
+    const myid=req.user?._id;
+
+    try {
+        
+        const newExperience = await createDocument(Likes, {
+            likedBy:myid,
+            likedUserId:anotheruserid
+        });
+
+        return res.status(201).json({ message: "Experience added successfully", experience: newExperience });
+      
+    } catch (error) {
+        return res.status(500).send({ message: "Server error", error: error.message });
     }
   };
 

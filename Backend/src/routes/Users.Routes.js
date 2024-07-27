@@ -21,6 +21,8 @@ router.route("/RegisterUser").post(
 router.route("/login").post(LoginUser);
 router.route("/logout").post(verifedJWT,logout);
 router.route("/summaryupdate").post(verifedJWT,updateUserSummary);
+router.route("/:email/likesupdate").post(verifedJWT,updateLike);
+
 router.route("/summarydelete").post(verifedJWT,deleteUserSummary);
 router.route("/:email/addexperience").post(verifedJWT,addUserExperience);
 router.route("/:email/Experienceupdate").post(verifedJWT,updateUserExperience);
