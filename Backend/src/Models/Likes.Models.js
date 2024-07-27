@@ -1,5 +1,4 @@
-import mongoose from mongoose;
-
+import mongoose from "mongoose";
 const likesSchema = new mongoose.Schema({
     likedBy:[
         {
@@ -8,7 +7,7 @@ const likesSchema = new mongoose.Schema({
             required: true
         }
     ],
-    liked:[
+    likedUserId:[
         {
             type:mongoose.Schema.Types.ObjectId,
             ref: "User",
