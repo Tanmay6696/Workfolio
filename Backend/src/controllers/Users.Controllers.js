@@ -356,6 +356,27 @@ const updateLike = async (req, res) => {
         return res.status(500).send({ message: "Server error", error: error.message });
     }
   };
+  const unlikeUser = async (req, res) => {
+    const {likeId} = req.body;
+    try {
+        // Check if the like exists
+        const like = await Likes.findById(likeId);
+        if (!like) {
+            return res.status(404).json({ message: 'Like not found' });
+        }
+
+        // Delete the like
+        const result = await Likes.findByIdAndDelete(likeId);
+        if(!result){
+            return res.status(500).json({ message: 'Like not deleted' });
+        }
+        // Send success response
+        return res.status(200).json({ message: 'Like deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting Like:', error);
+        return res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
 
   const deleteUserSummary = async (req, res) => {
     const userId = req.user?._id
@@ -1062,4 +1083,4 @@ const deleteUserSkills = async (req, res) => {
     }
 };
 
-export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateRating,updateComment,updateUserExperience,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,deleteUserEducation,addUserExperience,deleteUserExperience,updateLike}
+export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateRating,updateComment,updateUserExperience,unlikeUser,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,deleteUserEducation,addUserExperience,deleteUserExperience,updateLike}
