@@ -274,12 +274,33 @@ const updateLike = async (req, res) => {
     const { email } = req.params;
     const { anotheruserid } = req.body;
     const myid=req.user?._id;
+    //console.log("anotheruserid",anotheruserid ,myid);
 
+    const buffer = Buffer.from(myid.replace(/-/g, ''), 'hex');    
+    // Check that the buffer is 16 bytes
+    if (buffer.length !== 16) {
+        throw new Error('Invalid UUID length');
+    }    
+    // Create a new ObjectId from the buffer and convert to hex string
+    const hexString = buffer.toString('hex').slice(0, 24); 
+    const userobjectid= new mongoose.Types.ObjectId(hexString);
+
+    
+    const buffers = Buffer.from(anotheruserid.replace(/-/g, ''), 'hex');    
+    // Check that the buffer is 16 bytes
+    if (buffers.length !== 16) {
+        throw new Error('Invalid UUID length');
+    }    
+    // Create a new ObjectId from the buffer and convert to hex string
+    const hexStrings = buffers.toString('hex').slice(0, 24); 
+    const userobjectids= new mongoose.Types.ObjectId(hexStrings);
+
+    //console.log("anotheruserid",userobjectids ,userobjectid);
     try {
         
         const newExperience = await createDocument(Likes, {
-            likedBy:myid,
-            likedUserId:anotheruserid
+            likedBy:userobjectid,
+            likedUserId:userobjectids
         });
 
         return res.status(201).json({ message: "Experience added successfully", experience: newExperience });
@@ -997,4 +1018,4 @@ const deleteUserSkills = async (req, res) => {
     }
 };
 
-export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateUserExperience,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,deleteUserEducation,addUserExperience,deleteUserExperience}
+export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateUserExperience,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,deleteUserEducation,addUserExperience,deleteUserExperience,updateLike}

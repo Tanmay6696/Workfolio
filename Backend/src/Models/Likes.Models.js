@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { v4 as uuidv4 } from "uuid";
+
 const likesSchema = new mongoose.Schema({
     likedBy:[
         {
@@ -13,11 +15,7 @@ const likesSchema = new mongoose.Schema({
             ref: "User",
             required: true
         }
-    ],
-    likeId:{
-        type: String,
-        required: true
-    }
+    ]
 },{timestamps: true})
 
 export const Likes = mongoose.model("Likes",likesSchema)
