@@ -17,6 +17,7 @@ import mongoose from 'mongoose';
 
 import ApiResponse from '../utils/ApiResponse.js'
 import { Likes } from '../Models/Likes.Models.js';
+import { UuidToString } from '../utils/UuidToString.js';
 
 const generateaccessandrefershtokens =async(UserId)=>{
     
@@ -275,25 +276,14 @@ const updateLike = async (req, res) => {
     const { anotheruserid } = req.body;
     const myid=req.user?._id;
     //console.log("anotheruserid",anotheruserid ,myid);
-
-    const buffer = Buffer.from(myid.replace(/-/g, ''), 'hex');    
-    // Check that the buffer is 16 bytes
-    if (buffer.length !== 16) {
-        throw new Error('Invalid UUID length');
-    }    
-    // Create a new ObjectId from the buffer and convert to hex string
-    const hexString = buffer.toString('hex').slice(0, 24); 
-    const userobjectid= new mongoose.Types.ObjectId(hexString);
-
+    const hex = await UuidToString(myid);
     
-    const buffers = Buffer.from(anotheruserid.replace(/-/g, ''), 'hex');    
-    // Check that the buffer is 16 bytes
-    if (buffers.length !== 16) {
-        throw new Error('Invalid UUID length');
-    }    
-    // Create a new ObjectId from the buffer and convert to hex string
-    const hexStrings = buffers.toString('hex').slice(0, 24); 
-    const userobjectids= new mongoose.Types.ObjectId(hexStrings);
+    const userobjectid= new mongoose.Types.ObjectId(hex);
+    
+    
+    const hexanother = await UuidToString(anotheruserid);
+
+    const userobjectids= new mongoose.Types.ObjectId(hexanother);
 
     //console.log("anotheruserid",userobjectids ,userobjectid);
     try {
@@ -303,7 +293,7 @@ const updateLike = async (req, res) => {
             likedUserId:userobjectids
         });
 
-        return res.status(201).json({ message: "Experience added successfully", experience: newExperience });
+        return res.status(201).json({ message: "Like added successfully", experience: newExperience });
       
     } catch (error) {
         return res.status(500).send({ message: "Server error", error: error.message });
@@ -372,7 +362,6 @@ const addUserExperience = async (req, res) => {
   const updateUserExperience = async (req, res) => {
     
     const { companyName,role,description,DurationFrom,DurationTo } = req.body;
-    //console.log("req.user?.skills[0]?._id.toString() testing  ",req.user,req.user?.experiences[0]);
     
     try {
       // Validate user input
@@ -442,8 +431,6 @@ const addUserAwards = async (req, res) => {
   const updateUserAwards = async (req, res) => {
     
     const { awardName,issuingOrganization,issueDate,description,awardidfromuser } = req.body;
-    // console.log("req.user?.skills[0]?._id.toString() testing  "," gg gg gg",req.body,req.user?.awards[0]?._id.toString());
-    // console.log("test",awardName,issuingOrganization,issueDate,description);
     try {
         let editawardidindex;
         let allawards=req.user?.awards;
