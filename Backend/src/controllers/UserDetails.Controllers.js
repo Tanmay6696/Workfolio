@@ -21,18 +21,19 @@ const Showuserdeatils=AsyncHandler(async(req,res)=>{
         if (!user) return res.status(404).send('User not found');
         
         const likes=await Likes.find({likedUserId:userobjectid}).select('likedBy');        
-        const comments=await Comments.find({commentonId:userobjectid});
-        const ratings=await Rating.find({RateOnId:userobjectid});
+        const comments=await Comments.find({commentonId:userobjectid}).select('commentbyId content');
+        const ratings=await Rating.find({RateOnId:userobjectid}).select('RateById score');
 console.log("likes",likes);
         const Totallikes=likes.length;
         const TotalComments=comments.length;
         const TotalratingCount=ratings.length;  
 
-        const totalsumofrating=0;
+        let totalsumofrating=0;
         for(let i=0;i<TotalratingCount;i++){
-            totalsumofrating+=ratings[i];
+            console.log("msg",ratings[i]);
+            totalsumofrating+=ratings[i].score;
         }
-        const averagerating = TotalratingCount > 0 ? (totalsumofrating / TotalratingCount) : 0;
+        const averagerating = totalsumofrating > 0 ? (totalsumofrating / TotalratingCount) : 0;
 
         const userData = {
             username: user.username,
