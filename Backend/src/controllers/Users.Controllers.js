@@ -13,6 +13,7 @@ import {SocialMedia} from '../Models/SocialMedia.Models.js';
 import {CodingProfiles} from '../Models/CodingProfile.Models.js';
 import { createDocument } from '../utils/createDocument.js';
 import jwt from 'jsonwebtoken';
+import { Comments } from '../Models/Comments.Models.js';
 import mongoose from 'mongoose';
 
 import ApiResponse from '../utils/ApiResponse.js'
@@ -271,6 +272,35 @@ const updateUserSummary = async (req, res) => {
       res.status(500).send({ message: error.message });
     }
   };
+  const updateComment = async (req, res) => {
+    const { email } = req.params;
+    const { anotheruserid, commentmsg } = req.body;
+    const myid=req.user?._id;
+    //console.log("anotheruserid",anotheruserid ,myid);
+    const hex = await UuidToString(myid);
+    
+    const userobjectid= new mongoose.Types.ObjectId(hex);
+    
+    
+    const hexanother = await UuidToString(anotheruserid);
+
+    const userobjectids= new mongoose.Types.ObjectId(hexanother);
+
+    //console.log("anotheruserid",userobjectids ,userobjectid);
+    try {
+        
+        const newComment = await createDocument(Comments, {
+            commentbyId:userobjectid,
+            commentonId:userobjectids,
+            content:commentmsg
+        });
+
+        return res.status(201).json({ message: "Comment added successfully", comment: newComment });
+      
+    } catch (error) {
+        return res.status(500).send({ message: "Server error", error: error.message });
+    }
+  };
 const updateLike = async (req, res) => {
     const { email } = req.params;
     const { anotheruserid } = req.body;
@@ -288,12 +318,12 @@ const updateLike = async (req, res) => {
     //console.log("anotheruserid",userobjectids ,userobjectid);
     try {
         
-        const newExperience = await createDocument(Likes, {
+        const newLike = await createDocument(Likes, {
             likedBy:userobjectid,
             likedUserId:userobjectids
         });
 
-        return res.status(201).json({ message: "Like added successfully", experience: newExperience });
+        return res.status(201).json({ message: "Like added successfully", like: newLike });
       
     } catch (error) {
         return res.status(500).send({ message: "Server error", error: error.message });
@@ -1005,4 +1035,4 @@ const deleteUserSkills = async (req, res) => {
     }
 };
 
-export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateUserExperience,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,deleteUserEducation,addUserExperience,deleteUserExperience,updateLike}
+export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateComment,updateUserExperience,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,deleteUserEducation,addUserExperience,deleteUserExperience,updateLike}

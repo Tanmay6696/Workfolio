@@ -1,7 +1,7 @@
 import {Router} from "express";
 const router=Router();
 import { verifedJWT } from "../middlewares/Auth.middlewares.js";
-import {RegisteredUser,LoginUser,logout, updateUserSummary,addUserExperience,addUserEducation,addUserAwards,addUserProject,addUserCodingProfiles,updateUserEducation,updateUserExperience,addUserSkills,deleteUserCodingprofiles,addUserAchievements,deleteUserAchievements,deleteUserEducation, updateUserSkills,updateUserAwards,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,updateUserProjects,deleteUserProjects,updateUserCodingprofiles, deleteUserSkills, deleteUserSummary,deleteUserExperience,deleteUserAwards, addUserSocialMedia,updateLike} from "../controllers/Users.Controllers.js"
+import {RegisteredUser,LoginUser,logout, updateUserSummary,addUserExperience,addUserEducation,addUserAwards,addUserProject,addUserCodingProfiles,updateUserEducation,updateUserExperience,addUserSkills,deleteUserCodingprofiles,addUserAchievements,deleteUserAchievements,deleteUserEducation, updateUserSkills,updateUserAwards,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,updateUserProjects,deleteUserProjects,updateUserCodingprofiles, deleteUserSkills, deleteUserSummary,deleteUserExperience,deleteUserAwards, addUserSocialMedia,updateLike, updateComment} from "../controllers/Users.Controllers.js"
 import {upload} from '../middlewares/multer.middleware.js'
 router.route("/RegisterUser").post(
     upload.fields([
@@ -22,7 +22,7 @@ router.route("/login").post(LoginUser);
 router.route("/logout").post(verifedJWT,logout);
 router.route("/summaryupdate").post(verifedJWT,updateUserSummary);
 router.route("/:email/likesupdate").post(verifedJWT,updateLike);
-
+router.route("/:email/commentsupdate").post(verifedJWT,updateComment);
 router.route("/summarydelete").post(verifedJWT,deleteUserSummary);
 router.route("/:email/addexperience").post(verifedJWT,addUserExperience);
 router.route("/:email/Experienceupdate").post(verifedJWT,updateUserExperience);
