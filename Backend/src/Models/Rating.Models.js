@@ -14,7 +14,9 @@ const ratingSchema = new mongoose.Schema({
   },
   score: {
     type: Number,
-    required: true
+    required: true,
+    min:0,
+    max:10
   }
 },{
   timestamps:true

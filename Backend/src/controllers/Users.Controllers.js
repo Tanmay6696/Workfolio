@@ -15,7 +15,7 @@ import { createDocument } from '../utils/createDocument.js';
 import jwt from 'jsonwebtoken';
 import { Comments } from '../Models/Comments.Models.js';
 import mongoose from 'mongoose';
-
+import { Rating } from '../Models/Rating.Models.js';
 import ApiResponse from '../utils/ApiResponse.js'
 import { Likes } from '../Models/Likes.Models.js';
 import { UuidToString } from '../utils/UuidToString.js';
@@ -270,6 +270,33 @@ const updateUserSummary = async (req, res) => {
       });
     } catch (error) {
       res.status(500).send({ message: error.message });
+    }
+  };
+  const updateRating = async (req, res) => {
+    const { email } = req.params;
+    const { anotheruserid, ratenumber } = req.body;
+    const myid=req.user?._id;
+    
+    const hex = await UuidToString(myid);
+    
+    const userobjectid= new mongoose.Types.ObjectId(hex);
+    
+    
+    const hexanother = await UuidToString(anotheruserid);
+
+    const userobjectids= new mongoose.Types.ObjectId(hexanother);
+
+    try {
+        
+        const newRating = await createDocument(Rating, {
+            RateById:userobjectid,
+            RateOnId:userobjectids,
+            score:ratenumber
+        });
+        return res.status(201).json({ message: "Rating added successfully", ratings: newRating });
+      
+    } catch (error) {
+        return res.status(500).send({ message: "Server error", error: error.message });
     }
   };
   const updateComment = async (req, res) => {
@@ -1035,4 +1062,4 @@ const deleteUserSkills = async (req, res) => {
     }
 };
 
-export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateComment,updateUserExperience,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,deleteUserEducation,addUserExperience,deleteUserExperience,updateLike}
+export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateRating,updateComment,updateUserExperience,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,deleteUserEducation,addUserExperience,deleteUserExperience,updateLike}
