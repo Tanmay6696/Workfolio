@@ -9,7 +9,7 @@ const Resume = () => {
           <Buttons buttonname="Download"/>
         </div>
         <div className='ResumedownloadSection'>
-          <div>
+          <div className='ResumeDownload'>
             <Buttons buttonname="View Resume"/>
           </div>
           
