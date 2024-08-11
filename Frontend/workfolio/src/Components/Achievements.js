@@ -1,8 +1,8 @@
 import React from 'react'
-
+import '../Componentcss/Achievementss.css'
 const Achievements = () => {
   return (
-    <div>Achievements</div>
+    <div className='Achievement'>Achievements</div>
   )
 }
 

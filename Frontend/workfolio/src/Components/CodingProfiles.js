@@ -1,8 +1,9 @@
 import React from 'react'
+import '../Componentcss/CodingProfiless.css'
 
 const CodingProfiles = () => {
   return (
-    <div>CodingProfiles</div>
+    <div className='CodingProfiles'>CodingProfiles</div>
   )
 }
 

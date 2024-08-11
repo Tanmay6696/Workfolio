@@ -1,8 +1,8 @@
 import React from 'react'
-
+import '../Componentcss/Awardss.css'
 const Awards = () => {
   return (
-    <div>Awards</div>
+    <div className='Award'>Awards</div>
   )
 }
 

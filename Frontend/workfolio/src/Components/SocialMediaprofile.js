@@ -1,8 +1,8 @@
 import React from 'react'
-
+import '../Componentcss/SocialMediaprofiles.css'
 const SocialMediaprofile = () => {
   return (
-    <div>SocialMediaprofile</div>
+    <div className='SocialMediaprofile'>SocialMediaprofile</div>
   )
 }
 

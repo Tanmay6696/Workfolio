@@ -1,8 +1,8 @@
 import React from 'react'
-
+import '../Componentcss/Educations.css'
 const Education = () => {
   return (
-    <div>Education</div>
+    <div className='Education'>Education</div>
   )
 }
 
