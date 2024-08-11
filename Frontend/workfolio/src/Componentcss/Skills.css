@@ -1,6 +1,55 @@
 .skills{
     width: 100%;
     height: 30%;
-    background-color: rgb(66, 81, 62);
+    background-color: rgb(227, 140, 10);
     display: block;
+    align-items: center;
+}
+.skillheader{
+    display: flex;
+    background-color: rgb(192, 47, 47);
+    height: 20%;
+    max-width: 100%;
+
+}
+.skillheader h1{
+    margin: 0vh 0vh 2vh 0vh;
+
+}
+.allskills{
+    display: flex;
+    /* justify-content: space-evenly; */
+    background-color: darkmagenta;
+    height: 80%;
+    width: 100%;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+    /* align-items: center; */
+}
+.skilldiv{
+    height: auto;
+    background-color: darkgreen;
+    width: 100%;
+    height: 80%;
+    /* width: 100%; */
+    /* display: flex; */
+    /* justify-content: space-between; */
+    
+}
+.one{
+    height: 20%;
+    width: 6vw;
+    margin: 1% ;
+
+    
+    /* justify-content: space-between; */
+ background-color: #ef1219;
+ border-radius: 15px;
+}
+.one span{
+    font-size: 150%;
+    max-height: 90%;
+    /* padding: 1vw; */
+    font-weight: bold;
+    text-align: center;
 }

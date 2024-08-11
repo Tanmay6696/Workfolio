@@ -14,56 +14,69 @@
 .UserSummary{
     width:70% ;
     height: 100%;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
     
     /* align-items: flex-start; */
 }
 .name{
     max-width: 100%;
+    max-height: 100%;
     display: flex;
-justify-content: left;
+    /* background-color: gray; */
+    height: 30%;
+/* justify-content: left; */
 }
 .names{
     /* padding-left: 3vh; */
     color: black;
-    margin: 2vh 2vh 2vh 3vh;
+    /* margin: 2vw 2vw 2vw 3vw; */
+    padding: 2% 2% 2% 2%;
     max-width: 100%;
-    font-size: 7vh;
-justify-content: left ;
+    max-height: 100%;
+    font-size: calc(16px + 2vw);
+    text-align: center;
+
+    justify-content: space-between;
 
 }
 .role{
     max-width: 100%;
     display: flex;
-    justify-content: left ;
-
+    /* background-color: burlywood; */
+    justify-content: space-between;
+    height: 20%;
+    max-height: 100%;
 }
 .roles{
     color: black;
     margin: 0vh 2vh 2vh 4vh;
     max-width: 100%;
-    font-size: 4vh;
-justify-content: left ;
+    font-size: calc(16px + 1vw);
+    text-align: center;
+    /* background-color: rgb(39, 206, 114); */
+    justify-content: space-between;
+    max-height: 100%;
 }
 .summary{
     color: black;
-    margin-left: 1vw;
+    /* margin-left: 1vw; */
     /* background-color: aqua;    */
-    /* max-width: 100%; */
+    width: 100%;
     display: flex;
+    flex-wrap: wrap;
     /* justify-content: left ; */
-  
+    height: 50%;
+    overflow: auto;
 }
 .summary-content{
-
-    max-width: 100%;
-    max-height: 100%;
-    font-size: 2vh;
-    padding: 0%;
-/* justify-content: left ; */
-/* text-align-last: left ; */
-
-
+    /* background-color: darkblue; */
+    /* max-width: 100%; */
+    /* max-height: 100%; */
+    width: 100%;
+    font-size: calc(16px + 1vw);
 }
 
 .Userphotos{
@@ -80,5 +93,5 @@ justify-content: left ;
     height: 80%;
     
     border-radius: 80%;
-    background-color: white;
+    /* background-color: white; */
 }
