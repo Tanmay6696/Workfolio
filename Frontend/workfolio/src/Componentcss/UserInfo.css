@@ -14,9 +14,43 @@
 .UserSummary{
     width:70% ;
     height: 100%;
-    display: flex;
+    display: block;
     
-    align-items: flex-start;
+    /* align-items: flex-start; */
+}
+.name{
+    max-width: 100%;
+    display: flex;
+justify-content: left;
+}
+.names{
+    max-width: 100%;
+    font-size: 7vh;
+justify-content: left ;
+
+}
+.role{
+    max-width: 100%;
+    display: flex;
+    justify-content: left ;
+
+}
+.roles{
+    max-width: 100%;
+    font-size: 4vh;
+justify-content: left ;
+}
+.summary{
+    max-width: 100%;
+    display: flex;
+    justify-content: left ;
+  
+}
+.summary-content{
+    max-width: 100%;
+    font-size: 3vh;
+justify-content: left ;
+margin-top: 5vh;
 }
 .UserSummaryDetails{
     display: block;

@@ -13,9 +13,9 @@ const UserInfo = () => {
         </div>
         <div className='UserSummary'>
           
-            <div><h1>Tanmay Vinay dahale</h1></div>
-            <div><h2>Tanmay Vinay dahale</h2></div>
-            <div>Summary SummarySummarySummary Summary Summaryvv Summary Summary Summary </div>
+            <div className='name'><span className='names'>Tanmay Vinay dahale</span></div>
+            <div className='role'><span className='roles'>Tanmay Vinay dahale</span></div>
+            <div className='summary'><span className='summary-content'>Summary SummarySummarySummary Summary Summaryvv Summary Summary Summary </span></div>
           
 
           
