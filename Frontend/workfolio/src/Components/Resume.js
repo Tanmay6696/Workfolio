@@ -1,9 +1,20 @@
 import React from 'react'
 import '../Componentcss/Resumes.css';
+import Buttons from './Buttons';
 const Resume = () => {
   return (
     <div className='Resume'>
-        gggs
+        <div className='ResumeIntro'>
+          <span>Resume of Tanmay Dahale</span>
+          <Buttons buttonname="Download"/>
+        </div>
+        <div className='ResumedownloadSection'>
+          <div>
+            <Buttons buttonname="View Resume"/>
+          </div>
+          
+          
+        </div>
     </div>
   )
 }
