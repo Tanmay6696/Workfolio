@@ -1,0 +1,24 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #root{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .Allcomponent{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+.main
+{
+    height: 90vh;
+    width:100%;
+    
+    
+    display: flex;
+    justify-content: center;
+}
