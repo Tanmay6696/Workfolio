@@ -5,6 +5,7 @@ import Header from './Header.js'
 
 const Education = () => {
   return (
+    <>
     <div className='Education'>
       <Header name="Education" />
       <div className='Education-card'>
@@ -26,6 +27,7 @@ const Education = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 

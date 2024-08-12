@@ -17,9 +17,10 @@
     width: 100%;
     max-width: 100%;
     gap:5%;
-    padding: 2%;
+    padding: 2% auto;
     flex-wrap: wrap;
     align-items: center;
+    border-radius: 6px;
 }
 .skilldiv{
     height: auto;
@@ -28,6 +29,7 @@
     height: 80%;
     max-height: 70%;
     padding: 1% 4.5% 1% 4.5%;
+    
     
     
     
