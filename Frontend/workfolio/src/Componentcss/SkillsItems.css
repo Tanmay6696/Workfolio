@@ -28,3 +28,41 @@
     
     text-transform: uppercase;
 }
+
+@media (max-width:600px) {
+    .SkillsItemdiv span{
+        color: blue;
+        position: absolute;
+        text-align: center;
+        padding: 6px 14px;
+        font-size: 0.3rem;
+        font-weight: bold;
+        
+        text-transform: uppercase;
+    }
+}
+
+@media (max-width:900px) {
+    .SkillsItemdiv span{
+        color: blue;
+        position: absolute;
+        text-align: center;
+        padding: 6px 14px;
+        font-size: 0.6rem;
+        font-weight: bold;
+        
+        text-transform: uppercase;
+    }
+}
+@media (max-width:1000px) {
+    .SkillsItemdiv span{
+        color: blue;
+        position: absolute;
+        text-align: center;
+        padding: 6px 14px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        
+        text-transform: uppercase;
+    }
+}
