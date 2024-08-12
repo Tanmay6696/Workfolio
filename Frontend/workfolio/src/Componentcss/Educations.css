@@ -8,11 +8,11 @@
 .EducationHeader-card{
     
     background-color: white;
-    max-width: 100%;
+    max-width: 90%;
     padding: 2%;
     /* border-radius: 5%; */
     border-bottom: 2px solid #ddd;
-    margin: 3% 4% 3% 4%;
+    margin: 2% auto;
     
 }
 .EducationHeader-card h1{
@@ -22,9 +22,10 @@
     
 }
 .Education-card{
-    max-width: 100%;
+    max-width: 90%;
+    border: 1px solid #e0e0e0;
     background-color: white;
-    margin:2% 4% 3% 4%;
+    margin: 2% auto;
 }
 .Education-card span{
     font-size: 1.5rem;
