@@ -18,15 +18,8 @@
     max-width: 100%;
     gap:5%;
     padding: 2%;
-    
     flex-wrap: wrap;
     align-items: center;
-    /* background-color: white;
-    
-    
-    border-radius: 5%;
-    border-bottom: 2px solid #ddd;
-     */
 }
 .skilldiv{
     height: auto;
