@@ -1,26 +1,36 @@
-import React from 'react'
-import '../Componentcss/Experiencess.css'
+import React from 'react';
+import { FaBriefcase, FaCalendarAlt } from 'react-icons/fa'; // Import icons from react-icons
+import '../Componentcss/Experiencess.css';
+
 const Experiences = () => {
   return (
-    <div className='Experience'>
-      <div className='ExperiencesHeader'>
-        <h1>Experiences</h1></div>
-      <div className='Experiencemain'>
-        <div className='ExperiencesCompanyName'>
-          <span>Company Name</span>
-        </div>
-        <div>
-          <div className='ExperiencesTitle'>
-            <span>Title</span>
+    <>
+    <header className='experience-header-card'>
+        <h1>Experiences</h1>
+      </header>
+    <div className='experience-card'>
+      
+      <div className='experience-content'>
+        <div className='experience-item'>
+          <div className='experience-company'>
+            <FaBriefcase className='icon' />
+            <span>Cognizant</span>
           </div>
-          <div className='Experiencesfromto'>
-            <span>from to</span>
+          <div className='experience-details'>
+            <div className='experience-title'>
+              <span>Programmer Anlayst</span>
+            </div>
+            <div className='experience-duration'>
+              <FaCalendarAlt className='icon' />
+              <span>2018 - current</span>
+            </div>
           </div>
+          
         </div>
       </div>
     </div>
-  )
-}
+    </>
+  );
+};
 
-export default Experiences
-
+export default Experiences;
