@@ -1,13 +1,15 @@
 import React from 'react'
 import '../Componentcss/Educations.css'
 import { FaSchool } from "react-icons/fa";
+import Header from './Header.js'
 
 const Education = () => {
   return (
-    <>
-      <header className='EducationHeader-card'>
+    <div>
+      <Header name="Education" />
+      {/* <header className='EducationHeader-card'>
         <h1>Education</h1>
-      </header>
+      </header> */}
       <div className='Education-card'>
         <div className='Education-content'>
           <div className='EducationDetails'>
@@ -26,7 +28,7 @@ const Education = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
