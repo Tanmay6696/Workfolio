@@ -1,0 +1,30 @@
+.SkillsItemdiv{
+    width:20%;
+    height: 25%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    border-radius: 60px;
+    border: 1px solid #240e6d;
+}
+.SkillsItemdiv2{
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.SkillsItemdiv span{
+    color: blue;
+    position: absolute;
+    text-align: center;
+    padding: 6px 14px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    
+    text-transform: uppercase;
+}

@@ -5,11 +5,8 @@ import Header from './Header.js'
 
 const Education = () => {
   return (
-    <div>
+    <div className='Education'>
       <Header name="Education" />
-      {/* <header className='EducationHeader-card'>
-        <h1>Education</h1>
-      </header> */}
       <div className='Education-card'>
         <div className='Education-content'>
           <div className='EducationDetails'>

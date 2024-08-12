@@ -1,7 +1,8 @@
 .header-card {
     max-width: 90%;
-    margin: 5% auto;
+    margin: 1% 5% auto;
     padding: 2%;
+    max-height: 30%;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
