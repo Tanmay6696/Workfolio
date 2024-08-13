@@ -23,6 +23,15 @@ const Experiences = () => {
               <span>2018 - current</span>
             </div>
           </div>
+          <div className='experience-details'>
+            <div className='experience-title'>
+              <span>Programmer Anlayst</span>
+            </div>
+            <div className='experience-duration'>
+              <FaCalendarAlt className='icon' />
+              <span>2018 - current</span>
+            </div>
+          </div>
           
         </div>
       </div>

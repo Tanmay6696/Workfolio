@@ -1,8 +1,38 @@
 import React from 'react'
 import '../Componentcss/Projectss.css'
+import Header from './Header'
+import '../Allcomponentfile.css';
+import Butttons from './Buttons.js';
 const Projects = () => {
   return (
-    <div className='Project'>Projects</div>
+    <>
+      <Header name="Projects"/>
+      <div className='interactive-card'>
+      <div className='item'>
+          <div className='name'>
+            <span>Title</span>
+          </div>
+          <div className='details'>
+            <div className='detailsname'>
+              <span>descriptionhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription</span>
+            </div>
+            <div className='detailssection'>
+              <div className='dateandbutton'>
+              <div className='projectsdetailsofdateandurl'>
+                <date>from to</date>
+                
+              </div>
+              <Butttons classname="btn-outline-warning" buttonname="urg"/>  
+              </div>
+              
+            </div>
+            
+
+          </div>
+          
+        </div>
+      </div>
+      </>
   )
 }
 

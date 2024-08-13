@@ -13,6 +13,12 @@ html, body {
     margin: 0;
     padding: 0;
   }
+  body, h1, span {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+  }
 .main
 {
     height: 90vh;
@@ -21,4 +27,40 @@ html, body {
     
     display: flex;
     justify-content: center;
+}
+.interactive-card {
+  max-width: 90%;
+  margin: 2% auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+.name{
+  display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+.detailsname {
+  font-size: 1rem;
+  font-weight: normal;
+  color: #666;
+}
+.detailssection {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+  color: #999;
 }
