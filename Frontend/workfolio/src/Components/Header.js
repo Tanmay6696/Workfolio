@@ -1,7 +1,7 @@
 import React from 'react'
 import '../Componentcss/Headers.css';
 const Header = (props) => {
-    console.log("props123 " ,props.name);
+    // console.log("props123 " ,props.name);
     
   return (
     <div className='header-card'>
