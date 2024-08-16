@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-import './App.css';
 import Navbar from './Components/Navbar';
 import Video from './Components/Video';
 import Profilesection from './Components/Profilesection';

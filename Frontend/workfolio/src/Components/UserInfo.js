@@ -1,13 +1,13 @@
 import React from 'react';
-import logo from '../logo.svg';
-
+import { FaRegUserCircle } from "react-icons/fa";
 import '../Componentcss/UserInfo.css';
 const UserInfo = () => {
   return (
     <div className="UserInfo">
       <div className="UserPhoto">
         <div className="Userphotos">
-          <img src={logo} className="Userphotoimg" />
+          <FaRegUserCircle className="Userphotoimg"/>
+          
         </div>
       </div>
       <div className="UserSummary">

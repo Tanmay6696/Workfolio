@@ -1,12 +1,15 @@
 import React from 'react'
-import logo from '../logo.svg';
+
+import { FaRegUserCircle } from "react-icons/fa";
+
 import '../Componentcss/Navbar.css';
 const Navbar = () => {
   return (
     <div className='Navbar'>
         <h1>Workolio</h1>
         <input/>
-        <img style={{ height:'50px',width:'50px'}} src={logo}/>
+        <FaRegUserCircle style={{ height:'50px',width:'50px'}}/>
+        
         
     </div>
   )
