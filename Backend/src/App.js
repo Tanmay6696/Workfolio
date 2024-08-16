@@ -8,7 +8,7 @@ app.use(cors({
   }));
   
 app.use(express.json());
-app.use('/',"UserRouter")
+
 app.use('/api/v1/users',UserRouter)
 app.use('/api/v1/',UserDetailsRoutes)
 

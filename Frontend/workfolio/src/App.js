@@ -7,19 +7,21 @@ import axios from 'axios';
 
 
 function App() {
-  const getdata=async()=>{
+  const getdata = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/v1/users/getdetails');
+      console.log("response",response.data.message);
+    } catch (e) {
+      console.log("Error:", e);
+    }
+  };
+
+  // Use useEffect to call getdata on component mount
+  useEffect(() => {
+    console.log("HI");
     
-    try{
-      console.log("response   ");
-      const response=await axios.get('http://localhost:3001/');
-      console.log(response);
-      
-    }
-    catch(e){
-      console.log("erros ",e);
-    }
-  }
-  useEffect(()=>{getdata()});
+    getdata(); // Call the function, not invoke it directly
+  }, []);
   return (
     <div className="App">
       <AllComponentfile/>

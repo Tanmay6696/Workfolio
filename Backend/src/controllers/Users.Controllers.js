@@ -43,6 +43,21 @@ const generateaccessandrefershtokens =async(UserId)=>{
     }
 
 }
+const Details =AsyncHandler(async(req,res)=>{
+    
+    try{
+        console.log("inside the details");
+        const hi="hi";
+        res.status(201).json({ message: "Comment added successfully", data: hi });
+    }
+    catch(error){
+        console.log("UserId2",error);
+
+        
+        
+    }
+
+});
 
 
 const RegisteredUser=AsyncHandler(async(req,res)=>{
@@ -1083,4 +1098,4 @@ const deleteUserSkills = async (req, res) => {
     }
 };
 
-export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateRating,updateComment,updateUserExperience,unlikeUser,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,deleteUserEducation,addUserExperience,deleteUserExperience,updateLike}
+export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateRating,updateComment,updateUserExperience,unlikeUser,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,Details,deleteUserEducation,addUserExperience,deleteUserExperience,updateLike}
