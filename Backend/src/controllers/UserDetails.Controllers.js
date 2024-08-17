@@ -3,6 +3,7 @@ import {User} from '../Models/User.Models.js';
 import {AsyncHandler} from '../utils/AsyncHandler.js'
 import {Likes} from '../Models/Likes.Models.js'
 import {Comments} from '../Models/Comments.Models.js';
+import {Projects} from  '../Models/Projects.Models.js';
 import { Rating } from '../Models/Rating.Models.js';
 import mongoose from 'mongoose';
 import { UuidToString } from '../utils/UuidToString.js';
@@ -14,15 +15,25 @@ const Showuserdeatils=AsyncHandler(async(req,res)=>{
     
     
     const userobjectid= new mongoose.Types.ObjectId(hexString);
+    console.log("userid",userid);
     
 
     try{
+        console.log("mongoose.modelNames()  ",mongoose.modelNames());
+
         const user = await User.findById(userid)
         .populate('educations')      // Populates the educations field
         .populate('experiences') // Populates the social media profiles
+        .populate('skills')      
         .populate('awards');         // Populates the awards field
-        if (!user) return res.status(404).send('User not found');
         
+        
+        if (!user) return res.status(404).send('User not found');
+        // console.log("User   " ,user);
+        // const newuser = await User.findById(userid)
+        // .populate('projects')       
+        // .populate('awards'); 
+
         const likes=await Likes.find({likedUserId:userobjectid}).select('likedBy');        
         const comments=await Comments.find({commentonId:userobjectid}).select('commentbyId content');
         const ratings=await Rating.find({RateOnId:userobjectid}).select('RateById score');
