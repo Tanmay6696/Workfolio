@@ -4,7 +4,9 @@ import Profilesection from './Components/Profilesection';
 import AllComponentfile from './AllComponentfile';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import LoginUserProfile from './LoginUserProfile';
 
 function App() {
   const [userdata,setuserdata]=useState([]);
@@ -34,10 +36,15 @@ function App() {
   }, []);
   return (
     <div className="App">
-      
-        <a>{userdata.fullName}</a>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AllComponentfile/>}/>
+        <Route path="/userprofile" element={<LoginUserProfile/>}>
+        </Route>
+      </Routes>
+    </BrowserRouter>
      
-      <AllComponentfile/>
+      
       
     </div>
   );

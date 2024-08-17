@@ -17,7 +17,10 @@ const Showuserdeatils=AsyncHandler(async(req,res)=>{
     
 
     try{
-        const user = await User.findById(userid);
+        const user = await User.findById(userid)
+        .populate('educations')      // Populates the educations field
+        .populate('experiences') // Populates the social media profiles
+        .populate('awards');         // Populates the awards field
         if (!user) return res.status(404).send('User not found');
         
         const likes=await Likes.find({likedUserId:userobjectid}).select('likedBy');        

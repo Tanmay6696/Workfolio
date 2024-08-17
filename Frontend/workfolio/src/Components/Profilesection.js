@@ -17,7 +17,7 @@ const Profilesection = () => {
     <div className='Profilesection'>
         <UserInfo/>
         <Resume/>
-        <SkillsItem/>
+        
         <Skills/>
         <Education/>
         <Experiences/>
