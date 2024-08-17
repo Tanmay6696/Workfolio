@@ -30,7 +30,7 @@ html, body {
 }
 .interactive-card {
   max-width: 90%;
-  margin: 2% auto;
+  margin: 1% 5% auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;

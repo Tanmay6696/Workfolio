@@ -4,3 +4,31 @@
     background-color: rgb(66, 81, 62);
     display: block;
 }
+.main-awards{
+    width: 100%;
+    height: 90%;
+    background-color: #fff11f;
+}
+.awardname{
+    width: 100%;
+    height: 30%;
+    background-color: #4cba85;
+}
+.Awarddetails{
+    width: 100%;
+    height: 70%;
+    background-color: #6791b6;
+}
+.issuedate{
+    display: flex;
+    gap: 20%;
+    width: 100%;
+    height: 30%;
+    flex-wrap: wrap;
+}
+.awardsdescription{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 70%;
+}

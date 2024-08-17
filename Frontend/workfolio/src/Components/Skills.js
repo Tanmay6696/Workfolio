@@ -2,26 +2,29 @@ import React from "react";
 import "../Componentcss/Skills.css";
 import Header from "./Header";
 import SkillsItem from "./SkillsItem";
+import '../Allcomponentfile.css'
+
 const Skills = () => {
   return (
-    <div className="skills">
+    <>
       <Header name="Skills"/>
       
-      
-      <div className="skilldiv">
-        <div className="allskills">
+      <div className="interactive-card">
+        <div className="mainskilldiv">
+      <p>Use the text generator to create your own text! The Lorem Ipsum online text generator creates fictitious, fake, causal, or placeholder text.Use the text generator to create your own text! The Lorem Ipsum online text generator creates fictitious, fake, causal, or placeholder text.Use the text generator to create your own text! The Lorem Ipsum online text generator creates fictitious, fake, causal, or placeholder text.Use the text generator to create your own text! The Lorem Ipsum online text generator creates fictitious, fake, causal, or placeholder text.Use the text generator to create your own text! The Lorem Ipsum online text generator creates fictitious, fake, causal, or placeholder text.</p>
+        <SkillsItem/>
+        {/* <SkillsItem/>
         <SkillsItem/>
         <SkillsItem/>
         <SkillsItem/>
         <SkillsItem/>
         <SkillsItem/>
-        <SkillsItem/>
-        <SkillsItem/>
-        <SkillsItem/>
+        <SkillsItem/> */}
           
         </div>
       </div>
-    </div>
+    
+    </>
   );
 };
 

@@ -1,12 +1,13 @@
 import React from 'react';
 import { FaBriefcase, FaCalendarAlt } from 'react-icons/fa'; // Import icons from react-icons
 import '../Componentcss/Experiencess.css';
+import '../Allcomponentfile.css'
 import Header from './Header.js'
 const Experiences = () => {
   return (
     <>
     <Header name="Experiences"/>
-    <div className='experience-card'>
+    <div className='interactive-card'>
       
       <div className='experience-content'>
         <div className='experience-item'>

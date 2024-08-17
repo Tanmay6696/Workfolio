@@ -3,6 +3,7 @@ import '../Componentcss/Profile.css';
 import UserInfo from './UserInfo';
 import Resume from './Resume';
 import Skills from './Skills';
+import SkillsItem from './SkillsItem';
 import Education from './Education';
 import Experiences from './Experiences';
 import Achievements from './Achievements';
@@ -16,16 +17,16 @@ const Profilesection = () => {
     <div className='Profilesection'>
         <UserInfo/>
         <Resume/>
+        <SkillsItem/>
         <Skills/>
         <Education/>
         <Experiences/>
         <Achievements/>
         <Projects/>
-        <SocialMediaprofile/>
         <Ratings/>
-        <CodingProfiles/>
         <Awards/>
-        
+        <CodingProfiles/>
+        <SocialMediaprofile/>
         
     </div>
   )
