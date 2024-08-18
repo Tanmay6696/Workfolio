@@ -19,7 +19,7 @@ const Projects = () => {
             <div className='detailssection'>
               <div className='dateandbutton'>
               <div className='projectsdetailsofdateandurl'>
-                <date>from to</date>
+                <span>from to</span>
                 
               </div>
               <Butttons classname="btn-outline-warning" buttonname="urg"/>  
