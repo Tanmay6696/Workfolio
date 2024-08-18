@@ -3,7 +3,7 @@ import {User} from '../Models/User.Models.js';
 import {AsyncHandler} from '../utils/AsyncHandler.js'
 import {Likes} from '../Models/Likes.Models.js'
 import {Comments} from '../Models/Comments.Models.js';
-import {Projects} from  '../Models/Projects.Models.js';
+import {Project} from  '../Models/Projects.Models.js';
 import { Rating } from '../Models/Rating.Models.js';
 import mongoose from 'mongoose';
 import { UuidToString } from '../utils/UuidToString.js';
@@ -25,6 +25,7 @@ const Showuserdeatils=AsyncHandler(async(req,res)=>{
         .populate('educations')      // Populates the educations field
         .populate('experiences') // Populates the social media profiles
         .populate('skills')      
+        .populate('projects')
         .populate('awards');         // Populates the awards field
         
         

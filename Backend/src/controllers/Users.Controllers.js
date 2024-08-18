@@ -8,7 +8,7 @@ import {Education} from '../Models/Education.Models.js'
 import {Achivements} from '../Models/Achivements.Models.js'
 import {Tags} from '../Models/Tags.Models.js'
 import {uploadoncloudinary} from '../utils/Cloudinary.js';
-import {Projects} from '../Models/Projects.Models.js';
+import {Project} from '../Models/Projects.Models.js';
 import {SocialMedia} from '../Models/SocialMedia.Models.js';
 import {CodingProfiles} from '../Models/CodingProfile.Models.js';
 import { createDocument } from '../utils/createDocument.js';
@@ -118,7 +118,7 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
     }))
     //projects
     const projectId=await Promise.all(projects.map(async(project)=>{
-        const singleProject=new Projects(project)
+        const singleProject=new Project(project)
         await singleProject.save();
         return singleProject._id;
     }))
@@ -844,7 +844,7 @@ const addUserProject = async (req, res) => {
     const { title, description, url, durationFrom, durationTo } = req.body;
 
     try {
-        const newProject = await createDocument(Projects, {
+        const newProject = await createDocument(Project, {
             title, 
             description, 
             url, 
@@ -908,13 +908,13 @@ const deleteUserProjects = async (req, res) => {
     const {projectId} = req.body;
     try {
         // Check if the project exists
-        const project = await Projects.findById(projectId);
+        const project = await Project.findById(projectId);
         if (!project) {
             return res.status(404).json({ message: 'Project not found' });
         }
 
         // Delete the project
-        const result = await Projects.findByIdAndDelete(projectId);
+        const result = await Project.findByIdAndDelete(projectId);
         if(!result){
             return res.status(500).json({ message: 'Project not deleted' });
         }
