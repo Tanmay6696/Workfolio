@@ -53,7 +53,7 @@ const UserSchema = new Schema(
         likes: [//can update
             {
                 type: Schema.Types.ObjectId,
-                ref: "Like"
+                ref: "Likes"
             }
         ],
         skills: [//can update
@@ -77,7 +77,7 @@ const UserSchema = new Schema(
         achievements: [//can update
             {
                 type: Schema.Types.ObjectId,
-                ref: "Achievement"
+                ref: "Achivements"
             }
         ],
         feeds: [//can update
@@ -89,7 +89,7 @@ const UserSchema = new Schema(
         comments: [//can update
             {
                 type: Schema.Types.ObjectId,
-                ref: "Comment"
+                ref: "Comments"
             }
         ],
         projects: [//can update
@@ -101,7 +101,7 @@ const UserSchema = new Schema(
         socialMediaProfiles: [//can update
             {
                 type: Schema.Types.ObjectId,
-                ref: "SocialMediaProfile"
+                ref: "SocialMedia"
             }
         ],
         ratings: [//can update
@@ -125,7 +125,7 @@ const UserSchema = new Schema(
         codingProfiles: [//can update
             {
                 type: Schema.Types.ObjectId,
-                ref: "CodingProfile"
+                ref: "CodingProfiles"
             }
         ],
         awards:[//can update
