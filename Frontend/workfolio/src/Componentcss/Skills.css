@@ -1,0 +1,38 @@
+.allskills{
+    display: flex;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    /* max-width: 100%; */
+    gap:5%;
+    padding: 2% auto;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius: 6px;
+}
+.skilldiv{
+    /* height: auto; */
+    display: flex;
+    position: absolute;
+    background-color: darkgreen;
+    width: 100%;
+    height: 80%; 
+    /* padding: 1% 4.5% 1% 4.5%; */
+    
+    
+    
+    
+}
+.mainskilldiv{
+    
+    display: flex;
+    background-color: rgb(164, 48, 48);
+    height: 100%;
+    width: 100%;
+    /* max-width: 100%; */
+    gap:5%;
+    padding: 2% auto;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius: 6px;
+}

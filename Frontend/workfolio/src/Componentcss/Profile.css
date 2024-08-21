@@ -1,0 +1,8 @@
+.Profilesection{
+    color: white;
+    width: 60%;
+    height: 100%;
+   
+    overflow-y: auto;
+    background-color: red;
+}

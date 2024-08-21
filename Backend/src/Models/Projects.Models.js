@@ -1,11 +1,7 @@
 import mongoose from "mongoose";
 
 const projectsSchema = new mongoose.Schema({
-  projectId: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    auto: true, 
-    primaryKey: true 
-  },
+
   userId: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User'    
@@ -40,4 +36,4 @@ const projectsSchema = new mongoose.Schema({
   }
 });
 
-export const Projects = mongoose.model("Projects", projectsSchema);
+export const Project = mongoose.model("Project", projectsSchema);

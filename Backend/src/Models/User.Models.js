@@ -1,6 +1,5 @@
 import mongoose, { Schema } from "mongoose";
 // HEAD
-import { LikedBy } from "./LikedBy.Models.js";
 import bcrypt from "bcrypt";// for password
 import jwt from 'jsonwebtoken';
 
@@ -54,19 +53,7 @@ const UserSchema = new Schema(
         likes: [//can update
             {
                 type: Schema.Types.ObjectId,
-                ref: "Like"
-            }
-        ],
-        LikedBy: [//can update
-            {
-                type: Schema.Types.ObjectId,
-                ref: "LikedBy"
-            }
-        ],
-        LikedTo: [//can update
-            {
-                type: Schema.Types.ObjectId,
-                ref: "LikedTo"
+                ref: "Likes"
             }
         ],
         skills: [//can update
@@ -75,16 +62,22 @@ const UserSchema = new Schema(
                 ref: "Skill"
             }
         ],
+        educations: [//can update
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Education"
+            }
+        ],
         experiences: [//can update
             {
                 type: Schema.Types.ObjectId,
-                ref: "Experiance"
+                ref: "Experience"
             }
         ],
         achievements: [//can update
             {
                 type: Schema.Types.ObjectId,
-                ref: "Achievement"
+                ref: "Achivements"
             }
         ],
         feeds: [//can update
@@ -96,7 +89,7 @@ const UserSchema = new Schema(
         comments: [//can update
             {
                 type: Schema.Types.ObjectId,
-                ref: "Comment"
+                ref: "Comments"
             }
         ],
         projects: [//can update
@@ -108,7 +101,7 @@ const UserSchema = new Schema(
         socialMediaProfiles: [//can update
             {
                 type: Schema.Types.ObjectId,
-                ref: "SocialMediaProfile"
+                ref: "SocialMedia"
             }
         ],
         ratings: [//can update
@@ -132,7 +125,7 @@ const UserSchema = new Schema(
         codingProfiles: [//can update
             {
                 type: Schema.Types.ObjectId,
-                ref: "CodingProfile"
+                ref: "CodingProfiles"
             }
         ],
         awards:[//can update
@@ -159,10 +152,10 @@ UserSchema.methods.isPasswordCorrect=async function(password){
 UserSchema.methods.generateAccessToken=function() {
     return jwt.sign(
         {
-            _id:this.id,
+            _id:this._id,
             email:this.email,
             username:this.username,
-            fullname:this.fullname,
+            fullName:this.fullName,
         },
         process.env.ACCESS_TOKEN_SECRET,
         {
@@ -173,7 +166,7 @@ UserSchema.methods.generateAccessToken=function() {
 UserSchema.methods.generateRefreshToken=function() {
     return jwt.sign(
         {
-            _id:this.id
+            _id:this._id
         },
         process.env.REFRESH_TOKRN_SECRET,
         {

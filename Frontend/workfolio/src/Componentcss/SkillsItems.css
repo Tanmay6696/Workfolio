@@ -1,0 +1,152 @@
+.SkillsItemdiv{
+    width:20%;
+    height: 25%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    border-radius: 60px;
+    border: 1px solid #240e6d;
+}
+.SkillsItemdiv2{
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    background-color: #fff123;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.SkillsItemdiv span{
+    color: blue;
+    position: absolute;
+    text-align: center;
+    padding: 6px 14px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    
+    text-transform: uppercase;
+}
+
+@media (max-width:600px) {
+    .SkillsItemdiv span{
+        color: blue;
+        position: absolute;
+        text-align: center;
+        padding: 6px 14px;
+        font-size: 0.3rem;
+        font-weight: bold;
+        
+        text-transform: uppercase;
+    }
+}
+@media (max-width:1250px) {
+    .SkillsItemdiv span{
+        color: blue;
+        position: absolute;
+        text-align: center;
+        padding: 6px 14px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        
+        text-transform: uppercase;
+    }
+}
+@media (max-width:1160px) {
+    .SkillsItemdiv span{
+        color: blue;
+        position: absolute;
+        text-align: center;
+        padding: 6px 14px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        
+        text-transform: uppercase;
+    }
+}
+@media (max-width:1050px) {
+    .SkillsItemdiv span{
+        color: blue;
+        position: absolute;
+        text-align: center;
+        padding: 6px 14px;
+        font-size: 1rem;
+        font-weight: bold;
+        
+        text-transform: uppercase;
+    }
+}
+@media (max-width:900px) {
+    .SkillsItemdiv span{
+        color: blue;
+        position: absolute;
+        text-align: center;
+        padding: 6px 14px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        
+        text-transform: uppercase;
+    }
+}
+@media (max-width:790px) {
+    .SkillsItemdiv span{
+        color: blue;
+        position: absolute;
+        text-align: center;
+        padding: 6px 14px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        
+        text-transform: uppercase;
+    }
+}
+@media (max-width:700px) {
+    .SkillsItemdiv span{
+        color: blue;
+        position: absolute;
+        text-align: center;
+        padding: 6px 14px;
+        font-size: 0.7rem;
+        font-weight: bold;
+        
+        text-transform: uppercase;
+    }
+}
+@media (max-width:650px) {
+    .SkillsItemdiv span{
+        color: blue;
+        position: absolute;
+        text-align: center;
+        padding: 6px 14px;
+        font-size: 0.6rem;
+        font-weight: bold;
+        
+        text-transform: uppercase;
+    }
+}
+@media (max-width:550px) {
+    .SkillsItemdiv span{
+        color: blue;
+        position: absolute;
+        text-align: center;
+        padding: 6px 14px;
+        font-size: 0.5rem;
+        font-weight: bold;
+        
+        text-transform: uppercase;
+    }
+}
+@media (max-width:390px) {
+    .SkillsItemdiv span{
+        color: blue;
+        position: absolute;
+        text-align: center;
+        padding: 6px 14px;
+        font-size: 0.4rem;
+        font-weight: bold;
+        
+        text-transform: uppercase;
+    }
+}

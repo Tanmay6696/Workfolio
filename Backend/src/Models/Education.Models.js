@@ -1,9 +1,5 @@
 import mongoose ,{Schema} from "mongoose";
 const educationSchema = mongoose.Schema({
-    educationId: {
-        type: String,
-        
-    },
     UserId:{
         type:Schema.Types.ObjectId,
         ref:"User"
