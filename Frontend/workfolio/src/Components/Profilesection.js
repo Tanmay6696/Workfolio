@@ -39,8 +39,10 @@ const Profilesection = () => {
 
         <Awards/>
         <Header name="CodingProfiles"/>
-
+        <div className='interactive-card'>
         <CodingProfiles/>
+
+        </div>
         <Header name="SocialMediaprofile"/>
 
         <SocialMediaprofile/>

@@ -7,7 +7,6 @@ import Header from './Header'
 const SocialMediaprofile = () => {
   return (
     <div className="SocialMediaprofile">
-      <Header name="SocialMediaprofile" />
       <div className="interactive-card">
         <div class="social-media">
           <a

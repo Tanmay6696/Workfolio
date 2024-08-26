@@ -1,25 +1,21 @@
 import React from 'react'
 import '../Componentcss/Resumes.css';
 import Buttons from './Buttons';
+import '../Allcomponentfile.css'
+
 import Header from './Header.js';
 const Resume = () => {
   return (
     <>
-      <Header name="Resume"/>
-      <Buttons buttonname="Download" />
-      <div className='Resume'>
-        {/* <div className='ResumeIntro'>
-          <span>Resume of Tanmay Dahale</span>
-          
-        </div> */}
-        <div className='ResumedownloadSection'>
+      <div className="interactive-card" >
           <div className='ResumeDownload'>
             <Buttons buttonname="View Resume" />
           </div>
 
 
-        </div>
+       
       </div>
+        
     </>
   )
 }
