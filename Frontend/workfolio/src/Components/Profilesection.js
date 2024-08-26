@@ -11,6 +11,7 @@ import Projects from './Projects';
 import SocialMediaprofile from './SocialMediaprofile';
 import Ratings from './Ratings';
 import CodingProfiles from './CodingProfiles';
+import Header from './Header';
 import Awards from './Awards';
 const Profilesection = () => {
   return (
@@ -19,9 +20,12 @@ const Profilesection = () => {
         <Resume/>
         
         <Skills/>
+        <Header name="Education"/>
         <Education/>
+        <Header name="Experiences"/>
         <Experiences/>
         <Achievements/>
+        <Header name="Projects" />
         <Projects/>
         <Ratings/>
         <Awards/>

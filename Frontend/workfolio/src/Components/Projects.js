@@ -3,36 +3,32 @@ import '../Componentcss/Projectss.css'
 import Header from './Header'
 import '../Allcomponentfile.css';
 import Butttons from './Buttons.js';
-const Projects = () => {
+const Projects = ({projectTitle,projecturl,projectDescription,projectFrom,projectTo}) => {
   return (
     <>
-      <Header name="Projects"/>
       <div className='interactive-card'>
-      <div className='item'>
+        <div className='item'>
           <div className='name'>
-            <span>Title</span>
+            <span>{projectTitle?projectTitle:""}</span>
           </div>
           <div className='details'>
             <div className='detailsname'>
-              <span>descriptionhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription</span>
+              <span>{projectDescription?projectDescription:""}</span>
             </div>
             <div className='detailssection'>
               <div className='dateandbutton'>
-              <div className='projectsdetailsofdateandurl'>
-                <span>from to</span>
-                
-              </div>
-              <Butttons classname="btn-outline-warning" buttonname="urg"/>  
-              </div>
-              
-            </div>
-            
+                <div className='projectsdetailsofdateandurl'>
+                  <span>{`${projectFrom?projectFrom:""} to ${projectTo?projectTo:""}`}</span>
+                  <span>{projecturl?projecturl:''}</span>
+                </div>
 
+                <Butttons className="btn-outline-warning" buttonname="View More" />  
+              </div>
+            </div>
           </div>
-          
         </div>
       </div>
-      </>
+    </>
   )
 }
 

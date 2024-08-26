@@ -5,24 +5,24 @@ import Header from './Header.js'
 import '../Allcomponentfile.css'
 
 
-const Education = () => {
+const Education = ({Education,CourseDetails,courseDuration,CourseDetailsspecialization}) => {
   return (
     <>
     
-      <Header name="Education" />
       <div className='interactive-card'>
         <div className='Education-content'>
           <div className='EducationDetails'>
             <div className='clgname'>
               <FaSchool className='icon'/>
-              <span>College Name</span>
+              <span>{Education?Education:"College Name"}</span>
             </div>
             <div className='Coursedetails'>
               <div className='CourseName'>
-                <span> Bachelor of Engineering - BE </span>
+                <span>{CourseDetails?CourseDetails:"BE"}</span>
               </div>
               <div className='CourseSpecializationname'>
-                <span> Electrical, Electronics and Communications Engineering</span>
+                <span> {CourseDetailsspecialization?CourseDetailsspecialization:"Electrical, Electronics and Communications Engineering"}</span>
+                <span> {courseDuration?courseDuration:"2018 -2022"}</span>
               </div>
             </div>
           </div>
