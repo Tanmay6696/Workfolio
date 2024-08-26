@@ -8,11 +8,18 @@ import Header from './Header'
 
 const CodingProfiles = () => {
   return (
-    <div className='CodingProfiles'>
-      <Header name="CodingProfiles"/>
-      <div className="interactive-card">
+    < >
         <div class="social-media">
-          <a
+        <a
+            href="https://www.facebook.com/yourprofile"
+            target="_blank"
+            class="social-icon leetcode"
+          >
+            <i class="fab fa-facebook-f">
+              <SiLeetcode />
+            </i>
+          </a>
+          {/* <a
             href="https://www.facebook.com/yourprofile"
             target="_blank"
             class="social-icon leetcode"
@@ -47,10 +54,9 @@ const CodingProfiles = () => {
             <i class="fab fa-instagram">
               <FaInstagram />
             </i>
-          </a>
+          </a> */}
         </div>
-      </div>
-    </div>
+    </>
   )
 }
 

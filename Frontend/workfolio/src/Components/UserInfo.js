@@ -1,12 +1,12 @@
 import React from 'react';
 import { FaRegUserCircle } from "react-icons/fa";
 import '../Componentcss/UserInfo.css';
-const UserInfo = ({name,photo,position ,summary}) => {
+const UserInfo = ({name,photo,position ,summary,Width}) => {
   return (
     <div className="UserInfo">
       <div className="UserPhoto">
         <div className="Userphotos">
-          <img src={photo?photo:''} className="Userphotoimg"/>
+          <img src={photo?photo:''} style={{width:Width?Width:''}} className="Userphotoimg"/>
           
         </div>
       </div>

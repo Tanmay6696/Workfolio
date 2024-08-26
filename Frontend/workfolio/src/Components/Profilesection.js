@@ -17,19 +17,32 @@ const Profilesection = () => {
   return (
     <div className='Profilesection'>
         <UserInfo/>
+        <Header name="Resume"/>
+
         <Resume/>
-        
+        <Header name="Skills"/>
+
         <Skills/>
         <Header name="Education"/>
         <Education/>
         <Header name="Experiences"/>
         <Experiences/>
+        <Header name="Achievements" />
+
         <Achievements/>
         <Header name="Projects" />
         <Projects/>
+        <Header name="Ratings"/>
+
         <Ratings/>
+        <Header name="Awards"/>
+
         <Awards/>
+        <Header name="CodingProfiles"/>
+
         <CodingProfiles/>
+        <Header name="SocialMediaprofile"/>
+
         <SocialMediaprofile/>
         
     </div>

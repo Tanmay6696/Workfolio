@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { setUserdata } from './Store/UserDataSlice.js';
 import { useSelector, useDispatch } from 'react-redux'
+import './Allcomponentfile.css';
 import UserInfo from './Components/UserInfo.js';
 import Buttons from './Components/Buttons';
 import Experiences from './Components/Experiences.js';
@@ -9,6 +10,9 @@ import Header from './Components/Header.js';
 import Education from './Components/Education.js';
 import Projects from './Components/Projects.js';
 import Awards from './Components/Awards.js';
+import Achievements from './Components/Achievements.js';
+import CodingProfiles from './Components/CodingProfiles.js';
+import Ratings from './Components/Ratings.js';
 const LoginUserProfile = () => {
   const dispatch = useDispatch();
   //const [userdata, setUsersdata] = useState(null); // Initialize as null to handle loading state
@@ -71,30 +75,16 @@ const LoginUserProfile = () => {
         summary={userdata.summary}
         photo={userdata.profilePicture}
         email={userdata.email}
-      
+        Width={250}
+        Backgroundcolor={'white'}
       />
-      <p>
-        <strong>Email:</strong> 
-        {userdata.email}
-        <Buttons buttonname="Edit" onClick={HandleEditemail} />
-        {isEmailEditable===true?<><input 
-          className="inputforemail" 
-          disabled={!isEmailEditable} // Control the disabled property based on state
-          
-          onChange={e => setemail( e.target.value )} // Update the email value
-        /><Buttons 
-        disabled={!isEmailEditable}
-        buttonname="Save" onClick={HandleSaveemail}
-      /></>:''}
-        
-        
-      </p>
-      <p><strong>Summary:</strong> {userdata.summary}</p><Buttons buttonname="Edit" />
-      <img src={userdata.profilePicture} alt="Profile" style={{ width: '150px', borderRadius: '50%' }} /><Buttons buttonname="Edit" />
+      
+      
+     
 
       <div>
-      <Header name="Education"/>
-        <h2>Skills</h2>
+      <Header name="Skills"/>
+        
         <ul>
           {userdata.skills && userdata.skills.length > 0 ? (
             userdata.skills.map((skill) => (
@@ -105,25 +95,36 @@ const LoginUserProfile = () => {
           )}
         </ul>
       </div>
+      <div>
+      <Header name="Achievements"/>
+      
+        
+<ul>
+        {userdata.achievements && userdata.achievements.length > 0 ? (
+          userdata.achievements.map((achievement) => (
+            <Achievements
+              key={achievement._id} // Unique key for each element
+              title={achievement.title}
+              description={achievement.description}
+              date_awarded={achievement.date_awarded}
+              category={achievement.category}
+              issuer={achievement.issuer}
+              certificate_url={achievement.certificate_url}
+              level={achievement.level}
+            />
+          ))
+        ) : (
+          <p>No achievements available</p>
+        )}
+      </ul>
+      </div>
 
-      <video controls width="50%" height="50%">
+      <video style={{marginLeft:'20%',marginRight:'20%'}} controls width="50%" height="50%">
         <source src={userdata.introVideo} type="video/mp4" />
         Sorry, your browser doesn't support embedded videos.
       </video>
 
-      <div>
-      <Header name="Education"/>
-        <h2>achievements</h2>
-        <ul>
-          {userdata.achievements && userdata.achievements.length > 0 ? (
-            userdata.achievements.map((achievement) => (
-              <li key={achievement._id}>{achievement.title} - {achievement.category}</li>
-            ))
-          ) : (
-            <p>No skills available</p>
-          )}
-        </ul>
-      </div>
+      
           
       <div>
       <Header name="Education"/>
@@ -214,7 +215,7 @@ const LoginUserProfile = () => {
         <ul>
           {userdata.ratings && userdata.ratings.length > 0 ? (
             userdata.ratings.map((rating) => (
-              <li key={rating._id}>Score: {rating.score}</li>
+              <Ratings Ratingscore={rating.score} />
             ))
           ) : (
             <p>No ratings available</p>
@@ -232,6 +233,22 @@ const LoginUserProfile = () => {
           ) : (
             <p>No comments available</p>
           )}
+        </ul>
+      </div>
+      <div>
+      <Header name="CodingProfiles"/>
+        <ul>
+        <div className='interactive-card'>
+
+          {userdata.codingProfiles && userdata.codingProfiles.length > 0 ? (
+            userdata.codingProfiles.map((comment) => (
+              <CodingProfiles />
+              
+            ))
+          ) : (
+            <p>No comments available</p>
+          )}
+          </div>
         </ul>
       </div>
     </div>

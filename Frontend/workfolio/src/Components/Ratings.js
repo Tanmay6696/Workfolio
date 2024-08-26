@@ -1,10 +1,11 @@
 import React from 'react'
 import '../Componentcss/Ratingss.css'
 import Header from './Header'
-const Ratings = () => {
+const Ratings = ({Ratingscore}) => {
   return (
     <div className='Rating'>
-      <Header name="Rating"/>
+      
+      <span>{Ratingscore?Ratingscore:''}</span>
     </div>
   )
 }
