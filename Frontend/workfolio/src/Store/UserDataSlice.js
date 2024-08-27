@@ -10,7 +10,7 @@ const UserDataSlice = createSlice({
             console.log("hi");
             
             state.userdata=action.payload;
-        }
+        },
     }
 })
 export const {setUserdata}=UserDataSlice.actions;

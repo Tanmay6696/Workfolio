@@ -21,7 +21,7 @@ const LoginUserProfile = () => {
   console.log("initialState", useSelector(state => state.userdata));
 
   const { userdata } = useSelector(state => state.userdata);
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI5MTcwNmMxNC02NWI5LTQ0ZDYtOThjYy04ZWYyZWVlOTRjOTYiLCJlbWFpbCI6ImphbmVkb2VAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImphbmVkb2UiLCJmdWxsTmFtZSI6IkphbmUgRG9lIiwiaWF0IjoxNzI0Njg5NTkxLCJleHAiOjE3MjQ3NzU5OTF9.IOnBkuRv53HJQSmTcBxJfaMkjlCB8BAGN-KN6J40zhc"; // Replace this with your actual token
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI5MTcwNmMxNC02NWI5LTQ0ZDYtOThjYy04ZWYyZWVlOTRjOTYiLCJlbWFpbCI6ImphbmVkb2VAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImphbmVkb2UiLCJmdWxsTmFtZSI6IkphbmUgRG9lIiwiaWF0IjoxNzI0NzgwNTY4LCJleHAiOjE3MjQ4NjY5Njh9.6B9WCAvdYhvKBYCDvN4GSAqx1u2k9Eoj07Df5f6niZ8"; // Replace this with your actual token
 
   // Function to fetch user data
   const getdata = async () => {
