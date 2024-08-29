@@ -16,25 +16,12 @@ import axios from 'axios';
 
 import Awards from './Awards';
 
-const Profilesection = () => {
-  const [allUsersdata,setallUsersdata]=useState([]);
-  const getallusers=async()=>{
-    try {
-
-      const response = await axios.get('http://localhost:3000/api/v1/getotherUserdetails');
-      console.log("good", response.data);
-      // Set the fetched data to the state
-      setallUsersdata(response.data);
-
-    } catch (e) {
-      console.log("Error fetching user data:", e);
-    }
-  }
-  useEffect(()=>{getallusers()},[])
+const Profilesection = ({user}) => {
+  console.log("user ",user);
+  
   return (
     <div className='Profilesection'> 
-      {allUsersdata.map((user, index) => (
-        <div  key={index}>
+        <div >
           <h1>{user.username}</h1>
           <UserInfo user={user}/>
           <Header name="Resume" />
@@ -60,7 +47,6 @@ const Profilesection = () => {
           <Header name="SocialMediaprofile" />
           <SocialMediaprofile user={user}/>
         </div>
-      ))}
     </div>
 
     

@@ -9,8 +9,12 @@ import { fetchusersdata } from './Store/UserDataSlice';
 
 const AllComponentfile = () => {
   const dispatch=useDispatch();
-  const allusersdata=useSelector((state)=> state.UserData.allusersdata );
-  const userstatus=useSelector((state)=>state.UserData.status);
+  const allusersdata=useSelector(
+    (state)=>state.userdata.allusersdata);
+  const userstatus=useSelector((state)=>state.userdata.status);
+  console.log("allusersdata ",allusersdata);
+  console.log("userstatus ",userstatus);
+  
   useEffect(()=>{
     if(userstatus=='idle'){
       console.log("hi0");

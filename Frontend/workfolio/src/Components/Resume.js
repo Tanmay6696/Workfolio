@@ -4,7 +4,7 @@ import Buttons from './Buttons';
 import '../Allcomponentfile.css'
 
 import Header from './Header.js';
-const Resume = () => {
+const Resume = ({user}) => {
   return (
     <>
       <div className="interactive-card" >

@@ -1,11 +1,15 @@
 import React from 'react'
 import '../Componentcss/Videosection.css';
 
-const Video = () => {
+const Video = ({user}) => {
   return (
     <div className='Videosection'>
-        Video
-        s</div>
+      <video controls width="100%" height="100%">
+      <source src={user.introVideo} type="video/webm" />
+      
+      Sorry, your browser doesn't support videos.
+    </video>
+        </div>
   )
 }
 

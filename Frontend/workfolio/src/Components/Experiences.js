@@ -3,39 +3,36 @@ import { FaBriefcase, FaCalendarAlt } from 'react-icons/fa'; // Import icons fro
 import '../Componentcss/Experiencess.css';
 import '../Allcomponentfile.css'
 import Header from './Header.js'
-const Experiences = ({CompanyName,CompanyRole,fromDate,Todate}) => {
+const Experiences = ({user}) => {
+  
+  let User=user.experiences;
+  
+
   return (
     <>
-    
     <div className='interactive-card'>
       
       <div className='experience-content'>
-        <div className='experience-item'>
+    {User.map((experience,index)=>(       
+      
+        <div className='experience-item' key={index}>
           <div className='experience-company'>
             <FaBriefcase className='icon' />
-            <span>{CompanyName?CompanyName:"Cognizant"}</span>
+            <span>{experience.companyName?experience.companyName:"Cognizant"}</span>
           </div>
           <div className='experience-details'>
             <div className='experience-title'>
-              <span>{CompanyRole?CompanyRole:"Programmer Anlayst"}</span>
+              <span>{experience.role?experience.role:"Programmer Anlayst"}</span>
             </div>
             <div className='experience-duration'>
               <FaCalendarAlt className='icon' />
-              <span>{fromDate?fromDate:"2018"} - {Todate?Todate:"currentd"}</span>
+              <span>{experience.DurationFrom?experience.DurationFrom:"2018"} - {experience.DurationTo?experience.DurationTo:"current"}</span>
             </div>
-          </div>
-          <div className='experience-details'>
-            <div className='experience-title'>
-              <span>Programmer Anlayst</span>
-            </div>
-            <div className='experience-duration'>
-              <FaCalendarAlt className='icon' />
-              <span>2018 - current</span>
-            </div>
-          </div>
-          
+          </div>          
         </div>
-      </div>
+      
+    ))}
+    </div>
     </div>
     </>
   );

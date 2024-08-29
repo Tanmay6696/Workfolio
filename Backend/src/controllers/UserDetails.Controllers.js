@@ -113,7 +113,15 @@ const isCurrentUserLikebyme=AsyncHandler(async(req,res)=>{
 })
 const GetOtherUserDetails=AsyncHandler(async(req,res)=>{
     try{
-        const users=await User.find().limit(5);
+        const users=await User.find().limit(5)
+        .populate('educations')      // Populates the educations field
+        .populate('experiences') // Populates the social media profiles
+        .populate('achievements')
+        .populate('skills')      
+        .populate('projects')
+        .populate('socialMediaProfiles')
+        .populate('codingProfiles')
+        .populate('awards');         // Populates the awards field;
         res.status(200).json(users);
     }
     catch(error){

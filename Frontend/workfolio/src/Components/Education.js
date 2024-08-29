@@ -5,27 +5,31 @@ import Header from './Header.js'
 import '../Allcomponentfile.css'
 
 
-const Education = ({Education,CourseDetails,courseDuration,CourseDetailsspecialization}) => {
+const Education = ({user}) => {
+  let User=user.educations;
+
   return (
     <>
     
       <div className='interactive-card'>
         <div className='Education-content'>
-          <div className='EducationDetails'>
+        {User.map((education,index)=>( 
+          <div className='EducationDetails' key={index}>
             <div className='clgname'>
               <FaSchool className='icon'/>
-              <span>{Education?Education:"College Name"}</span>
+              <span>{education.instituteName?education.instituteName:"College Name"}</span>
             </div>
             <div className='Coursedetails'>
               <div className='CourseName'>
-                <span>{CourseDetails?CourseDetails:"BE"}</span>
+                <span>{education.CourseDetails?education.CourseDetails:"BE"}</span>
               </div>
               <div className='CourseSpecializationname'>
-                <span> {CourseDetailsspecialization?CourseDetailsspecialization:"Electrical, Electronics and Communications Engineering"}</span>
-                <span> {courseDuration?courseDuration:"2018 -2022"}</span>
+                <span> {education.specialization?education.specialization:"Electrical, Electronics and Communications Engineering"}</span>
+                <span> {education.courseDuration?education.courseDuration:"2018 -2022"}</span>
               </div>
             </div>
           </div>
+          ))}
         </div>
       </div>
    
