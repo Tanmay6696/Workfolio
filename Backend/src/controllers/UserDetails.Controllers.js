@@ -121,7 +121,8 @@ const GetOtherUserDetails=AsyncHandler(async(req,res)=>{
         .populate('projects')
         .populate('socialMediaProfiles')
         .populate('codingProfiles')
-        .populate('awards');         // Populates the awards field;
+        .populate('awards')
+        .populate('ratings');         // Populates the awards field;
         res.status(200).json(users);
     }
     catch(error){

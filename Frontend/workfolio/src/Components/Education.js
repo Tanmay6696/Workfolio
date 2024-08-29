@@ -7,6 +7,7 @@ import '../Allcomponentfile.css'
 
 const Education = ({user}) => {
   let User=user.educations;
+  const options={year:'numeric',month:'long',day:'numeric'};
 
   return (
     <>
@@ -25,7 +26,7 @@ const Education = ({user}) => {
               </div>
               <div className='CourseSpecializationname'>
                 <span> {education.specialization?education.specialization:"Electrical, Electronics and Communications Engineering"}</span>
-                <span> {education.courseDuration?education.courseDuration:"2018 -2022"}</span>
+                <span> {education.courseDuration?new Date(education.courseDuration).toLocaleDateString(undefined,options):"2018 -2022"}</span>
               </div>
             </div>
           </div>

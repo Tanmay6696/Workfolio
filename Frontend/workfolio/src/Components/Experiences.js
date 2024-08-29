@@ -6,7 +6,8 @@ import Header from './Header.js'
 const Experiences = ({user}) => {
   
   let User=user.experiences;
-  
+  const options={year:'numeric',month:'long',day:'numeric'};
+
 
   return (
     <>
@@ -26,7 +27,7 @@ const Experiences = ({user}) => {
             </div>
             <div className='experience-duration'>
               <FaCalendarAlt className='icon' />
-              <span>{experience.DurationFrom?experience.DurationFrom:"2018"} - {experience.DurationTo?experience.DurationTo:"current"}</span>
+              <span>{experience.DurationFrom?new Date(experience.DurationFrom).toLocaleDateString(undefined,options) :"2018"} - {experience.DurationTo?new Date(experience.DurationTo).toLocaleDateString(undefined,options) :"current"}</span>
             </div>
           </div>          
         </div>

@@ -7,18 +7,24 @@
 .main-awards{
     width: 100%;
     height: 90%;
-    background-color: #fff11f;
 }
 .awardname{
-    width: 100%;
-    height: 30%;
-    background-color: #4cba85;
+    padding: 1%;
+
+    
+}
+.awardname span{
+    color: black;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 .Awarddetails{
     width: 100%;
     height: 70%;
-    background-color: #6791b6;
+    color: black;
+
 }
+
 .issuedate{
     display: flex;
     gap: 20%;
@@ -26,7 +32,15 @@
     height: 30%;
     flex-wrap: wrap;
 }
+.issuedate span{
+    font-size: 1rem;
+    font-weight: normal;
+    color: #666;
+}
 .awardsdescription{
+    font-size: 1rem;
+    font-weight: normal;
+    color: #666;
     display: flex;
     flex-wrap: wrap;
     width: 100%;

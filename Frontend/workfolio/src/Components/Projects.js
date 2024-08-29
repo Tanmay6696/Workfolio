@@ -3,30 +3,39 @@ import '../Componentcss/Projectss.css'
 import Header from './Header'
 import '../Allcomponentfile.css';
 import Butttons from './Buttons.js';
-const Projects = ({projectTitle,projecturl,projectDescription,projectFrom,projectTo}) => {
+const Projects = ({user}) => {
+  let User=user.projects;
+  console.log("hi from projects" ,User);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+  
   return (
     <>
       <div className='interactive-card'>
-        <div className='item'>
-          <div className='name'>
-            <span>{projectTitle?projectTitle:""}</span>
+      {User.map((project,index)=>(
+        <div className='item' key={index}>
+          
+        <div className='name'>
+          <span>{project.title?project.title:""}</span>
+        </div>
+        <div className='details'>
+          <div className='detailsname'>
+            <span>{project.description?project.description:""}</span>
           </div>
-          <div className='details'>
-            <div className='detailsname'>
-              <span>{projectDescription?projectDescription:""}</span>
-            </div>
-            <div className='detailssection'>
-              <div className='dateandbutton'>
-                <div className='projectsdetailsofdateandurl'>
-                  <span>{`${projectFrom?projectFrom:""} to ${projectTo?projectTo:""}`}</span>
-                  <span>{projecturl?projecturl:''}</span>
-                </div>
-
-                <Butttons className="btn-outline-warning" buttonname="View More" />  
+          <div className='detailssection'>
+            <div className='dateandbutton'>
+              <div className='projectsdetailsofdateandurl'>
+                <span>{`${project.durationFrom?new Date(project.durationFrom).toLocaleDateString(undefined,options):""} to ${project.durationTo?new Date(project.durationTo).toLocaleDateString(undefined,options):""}`}</span>
+                {/* <span>{project.url?project.url:''}</span> */}
               </div>
+
+              <Butttons className="btn-outline-warning" src={project.url?project.url:''} buttonname="View More" />  
             </div>
           </div>
         </div>
+      </div>
+      ))}
+        
       </div>
     </>
   )
