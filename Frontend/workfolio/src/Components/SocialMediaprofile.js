@@ -37,7 +37,7 @@ const SocialMediaprofile = () => {
             </i>
           </a>
           <a
-            href="https://www.instagram.com/yourprofile"
+            href="https://www.instagram.com/mayurjadhav41739"
             target="_blank"
             class="social-icon instagram"
           >
