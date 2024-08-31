@@ -14,7 +14,8 @@ const Education = ({user}) => {
     
       <div className='interactive-card'>
         <div className='Education-content'>
-        {User.map((education,index)=>( 
+        {User!=undefined?
+        User.map((education,index)=>( 
           <div className='EducationDetails' key={index}>
             <div className='clgname'>
               <FaSchool className='icon'/>
@@ -30,7 +31,7 @@ const Education = ({user}) => {
               </div>
             </div>
           </div>
-          ))}
+          )):<></>}
         </div>
       </div>
    

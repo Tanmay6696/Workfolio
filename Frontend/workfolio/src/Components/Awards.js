@@ -9,7 +9,7 @@ const Awards = ({user,awardName, issuingOrganization, issueDate, awardDescriptio
     <>
       <div className='interactive-card'>
         <div className='main-awards'>
-          {User.map((award,index)=>(
+          {User!=undefined ?User.map((award,index)=>(
             <div className='AwardDetails' key={index}>
             <div className='awardname'>
               <span>{award.awardName ? award.awardName :"Award Name"}</span>
@@ -24,7 +24,7 @@ const Awards = ({user,awardName, issuingOrganization, issueDate, awardDescriptio
               </div>
             </div>
           </div>
-          ))}
+          )):<></>}
           
         </div>
       </div>

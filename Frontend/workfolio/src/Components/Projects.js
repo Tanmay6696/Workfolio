@@ -12,7 +12,8 @@ const Projects = ({user}) => {
   return (
     <>
       <div className='interactive-card'>
-      {User.map((project,index)=>(
+      {User!=undefined ?
+      User.map((project,index)=>(
         <div className='item' key={index}>
           
         <div className='name'>
@@ -34,7 +35,7 @@ const Projects = ({user}) => {
           </div>
         </div>
       </div>
-      ))}
+      )):<></>}
         
       </div>
     </>

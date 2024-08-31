@@ -14,7 +14,8 @@ const Experiences = ({user}) => {
     <div className='interactive-card'>
       
       <div className='experience-content'>
-    {User.map((experience,index)=>(       
+    {User!=undefined ?
+    User.map((experience,index)=>(       
       
         <div className='experience-item' key={index}>
           <div className='experience-company'>
@@ -32,7 +33,7 @@ const Experiences = ({user}) => {
           </div>          
         </div>
       
-    ))}
+    )):<></>}
     </div>
     </div>
     </>

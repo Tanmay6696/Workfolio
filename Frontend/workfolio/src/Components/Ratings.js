@@ -6,7 +6,7 @@ const Ratings = ({user}) => {
 
   return (
     <div className='Rating'>
-      {User.map((rate,index)=>(<span>{rate.score?rate.score:''}</span>))}
+      {User!=undefined ?User.map((rate,index)=>(<span key={index}>{rate.score?rate.score:''}</span>)):<></>}
       
     </div>
   )

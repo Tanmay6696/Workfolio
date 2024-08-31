@@ -22,7 +22,7 @@ const Profilesection = ({user}) => {
   return (
     <div className='Profilesection'> 
         <div >
-          <h1>{user.username}</h1>
+          
           <UserInfo user={user}/>
           <Header name="Resume" />
           <Resume user={user}/>

@@ -13,15 +13,18 @@ import Awards from './Components/Awards.js';
 import Achievements from './Components/Achievements.js';
 import CodingProfiles from './Components/CodingProfiles.js';
 import Ratings from './Components/Ratings.js';
+import Resume from './Components/Resume.js';
+import Skills from './Components/Skills.js';
+import SocialMediaprofile from './Components/SocialMediaprofile.js';
 const LoginUserProfile = () => {
   const dispatch = useDispatch();
   //const [userdata, setUsersdata] = useState(null); // Initialize as null to handle loading state
   const [isEmailEditable,setisEmailEditable]=useState(false);
   const [newemail,setemail]=useState('tanmay1@gmail.com');
-  console.log("initialState", useSelector(state => state.userdata));
+  console.log("initialState", useSelector((state) => state.userdata));
 
   const { userdata } = useSelector(state => state.userdata);
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI5MTcwNmMxNC02NWI5LTQ0ZDYtOThjYy04ZWYyZWVlOTRjOTYiLCJlbWFpbCI6ImphbmVkb2VAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImphbmVkb2UiLCJmdWxsTmFtZSI6IkphbmUgRG9lIiwiaWF0IjoxNzI0OTQ4ODM4LCJleHAiOjE3MjUwMzUyMzh9.SQ7pyMm7a9B6WpcZ3AKV13YLQFFQc5fUKso4FrnkJdA"; // Replace this with your actual token
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI5MTcwNmMxNC02NWI5LTQ0ZDYtOThjYy04ZWYyZWVlOTRjOTYiLCJlbWFpbCI6ImphbmVkb2VAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImphbmVkb2UiLCJmdWxsTmFtZSI6IkphbmUgRG9lIiwiaWF0IjoxNzI1MTEwMTI1LCJleHAiOjE3MjUxOTY1MjV9.8X-nSLTfSQBRNarUB4t53Qm7byp9dWgA13mjEMqnYTY"; // Replace this with your actual token
 
   // Function to fetch user data
   const getdata = async () => {
@@ -35,6 +38,8 @@ const LoginUserProfile = () => {
       console.log("good", response.data);
       // Set the fetched data to the state
       dispatch(setUserdata(response.data));
+      console.log("userdata ",userdata);
+      
 
     } catch (e) {
       console.log("Error fetching user data:", e);
@@ -67,191 +72,220 @@ const LoginUserProfile = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div>
+//     <div>
       
-      <UserInfo 
-        name={userdata.fullName} 
-        position={userdata.fullName}
-        summary={userdata.summary}
-        photo={userdata.profilePicture}
-        email={userdata.email}
-        Width={250}
-        Backgroundcolor={'white'}
-      />
+//       <UserInfo 
+//         name={userdata.fullName} 
+//         position={userdata.fullName}
+//         summary={userdata.summary}
+//         photo={userdata.profilePicture}
+//         email={userdata.email}
+//         Width={250}
+//         Backgroundcolor={'white'}
+//       />
       
       
      
 
-      <div>
-      <Header name="Skills"/>
+//       <div>
+//       <Header name="Skills"/>
         
-        <ul>
-          {userdata.skills && userdata.skills.length > 0 ? (
-            userdata.skills.map((skill) => (
-              <li key={skill._id}>{skill.SkillName} - {skill.proficiency}</li>
-            ))
-          ) : (
-            <p>No skills available</p>
-          )}
-        </ul>
-      </div>
-      <div>
-      <Header name="Achievements"/>
+//         <ul>
+//           {userdata.skills && userdata.skills.length > 0 ? (
+//             userdata.skills.map((skill) => (
+//               <li key={skill._id}>{skill.SkillName} - {skill.proficiency}</li>
+//             ))
+//           ) : (
+//             <p>No skills available</p>
+//           )}
+//         </ul>
+//       </div>
+//       <div>
+//       <Header name="Achievements"/>
       
         
-<ul>
-        {userdata.achievements && userdata.achievements.length > 0 ? (
-          userdata.achievements.map((achievement) => (
-            <Achievements
-              key={achievement._id} // Unique key for each element
-              title={achievement.title}
-              description={achievement.description}
-              date_awarded={achievement.date_awarded}
-              category={achievement.category}
-              issuer={achievement.issuer}
-              certificate_url={achievement.certificate_url}
-              level={achievement.level}
-            />
-          ))
-        ) : (
-          <p>No achievements available</p>
-        )}
-      </ul>
-      </div>
+// <ul>
+//         {userdata.achievements && userdata.achievements.length > 0 ? (
+//           userdata.achievements.map((achievement) => (
+//             <Achievements
+//               key={achievement._id} // Unique key for each element
+//               title={achievement.title}
+//               description={achievement.description}
+//               date_awarded={achievement.date_awarded}
+//               category={achievement.category}
+//               issuer={achievement.issuer}
+//               certificate_url={achievement.certificate_url}
+//               level={achievement.level}
+//             />
+//           ))
+//         ) : (
+//           <p>No achievements available</p>
+//         )}
+//       </ul>
+//       </div>
 
-      <video style={{marginLeft:'20%',marginRight:'20%'}} controls width="50%" height="50%">
-        <source src={userdata.introVideo} type="video/mp4" />
-        Sorry, your browser doesn't support embedded videos.
-      </video>
+//       <video style={{marginLeft:'20%',marginRight:'20%'}} controls width="50%" height="50%">
+//         <source src={userdata.introVideo} type="video/mp4" />
+//         Sorry, your browser doesn't support embedded videos.
+//       </video>
 
       
           
-      <div>
-      <Header name="Education"/>
+//       <div>
+//       <Header name="Education"/>
 
-        <ul>
-          {userdata.educations && userdata.educations.length > 0 ? (
-            userdata.educations.map((education) => (
-              <Education
-              Education={education.instituteName}
-              CourseDetails={education.course}
-              Duration={education.courseDuration}
+//         <ul>
+//           {userdata.educations && userdata.educations.length > 0 ? (
+//             userdata.educations.map((education) => (
+//               <Education
+//               Education={education.instituteName}
+//               CourseDetails={education.course}
+//               Duration={education.courseDuration}
 
-              />
+//               />
               
-            ))
-          ) : (
-            <p>No education information available</p>
-          )}
-        </ul>
-      </div>
-      <div>
-        <Header name="Experiences"/>
-        <ul>
-          {userdata.experiences && userdata.experiences.length > 0 ? (
-            userdata.experiences.map((experience) => (
+//             ))
+//           ) : (
+//             <p>No education information available</p>
+//           )}
+//         </ul>
+//       </div>
+//       <div>
+//         <Header name="Experiences"/>
+//         <ul>
+//           {userdata.experiences && userdata.experiences.length > 0 ? (
+//             userdata.experiences.map((experience) => (
               
               
-                <Experiences
-                  CompanyName={experience.companyName}
-                  CompanyRole={experience.role}
-                  fromDate={experience.DurationFrom}
-                  Todate={experience.DurationTo}
-                 />
+//                 <Experiences
+//                   CompanyName={experience.companyName}
+//                   CompanyRole={experience.role}
+//                   fromDate={experience.DurationFrom}
+//                   Todate={experience.DurationTo}
+//                  />
                 
               
-            ))
-          ) : (
-            <p>No experiences available</p>
-          )}
-        </ul>
-      </div>
+//             ))
+//           ) : (
+//             <p>No experiences available</p>
+//           )}
+//         </ul>
+//       </div>
 
-      <div>
-      <Header name="Projects"/>
-        <ul>
-          {userdata.projects && userdata.projects.length > 0 ? (
-            userdata.projects.map((project) => (
+//       <div>
+//       <Header name="Projects"/>
+//         <ul>
+//           {userdata.projects && userdata.projects.length > 0 ? (
+//             userdata.projects.map((project) => (
               
-                <Projects 
-                  projectTitle={project.title}
-                  projectDescription={project.description}
-                  projectFrom={project.durationFrom}
-                  projectTo={project.durationTo}
-                  projecturl={project.url}
-                  />
-                
-             
-            ))
-          ) : (
-            <p>No projects available</p>
-          )}
-        </ul>
-      </div>
-
-      <div>
-      <Header name="Awards"/>
-        <ul>
-          {userdata.awards && userdata.awards.length > 0 ? (
-            userdata.awards.map((award) => (
-              
-              <Awards 
-                awardName={award.awardName}
-                issuingOrganization={award.issuingOrganization}
-                issueDate={new Date(award.issueDate).toLocaleDateString()}
-                awardDescription={award.issuingOrganization}
-                />
+//                 <Projects 
+//                   projectTitle={project.title}
+//                   projectDescription={project.description}
+//                   projectFrom={project.durationFrom}
+//                   projectTo={project.durationTo}
+//                   projecturl={project.url}
+//                   />
                 
              
-            ))
-          ) : (
-            <p>No awards available</p>
-          )}
-        </ul>
-      </div>
+//             ))
+//           ) : (
+//             <p>No projects available</p>
+//           )}
+//         </ul>
+//       </div>
 
-      <div>
-      <Header name="Ratings"/>
-        <ul>
-          {userdata.ratings && userdata.ratings.length > 0 ? (
-            userdata.ratings.map((rating) => (
-              <Ratings Ratingscore={rating.score} />
-            ))
-          ) : (
-            <p>No ratings available</p>
-          )}
-        </ul>
-      </div>
-
-      <div>
-      <Header name="Comments"/>
-        <ul>
-          {userdata.comments && userdata.comments.length > 0 ? (
-            userdata.comments.map((comment) => (
-              <li key={comment._id}>{comment.content}</li>
-            ))
-          ) : (
-            <p>No comments available</p>
-          )}
-        </ul>
-      </div>
-      <div>
-      <Header name="CodingProfiles"/>
-        <ul>
-        <div className='interactive-card'>
-
-          {userdata.codingProfiles && userdata.codingProfiles.length > 0 ? (
-            userdata.codingProfiles.map((comment) => (
-              <CodingProfiles />
+//       <div>
+//       <Header name="Awards"/>
+//         <ul>
+//           {userdata.awards && userdata.awards.length > 0 ? (
+//             userdata.awards.map((award) => (
               
-            ))
-          ) : (
-            <p>No comments available</p>
-          )}
+//               <Awards 
+//                 awardName={award.awardName}
+//                 issuingOrganization={award.issuingOrganization}
+//                 issueDate={new Date(award.issueDate).toLocaleDateString()}
+//                 awardDescription={award.issuingOrganization}
+//                 />
+                
+             
+//             ))
+//           ) : (
+//             <p>No awards available</p>
+//           )}
+//         </ul>
+//       </div>
+
+//       <div>
+//       <Header name="Ratings"/>
+//         <ul>
+//           {userdata.ratings && userdata.ratings.length > 0 ? (
+//             userdata.ratings.map((rating) => (
+//               <Ratings Ratingscore={rating.score} />
+//             ))
+//           ) : (
+//             <p>No ratings available</p>
+//           )}
+//         </ul>
+//       </div>
+
+//       <div>
+//       <Header name="Comments"/>
+//         <ul>
+//           {userdata.comments && userdata.comments.length > 0 ? (
+//             userdata.comments.map((comment) => (
+//               <li key={comment._id}>{comment.content}</li>
+//             ))
+//           ) : (
+//             <p>No comments available</p>
+//           )}
+//         </ul>
+//       </div>
+//       <div>
+//       <Header name="CodingProfiles"/>
+//         <ul>
+//         <div className='interactive-card'>
+
+//           {userdata.codingProfiles && userdata.codingProfiles.length > 0 ? (
+//             userdata.codingProfiles.map((comment) => (
+//               <CodingProfiles />
+              
+//             ))
+//           ) : (
+//             <p>No comments available</p>
+//           )}
+//           </div>
+//         </ul>
+//       </div>
+//     </div>
+<>
+<div >
+          
+          <UserInfo user={userdata}/>
+          <Header name="Resume" />
+          <Resume user={userdata}/>
+          <Header name="Skills" />
+          <Skills user={userdata}/>
+          <Header name="Education" />
+          <Education user={userdata}/>
+          <Header name="Experiences" />
+          <Experiences user={userdata}/>
+          <Header name="Achievements" />
+          <Achievements user={userdata}/>
+          <Header name="Projects" />
+          <Projects user={userdata}/>
+          <Header name="Ratings" />
+          <Ratings user={userdata}/>
+          <Header name="Awards" />
+          <Awards user={userdata}/>
+          <Header name="CodingProfiles" />
+          <div className='interactive-card'>
+            <CodingProfiles user={userdata}/>
           </div>
-        </ul>
-      </div>
-    </div>
+          <Header name="SocialMediaprofile" />
+          <SocialMediaprofile user={userdata}/>
+        </div>
+
+</>
   );
 }
 
