@@ -38,7 +38,8 @@ const Showuserdeatils=AsyncHandler(async(req,res)=>{
         // const newuser = await User.findById(userid)
         // .populate('projects')       
         // .populate('awards'); 
-
+        console.log("user",user);
+        
         const likes=await Likes.find({likedUserId:userobjectid}).select('likedBy');        
         const comments=await Comments.find({commentonId:userobjectid}).select('commentbyId content');
         const ratings=await Rating.find({RateOnId:userobjectid}).select('RateById score');
@@ -71,6 +72,7 @@ console.log("likes",likes);
             awards: user.awards,
             likes,
             comments,
+            resume:user.resume,
             ratings,Totallikes,TotalComments,TotalratingCount,averagerating:averagerating,ratings
             // additionalInfo: additionalData.data, // Include additional data if fetched from an external source
             // Include other fields or computed values as needed

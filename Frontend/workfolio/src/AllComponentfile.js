@@ -19,7 +19,7 @@ const AllComponentfile = () => {
     if(userstatus=='idle'){
       console.log("hi0");
       dispatch(fetchusersdata());
-      console.log("userstatus",userstatus);
+      console.log("userstatus ",allusersdata);
       
     }
   },[userstatus,dispatch]);
