@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useState ,useEffect} from 'react';
 import '../Componentcss/Projectss.css'
 import Header from './Header'
 import '../Allcomponentfile.css';
 import Buttons from './Buttons.js';
+import Editmodel from './Models.js';
 const Projects = ({ user }) => {
   let User = user.projects;
-  console.log("hi from projects", User);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
-
+  const [editindex,seteditindex]=useState(0);
+  const [showeditmodel,setshoweditmodel]=useState(0);
+  const edittheproject=(index)=>{
+    seteditindex(index);
+    setshoweditmodel(1);
+    
+  }
 
   return (
     <>
@@ -15,7 +21,7 @@ const Projects = ({ user }) => {
         {User != undefined ?
           User.map((project, index) => (
             <div className='item' key={index}>
-              <Buttons buttonname="Edit"/>
+              <Buttons buttonname="Edit" onClick={()=>{edittheproject(index);edittheproject(index)}}/>
 
               <div className='name'>
                 <span>{project.title ? project.title : ""}</span>
@@ -39,6 +45,7 @@ const Projects = ({ user }) => {
           )) : <></>}
 
       </div>
+      {showeditmodel?<Editmodel index={editindex}/>:<></>}
     </>
   )
 }

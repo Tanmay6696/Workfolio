@@ -879,7 +879,7 @@ const updateUserProjects = async (req, res) => {
         }
         
         const projectToUpdateId = req.user?.projects[editProjectIndex]?._id.toString();
-        const result = await Projects.findByIdAndUpdate(
+        const result = await Project.findByIdAndUpdate(
             projectToUpdateId,
             {
                 $set: {
