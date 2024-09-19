@@ -21,7 +21,7 @@ const Projects = ({ user }) => {
         {User != undefined ?
           User.map((project, index) => (
             <div className='item' key={index}>
-              <Buttons buttonname="Edit" onClick={()=>{edittheproject(index);edittheproject(index)}}/>
+              <Buttons buttonname="Edit" onClick={()=>{edittheproject(index);}}/>
 
               <div className='name'>
                 <span>{project.title ? project.title : ""}</span>

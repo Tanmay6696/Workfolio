@@ -17,6 +17,7 @@ import Resume from './Components/Resume.js';
 import Skills from './Components/Skills.js';
 import SocialMediaprofile from './Components/SocialMediaprofile.js';
 import Editmodel from './Components/Models.js';
+import Editeducationmodel from './Components/EducationModels.js';
 const LoginUserProfile = () => {
   const dispatch = useDispatch();
   //const [userdata, setUsersdata] = useState(null); // Initialize as null to handle loading state
@@ -25,7 +26,7 @@ const LoginUserProfile = () => {
   console.log("initialState", useSelector((state) => state.userdata));
 
   const { userdata } = useSelector(state => state.userdata);
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YmI5MWI0Mi04Yjk4LTQwMWMtYmI3Mi1hMjRlM2Q1ZGExMTciLCJlbWFpbCI6InRhbm1heTExN0BleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoidGFubWF5MTE3IiwiZnVsbE5hbWUiOiJKYW5lIERvZSIsImlhdCI6MTcyNjA2MzQ4OSwiZXhwIjoxNzI2OTI3NDg5fQ.2QW8VOw7qHdradJftL5s-QEvV7IkvY4jeoILRwsAPEk"; // Replace this with your actual token
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJlM2M2N2ZkZi0xYWYxLTQ0ZWUtYTU2OS1iMGI5MDg3NzNkYmEiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImpvaG5kb2UiLCJmdWxsTmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzI2NzY2NTAxLCJleHAiOjE3MjY4NTI5MDF9.ddzLUyRikRqRCuAVGSFpjv2AriSwjH-rhyvWrnAxs5I"; // Replace this with your actual token
 
   // Function to fetch user data
   const getdata = async () => {
@@ -85,6 +86,7 @@ const LoginUserProfile = () => {
           <Skills user={userdata}/>
           <Header name="Education" />
           <Education user={userdata}/>
+          <Editeducationmodel/>
           <Header name="Experiences" />
           <Experiences user={userdata}/>
           <Header name="Achievements" />

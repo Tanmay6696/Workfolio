@@ -28,10 +28,9 @@ const Editmodel = ({index}) => {
 
   const projectInfo = useSelector((state) => state?.userdata?.userdata?.projects?.[index]);
   console.log("projectInforr  ",projectInfo);
-
   useEffect(() => {
     if (projectInfo) {
-      // alert("hi44");
+  
       console.log("projectInfo.title",projectInfo.title);
       
       setTitle(projectInfo.title);
@@ -66,7 +65,7 @@ const Editmodel = ({index}) => {
     };
   
     // JWT Token
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YmI5MWI0Mi04Yjk4LTQwMWMtYmI3Mi1hMjRlM2Q1ZGExMTciLCJlbWFpbCI6InRhbm1heTExN0BleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoidGFubWF5MTE3IiwiZnVsbE5hbWUiOiJKYW5lIERvZSIsImlhdCI6MTcyNjA2MzQ4OSwiZXhwIjoxNzI2OTI3NDg5fQ.2QW8VOw7qHdradJftL5s-QEvV7IkvY4jeoILRwsAPEk";
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJlM2M2N2ZkZi0xYWYxLTQ0ZWUtYTU2OS1iMGI5MDg3NzNkYmEiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImpvaG5kb2UiLCJmdWxsTmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzI2NzY2NTAxLCJleHAiOjE3MjY4NTI5MDF9.ddzLUyRikRqRCuAVGSFpjv2AriSwjH-rhyvWrnAxs5I";
   
     try {
       // Make the API request
