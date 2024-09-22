@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState ,useEffect} from 'react';
 import { FaBriefcase, FaCalendarAlt } from 'react-icons/fa'; // Import icons from react-icons
 import '../Componentcss/Experiencess.css';
+import Buttons from './Buttons.js';
+
 import '../Allcomponentfile.css'
 import Header from './Header.js'
+import EditExperienceModel from './ExperiencesModels.js';
 const Experiences = ({user}) => {
   
   let User=user.experiences;
   const options={year:'numeric',month:'long',day:'numeric'};
-
+  const [editindex,seteditindex]=useState(0);
+  const [showeditmodel,setshoweditmodel]=useState(0);
+  const editTheExperience=(index)=>{
+    // alert("hiiiiiiiii alert");
+    seteditindex(index);
+    // alert(editindex);
+    setshoweditmodel(1);
+    // alert(showeditmodel);
+  }
 
   return (
     <>
@@ -22,6 +33,7 @@ const Experiences = ({user}) => {
             <FaBriefcase className='icon' />
             <span>{experience.companyName?experience.companyName:"Cognizant"}</span>
           </div>
+          <Buttons buttonname="Edit" onClick={()=>{editTheExperience(index);}}/>
           <div className='experience-details'>
             <div className='experience-title'>
               <span>{experience.role?experience.role:"Programmer Anlayst"}</span>
@@ -36,6 +48,7 @@ const Experiences = ({user}) => {
     )):<></>}
     </div>
     </div>
+    {showeditmodel?<EditExperienceModel index={editindex}/>:<></>}
     </>
   );
 };

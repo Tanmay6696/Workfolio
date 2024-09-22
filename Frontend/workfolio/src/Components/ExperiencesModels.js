@@ -16,38 +16,37 @@ const customStyles = {
     transform: 'translate(-50%, -50%)',
   },
 };
-const Editeducationmodel = ({index}) => {
+const EditExperienceModel = ({index}) => {
   let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  const [instituteName, setInstituteName] = useState('');
-  const [course, setCourse] = useState('');
-  const [education, setEducation] = useState('');
-  const [specialization, setSpecialization] = useState('');
-  const [courseDuration, setCourseDuration] = useState('');
-  const [gradingSystem, setGradingSystem] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [role, setRole] = useState('');
+  const [description, setDescription] = useState('');
+  const [DurationFrom, setDurationFrom] = useState('');
+  const [DurationTo, setDurationTo] = useState('');
+  
 
 
-  const educationInfo = useSelector((state) => state?.userdata?.userdata?.educations?.[index]);
-  console.log("educationInforr  ",educationInfo);
+  const experienceInfo = useSelector((state) => state?.userdata?.userdata?.experiences?.[index]);
+  console.log("experienceInforrrrr  ",experienceInfo);
 
   useEffect(() => {
     // console.log("educationInforrdadsdadjafgjadjadjsj  ",educationInfo);
 
-    if (educationInfo) {
-      console.log("educationInfo.title",educationInfo.instituteName);
+    if (experienceInfo) {
+      console.log("experienceInfo.title",experienceInfo.companyName);
       
-      setInstituteName(educationInfo.instituteName);
+      setCompanyName(experienceInfo.companyName);
     //   console.log("instituteName" ,instituteName ," ");
-      setEducation(educationInfo.education);
-      setCourse(educationInfo.course);
-      setSpecialization(educationInfo.specialization);
-      setCourseDuration(educationInfo.courseDuration);
-      setGradingSystem(educationInfo.gradingSystem);
+      setRole(experienceInfo.role);
+      setDescription(experienceInfo.description);
+      setDurationFrom(experienceInfo.DurationFrom);
+      setDurationTo(experienceInfo.DurationTo);
       
       openModal();
     }
-  }, [educationInfo]);
+  }, [experienceInfo]);
 
   function openModal() {
     setIsOpen(true);
@@ -61,14 +60,13 @@ const Editeducationmodel = ({index}) => {
   }
   const savetheChanges = async (e) => {
     e.preventDefault();
-    const updateEducation = {
-      "educationId": "669cb78f3066dd02d47e2084", // Replace with the actual project ID you want to update
-      "instituteName": instituteName,
-      "course": course,
-      "education": education,
-      "specialization": specialization,
-      "courseDuration": courseDuration,
-      "gradingSystem": gradingSystem
+    const updateExperience = {
+      "experienceId": "669cb78f3066dd02d47e207c", // Replace with the actual project ID you want to update
+      "companyName": companyName,
+      "role": role,
+      "description": description,
+      "DurationFrom": DurationFrom,
+      "DurationTo": DurationTo
     };
   
     // JWT Token
@@ -77,8 +75,8 @@ const Editeducationmodel = ({index}) => {
     try {
       // Make the API request
       const response = await axios.post(
-        'http://localhost:3000/api/v1/users/tanmay117@example.com/educationupdate',
-        updateEducation,
+        'http://localhost:3000/api/v1/users/tanmay117@example.com/Experienceupdate',
+        updateExperience,
         {
           headers: {
             'Authorization': `${token}`, // Added 'Bearer' to the token for proper authorization
@@ -108,52 +106,45 @@ const Editeducationmodel = ({index}) => {
     onAfterOpen={afterOpenModal}
     onRequestClose={closeModal}
     style={customStyles}
-    contentLabel="Edit Education "
+    contentLabel="Edit Experience "
   >
     <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Edit Institute</h2>
     <button onClick={closeModal}>Close</button>
     <form onSubmit={savetheChanges}>
       <input
         type="text"
-        id="instituteName"
+        id="companyName"
         maxLength="100"
-        placeholder="Enter institute name"
-        value={instituteName}
-        onChange={(e) => setInstituteName(e.target.value)}
+        placeholder="Enter Company name"
+        value={companyName}
+        onChange={(e) => setCompanyName(e.target.value)}
       />
       <input
         type="text"
-        id="course"
-        placeholder="Enter course name"
-        value={course}
-        onChange={(e) => setCourse(e.target.value)}
+        id="role"
+        placeholder="Enter role name"
+        value={role}
+        onChange={(e) => setRole(e.target.value)}
       />
       <input
         type="text"
-        id="education"
-        placeholder="Enter education level"
-        value={education}
-        onChange={(e) => setEducation(e.target.value)}
+        id="description"
+        placeholder="Enter description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
       />
       <textarea
-        id="specialization"
-        placeholder="Enter specialization"
-        value={specialization}
-        onChange={(e) => setSpecialization(e.target.value)}
+        id="DurationFrom"
+        placeholder="Enter DurationFrom"
+        value={DurationFrom}
+        onChange={(e) => setDurationFrom(e.target.value)}
       />
       <input
         type="text"
-        id="courseDuration"
-        placeholder="Enter course duration"
-        value={courseDuration}
-        onChange={(e) => setCourseDuration(e.target.value)}
-      />
-      <input
-        type="text"
-        id="gradingSystem"
-        placeholder="Enter grading system"
-        value={gradingSystem}
-        onChange={(e) => setGradingSystem(e.target.value)}
+        id="DurationTo"
+        placeholder="Enter DurationTo"
+        value={DurationTo}
+        onChange={(e) => setDurationTo(e.target.value)}
       />
       <button type="submit">Save Changes</button>
     </form>
@@ -163,4 +154,4 @@ const Editeducationmodel = ({index}) => {
   );
 };
 
-export default Editeducationmodel;
+export default EditExperienceModel;

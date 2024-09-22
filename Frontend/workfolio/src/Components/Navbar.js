@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   return (
     <div className='Navbar'>
-        <h1>Workolio</h1>
+        <h1>WorkFolio</h1>
         <input/>
         <Link to="/userprofile">
         <FaRegUserCircle style={{ height:'50px',width:'50px'}} /></Link>

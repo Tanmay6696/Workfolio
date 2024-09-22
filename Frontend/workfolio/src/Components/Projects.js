@@ -3,7 +3,7 @@ import '../Componentcss/Projectss.css'
 import Header from './Header'
 import '../Allcomponentfile.css';
 import Buttons from './Buttons.js';
-import Editmodel from './Models.js';
+import Editmodel from './ProjectsModels.js';
 const Projects = ({ user }) => {
   let User = user.projects;
   const options = { year: 'numeric', month: 'long', day: 'numeric' };

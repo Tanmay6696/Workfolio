@@ -12,10 +12,10 @@ const UserInfo = ({user}) => {
       </div>
       <div className="UserSummary">
         <div className="name">
-          <span className="names">{user.name?user.name:"Tanmay Vinay dahale"}</span>
+          <span className="names">{user.name?user.name:"Sample Name"}</span>
         </div>
         <div className="role">
-          <span className="roles">{user.position?user.position:"Tanmay Vinay dahale"}</span>
+          <span className="roles">{user.position?user.position:"Sample Position"}</span>
         </div>
         <div className="summary">
           <span className="summary-content">{user.summary?user.summary:"Summary SummarySummarySummary Summary Summaryvv Summary Summary             Summary Summary SummarySummarySummary Summary Summaryvv Summary             Summary Summary Summary SummarySummarySummary Summary Summaryv            Summary Summary Summary Summary SummarySummarySummary Summary Summaryvv Summary Summary            Summary Summary SummarySummarySummary Summary Summaryvv Summary             Summary Summary Summary SummarySummarySummary Summary Summaryvv            Summary Summary Summary"}
