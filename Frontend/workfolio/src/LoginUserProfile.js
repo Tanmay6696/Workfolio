@@ -15,6 +15,7 @@ import CodingProfiles from './Components/CodingProfiles.js';
 import Ratings from './Components/Ratings.js';
 import Resume from './Components/Resume.js';
 import Skills from './Components/Skills.js';
+import RegisterUser from './Components/RegisterUser.js';
 import SocialMediaprofile from './Components/SocialMediaprofile.js';
 import Editmodel from './Components/ProjectsModels.js';
 import Editeducationmodel from './Components/EducationModels.js';
@@ -26,6 +27,7 @@ const LoginUserProfile = () => {
   console.log("initialState", useSelector((state) => state.userdata));
 
   const { userdata } = useSelector(state => state.userdata);
+  console.log("userdata",userdata);
   const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJlM2M2N2ZkZi0xYWYxLTQ0ZWUtYTU2OS1iMGI5MDg3NzNkYmEiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImpvaG5kb2UiLCJmdWxsTmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzI3MDI4ODEwLCJleHAiOjE3MjcxMTUyMTB9.D-TFJbw8FQokUz9shLl6VQY3VRWmcnrrmzA3R61WJmk"; // Replace this with your actual token
 
   // Function to fetch user data
@@ -73,37 +75,47 @@ const LoginUserProfile = () => {
   if (!userdata) {
     return <div>Loading...</div>;
   }
+  let isNewUser=1;
   return (
 
 
 <>
-<div >
-          <Editmodel/>
-          <UserInfo user={userdata}/>
-          <Header name="Resume" />
-          <Resume user={userdata}/>
-          <Header name="Skills" />
-          <Skills user={userdata}/>
-          <Header name="Education" />
-          <Education user={userdata}/>
-          <Editeducationmodel/>
-          <Header name="Experiences" />
-          <Experiences user={userdata}/>
-          <Header name="Achievements" />
-          <Achievements user={userdata}/>
-          <Header name="Projects" />
-          <Projects user={userdata}/>
-          <Header name="Ratings" />
-          <Ratings user={userdata}/>
-          <Header name="Awards" />
-          <Awards user={userdata}/>
-          <Header name="CodingProfiles" />
-          <div className='interactive-card'>
-            <CodingProfiles user={userdata}/>
-          </div>
-          <Header name="SocialMediaprofile" />
-          <SocialMediaprofile user={userdata}/>
-        </div>
+<div>
+  {isNewUser ? (
+    <>
+      <RegisterUser />
+    </>
+  ) : (
+    <>
+      <Editmodel />
+      <UserInfo user={userdata} />
+      <Header name="Resume" />
+      <Resume user={userdata} />
+      <Header name="Skills" />
+      <Skills user={userdata} />
+      <Header name="Education" />
+      <Education user={userdata} />
+      <Editeducationmodel />
+      <Header name="Experiences" />
+      <Experiences user={userdata} />
+      <Header name="Achievements" />
+      <Achievements user={userdata} />
+      <Header name="Projects" />
+      <Projects user={userdata} />
+      <Header name="Ratings" />
+      <Ratings user={userdata} />
+      <Header name="Awards" />
+      <Awards user={userdata} />
+      <Header name="CodingProfiles" />
+      <div className="interactive-card">
+        <CodingProfiles user={userdata} />
+      </div>
+      <Header name="SocialMediaprofile" />
+      <SocialMediaprofile user={userdata} />
+    </>
+  )}
+</div>
+
 
 </>
   );
