@@ -5,7 +5,8 @@ import AllComponentfile from './AllComponentfile';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import LoginorSignupfile from './LoginorSignupfile';
+import Login from './Login';
 import LoginUserProfile from './LoginUserProfile';
 
 function App() {
@@ -14,9 +15,12 @@ function App() {
     <div className="App">
       <BrowserRouter>
       <Routes>
+        
         <Route path="/" element={<AllComponentfile/>}/>
-        <Route path="/userprofile" element={<LoginUserProfile/>}>
-        </Route>
+        <Route path="/Login" element={<LoginorSignupfile/>}/>
+
+        {/* <Route path="/userprofile" element={<LoginUserProfile/>}>
+        </Route> */}
       </Routes>
     </BrowserRouter>
      

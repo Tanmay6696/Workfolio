@@ -1,82 +1,138 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const UserForm = () => {
   const [formData, setFormData] = useState({
-    username: "",
-    fullName: "",
-    email: "",
-    summary: "",
-    password: "",
-    profilePicture: "",
-    introVideo: "",
-    resume: "",
+    username: "mayurjadhav123",
+    fullName: "mayurjadhav",
+    email: "mayurjadhav@exaple.com",
+    summary: "A passionate software engineer with 6 years of experience in full-stack development.",
+    password: "newsecurepassword789",
+    profilePicture: "", // You can leave this empty if not provided
+    introVideo: "http://cloudinary.com/path/to/introvideo2",
+    resume: "http://cloudinary.com/path/to/resume2",
     experiences: [
       {
-        companyName: "",
-        role: "",
-        description: "",
-        DurationFrom: "",
-        DurationTo: "",
+        companyName: "Tech Innovators",
+        role: "Lead Developer",
+        description: "Managed a team to develop cutting-edge web applications.",
+        DurationFrom: "2019-04-01T00:00:00.000Z",
+        DurationTo: "2023-07-01T00:00:00.000Z",
+      },
+      {
+        companyName: "Creative Solutions",
+        role: "Junior Developer",
+        description: "Contributed to backend development using Java and Spring.",
+        DurationFrom: "2015-02-15T00:00:00.000Z",
+        DurationTo: "2019-03-30T00:00:00.000Z",
       }
     ],
     achievements: [
       {
-        description: "",
-        title: "",
-        date_awarded: "",
-        category: "",
-        issuer: "",
-        certificate_url: "",
-        level: "",
-        public_visibility: "",
+        description: "Presented at an international tech conference.",
+        title: "Tech Presenter",
+        date_awarded: "2021-05-10T00:00:00.000Z",
+        category: "Presentation",
+        issuer: "Tech World",
+        certificate_url: "http://example.com/certificate_url_4",
+        level: "Advanced",
+        public_visibility: true,
+        tags: ["Tech", "Conference"]
+      },
+      {
+        description: "Completed Advanced JavaScript course",
+        title: "JS Expert",
+        date_awarded: "2022-11-20T00:00:00.000Z",
+        category: "Education",
+        issuer: "Coursera",
+        certificate_url: "http://example.com/certificate_url_5",
+        level: "Advanced",
+        public_visibility: true,
+        tags: ["JavaScript", "Web Development"]
       }
     ],
-    awards: [
+    Awards: [
       {
-        awardName: "",
-        issuingOrganization: "",
-        issueDate: "",
-        description: ""
+        awardName: "Outstanding Developer",
+        issuingOrganization: "Developer Awards",
+        issueDate: "2023-01-15T00:00:00.000Z",
+        description: "Recognized for outstanding contributions to software development."
+      },
+      {
+        awardName: "Excellence in Coding",
+        issuingOrganization: "Annual Coding Awards",
+        issueDate: "2021-11-20T00:00:00.000Z",
+        description: "Awarded for excellence in coding and software engineering."
       }
     ],
     codingProfiles: [
       {
-        profileName: "",
-        profileUrl: ""
+        profileName: "LeetCode Profile",
+        profileUrl: "http://leetcode.com/janedoe"
+      },
+      {
+        profileName: "TopCoder Profile",
+        profileUrl: "http://topcoder.com/members/janedoe"
       }
     ],
-    education: [
-        {
-          instituteName: "",
-          education: "",
-          course: "",
-          specialization: "",
-          courseDuration: "",
-          gradingSystem: ""
-        }
-      ],
-      skills: [
-        {
-          skillName: "",
-          proficiency: ""
-        }
-      ],
-      socialMedia: [
-        {
-          profileName: "",
-          profileUrl: ""
-        }
-      ],
-      projects: [
-        {
-          title: "",
-          description: "",
-          url: "",
-          durationFrom: "",
-          durationTo: ""
-        }
-      ]
-    });
+    educations: [
+      {
+        instituteName: "Another University",
+        education: "Bachelor's Degree",
+        course: "Computer Science",
+        specialization: "Software Engineering",
+        courseDuration: "2012-2016",
+        gradingSystem: "GPA"
+      },
+      {
+        instituteName: "Tech Institute",
+        education: "Certification",
+        course: "Data Science",
+        specialization: "Machine Learning",
+        courseDuration: "2016-2017",
+        gradingSystem: "Percentage"
+      }
+    ],
+    skills: [
+      {
+        skillName: "React",
+        proficiency: "Expert"
+      },
+      {
+        skillName: "Java",
+        proficiency: "Intermediate"
+      }
+    ],
+    socialMedia: [
+      {
+        profileName: "LinkedIn Profile",
+        profileUrl: "http://linkedin.com/in/janedoe"
+      },
+      {
+        profileName: "GitHub Profile",
+        profileUrl: "http://github.com/janedo"
+      }
+    ],
+    projects: [
+      {
+        title: "New Project Title 1",
+        description: "Project description 1",
+        url: "http://example.com/project1",
+        durationFrom: "2018-06-01T00:00:00.000Z",
+        durationTo: "2019-06-01T00:00:00.000Z"
+      },
+      {
+        title: "New Project Title 2",
+        description: "Project description 2",
+        url: "http://example.com/project2",
+        durationFrom: "2017-05-01T00:00:00.000Z",
+        durationTo: "2018-05-01T00:00:00.000Z"
+      }
+    ],
+    feed: "Sample feed content"
+  });
+  
+  const [password,setPassword] = useState('');
 
   // Functions to handle changes
   const handleExperienceChange = (index, e) => {
@@ -95,9 +151,9 @@ const UserForm = () => {
 
   const handleAwardChange = (index, e) => {
     const { name, value } = e.target;
-    const updatedAwards = [...formData.awards];
+    const updatedAwards = [...formData.Awards];
     updatedAwards[index][name] = value;
-    setFormData({ ...formData, awards: updatedAwards });
+    setFormData({ ...formData, Awards: updatedAwards });
   };
 
   const handleCodingProfileChange = (index, e) => {
@@ -110,9 +166,9 @@ const UserForm = () => {
   // Change handlers for new sections
   const handleEducationChange = (index, e) => {
     const { name, value } = e.target;
-    const updatedEducation = [...formData.education];
+    const updatedEducation = [...formData.educations];
     updatedEducation[index][name] = value;
-    setFormData({ ...formData, education: updatedEducation });
+    setFormData({ ...formData, educations: updatedEducation });
   };
 
   const handleSkillChange = (index, e) => {
@@ -160,7 +216,7 @@ const UserForm = () => {
           issuer: "",
           certificate_url: "",
           level: "",
-          public_visibility: ""
+          public_visibility: false,
         }
       ]
     });
@@ -190,8 +246,8 @@ const UserForm = () => {
   const addEducation = () => {
     setFormData({
       ...formData,
-      education: [
-        ...formData.education,
+      educations: [
+        ...formData.educations,
         { instituteName: "", education: "", course: "", specialization: "", courseDuration: "", gradingSystem: "" }
       ]
     });
@@ -251,8 +307,8 @@ const UserForm = () => {
 
   // Functions to remove fields for new sections
   const removeEducation = (index) => {
-    const updatedEducation = formData.education.filter((_, eduIndex) => eduIndex !== index);
-    setFormData({ ...formData, education: updatedEducation });
+    const updatedEducation = formData.educations.filter((_, eduIndex) => eduIndex !== index);
+    setFormData({ ...formData, educations: updatedEducation });
   };
 
   const removeSkill = (index) => {
@@ -271,10 +327,29 @@ const UserForm = () => {
   };
 
   // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form Data: ", formData);
     // Add your API call logic here to submit the form
+    try {
+      const response = await fetch('http://localhost:3000/api/v1/users/RegisterUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        const result = await response.json();
+        alert('User created successfully:', result);
+        // Optionally, reset form data or navigate to another page.
+      } else {
+        alert('Error creating user:', response.statusText);
+      }
+    } catch (error) {
+      alert('Error:', error);
+    }
   };
 
   return (
@@ -307,6 +382,15 @@ const UserForm = () => {
           name="email"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+        />
+      </div>
+      <div>
+        <label>Password:</label>
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
         />
       </div>
 
@@ -458,7 +542,7 @@ const UserForm = () => {
       {/* Awards section */}
       <div>
         <h3>Awards</h3>
-        {formData.awards.map((award, index) => (
+        {formData.Awards.length > 0 && formData.Awards.map((award, index) => (
           <div key={index} className="award-section">
             <label>Award Name:</label>
             <input
@@ -491,7 +575,7 @@ const UserForm = () => {
               onChange={(e) => handleAwardChange(index, e)}
             />
 
-            {formData.awards.length > 1 && (
+            {formData.Awards.length > 1 && (
               <button type="button" onClick={() => removeAward(index)}>
                 Remove Award
               </button>
@@ -539,7 +623,7 @@ const UserForm = () => {
       {/* Education section */}
       <div>
         <h3>Education</h3>
-        {formData.education.map((edu, index) => (
+        {formData.educations.map((edu, index) => (
           <div key={index} className="education-section">
             <label>Institute Name:</label>
             <input
@@ -589,7 +673,7 @@ const UserForm = () => {
               onChange={(e) => handleEducationChange(index, e)}
             />
 
-            {formData.education.length > 1 && (
+            {formData.educations.length > 1 && (
               <button type="button" onClick={() => removeEducation(index)}>
                 Remove Education
               </button>

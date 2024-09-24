@@ -136,20 +136,39 @@ const RegisteredUser=AsyncHandler(async(req,res)=>{
     }))
     //file uploads
     //coberimage
+    console.log("request",req.files);
     
-    const profilephotolocalurloath=req.files?.profilePicture[0].path;
+    const profilephotolocalurloath=req.files?.profilePicture?.profilePicture[0].path;
     //console.log("profilephotolocalurloath",req.files,profilePicture);
-    const profilephotourl=await uploadoncloudinary(profilephotolocalurloath);
+    let profilephotourl='';
+    if(profilephotolocalurloath){
+         profilephotourl=await uploadoncloudinary(profilephotolocalurloath);
+
+    }
     //console.log("profilephotourl",profilephotourl,profilephotourl.url);
 
-    console.log("resume ",req.files?.resume[0].path ," Introvideo ",req.files?.introVideo[0].path);
+    //console.log("resume ",req.files?.resume[0].path ," Introvideo ",req.files?.introVideo[0].path);
     // Introvideo
-    const Introvideolocalurloath=req.files?.introVideo[0].path;
-    const Introvideourl=await uploadoncloudinary(Introvideolocalurloath);
+    let Introvideourl='';
+    if(req.files!=undefined){
+        console.log("saaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",req.files);
+        
+        const Introvideolocalurloath=req.files?.introVideo?.introVideo[0]?.path;
+        
+        if(Introvideolocalurloath){
+            Introvideourl=await uploadoncloudinary(Introvideolocalurloath);
+    
+        }
+    } 
+    
     //Resume
-    const Resumelocalurloath=req.files?.resume[0].path;
-    const Resumeurl=await uploadoncloudinary(Resumelocalurloath);
+    const Resumelocalurloath=req.files?.resume?.resume[0]?.path;
+    let Resumeurl='';
+    if(Resumelocalurloath){
+        Resumeurl=await uploadoncloudinary(Resumelocalurloath);
 
+    }
+    
 
     const user=await User.create({
         

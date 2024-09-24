@@ -8,19 +8,16 @@ const awardsSchema = mongoose.Schema({
     },
     awardName: {
         type: String,
-        required: true 
     },
     issuingOrganization: {
         type: String,
-        required: true 
     },
     issueDate: {
         type: Date,
-        required: true 
     },
     description: {
         type: String,
-        required: true 
+         
     },
 })
 export const awards = mongoose.model("awards", awardsSchema)

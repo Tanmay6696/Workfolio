@@ -15,6 +15,7 @@ import CodingProfiles from './Components/CodingProfiles.js';
 import Ratings from './Components/Ratings.js';
 import Resume from './Components/Resume.js';
 import Skills from './Components/Skills.js';
+import UserForm from './Components/RegisterUser.js';
 import RegisterUser from './Components/RegisterUser.js';
 import SocialMediaprofile from './Components/SocialMediaprofile.js';
 import Editmodel from './Components/ProjectsModels.js';
@@ -28,7 +29,7 @@ const LoginUserProfile = () => {
 
   const { userdata } = useSelector(state => state.userdata);
   console.log("userdata",userdata);
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJlM2M2N2ZkZi0xYWYxLTQ0ZWUtYTU2OS1iMGI5MDg3NzNkYmEiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImpvaG5kb2UiLCJmdWxsTmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzI3MTE2MDQ2LCJleHAiOjE3MjcyMDI0NDZ9.5E8gi_HCqrD_kke_MINs0NhZpNCmxnowJ3hQj0W1EX4"; // Replace this with your actual token
+  //const token = ""; // Replace this with your actual token
 
   // Function to fetch user data
   const getdata = async () => {
@@ -36,7 +37,7 @@ const LoginUserProfile = () => {
 
       const response = await axios.post('http://localhost:3000/api/v1/johndoe@example.com/Userdetails', {}, {
         headers: {
-          'Authorization': `${token}` // Ensure you include 'Bearer' if needed
+          'Authorization': `${response.data.data.accessToken}` // Ensure you include 'Bearer' if needed
         }
       });
       console.log("good", response.data);
@@ -83,7 +84,7 @@ const LoginUserProfile = () => {
 <div>
   {isNewUser ? (
     <>
-      <RegisterUser />
+      <UserForm />
     </>
   ) : (
     <>
