@@ -28,7 +28,7 @@ const LoginUserProfile = () => {
 
   const { userdata } = useSelector(state => state.userdata);
   console.log("userdata",userdata);
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJlM2M2N2ZkZi0xYWYxLTQ0ZWUtYTU2OS1iMGI5MDg3NzNkYmEiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImpvaG5kb2UiLCJmdWxsTmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzI3MDI4ODEwLCJleHAiOjE3MjcxMTUyMTB9.D-TFJbw8FQokUz9shLl6VQY3VRWmcnrrmzA3R61WJmk"; // Replace this with your actual token
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJlM2M2N2ZkZi0xYWYxLTQ0ZWUtYTU2OS1iMGI5MDg3NzNkYmEiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImpvaG5kb2UiLCJmdWxsTmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzI3MTE2MDQ2LCJleHAiOjE3MjcyMDI0NDZ9.5E8gi_HCqrD_kke_MINs0NhZpNCmxnowJ3hQj0W1EX4"; // Replace this with your actual token
 
   // Function to fetch user data
   const getdata = async () => {
@@ -75,7 +75,7 @@ const LoginUserProfile = () => {
   if (!userdata) {
     return <div>Loading...</div>;
   }
-  let isNewUser=1;
+  let isNewUser=0;
   return (
 
 

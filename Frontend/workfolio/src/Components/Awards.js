@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useState ,useEffect} from 'react';
+import Buttons from './Buttons.js';
 import '../Componentcss/Awardss.css'
 import Header from './Header'
+import EditAwardsModel from './AwardsModels.js';
 const Awards = ({user,awardName, issuingOrganization, issueDate, awardDescription}) => {
   let User=user.awards;
   const options={year:'numeric',month:'long',day:'numeric'};
-
+  const [editindex,seteditindex]=useState(0);
+  const [showeditmodel,setshoweditmodel]=useState(0);
+  const edittheaward=(index)=>{
+    // alert("hiiiiiiiii alert");
+    seteditindex(index);
+    // alert(editindex);
+    setshoweditmodel(1);
+    // alert(showeditmodel);
+  }
   return (
     <>
       <div className='interactive-card'>
@@ -14,6 +24,7 @@ const Awards = ({user,awardName, issuingOrganization, issueDate, awardDescriptio
             <div className='awardname'>
               <span>{award.awardName ? award.awardName :"Award Name"}</span>
             </div>
+            <Buttons buttonname="Edit" onClick={() => edittheaward(index)} />
             <div className='Awarddetails'>
               <div className='issuedate'>
                 <span>{award.issuingOrganization ? award.issuingOrganization : "issuingOrganization"}</span>
@@ -28,6 +39,8 @@ const Awards = ({user,awardName, issuingOrganization, issueDate, awardDescriptio
           
         </div>
       </div>
+      {showeditmodel ? <EditAwardsModel index={editindex} /> : null}
+
     </>
   )
 }
