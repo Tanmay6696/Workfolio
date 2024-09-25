@@ -21,6 +21,7 @@ const UserDataSlice = createSlice({
         userdata:[],
         error:null,
         accessToken:'',
+        email:''
     },
     reducers:{
         setUserdata:(state,action)=>{
@@ -30,7 +31,11 @@ const UserDataSlice = createSlice({
         },
         setAccessToken:(state,action)=>{
             state.accessToken=action.payload;
-        }
+        },
+        setEmails:(state,action)=>{
+            console.log("inside the email");
+            state.email=action.payload;
+        },
     },
     extraReducers:(builder)=>{
         builder
@@ -48,5 +53,5 @@ const UserDataSlice = createSlice({
 
     },
 });
-export const {setUserdata,setAccessToken}=UserDataSlice.actions;
+export const {setUserdata,setAccessToken,setEmails}=UserDataSlice.actions;
 export  default UserDataSlice.reducer;

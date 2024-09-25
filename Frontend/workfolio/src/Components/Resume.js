@@ -9,7 +9,7 @@ const Resume = ({user}) => {
   const openresume=(resume)=>{
     setshowresume(true);
   }
-  console.log("user.resume",user.resume);
+  //console.log("user.resume",user.resume);
   
   
   return (

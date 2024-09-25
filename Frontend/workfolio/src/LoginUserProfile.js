@@ -19,9 +19,11 @@ import UserForm from './Components/RegisterUser.js';
 import RegisterUser from './Components/RegisterUser.js';
 import SocialMediaprofile from './Components/SocialMediaprofile.js';
 import Editmodel from './Components/ProjectsModels.js';
+
 import Editeducationmodel from './Components/EducationModels.js';
 const LoginUserProfile = () => {
   const dispatch = useDispatch();
+  
   //const [userdata, setUsersdata] = useState(null); // Initialize as null to handle loading state
   const [isEmailEditable,setisEmailEditable]=useState(false);
   const [newemail,setemail]=useState('tanmay1@gmail.com');
@@ -30,14 +32,19 @@ const LoginUserProfile = () => {
   const { userdata } = useSelector(state => state.userdata);
   console.log("userdata",userdata);
   //const token = ""; // Replace this with your actual token
-
+  
+  let accessToken = useSelector((state) => state.userdata.accessToken);
+  console.log("accessToken",accessToken);
+  let Emailforurl=useSelector(state => state.userdata.email);
+  console.log("Emailforurl",Emailforurl);
   // Function to fetch user data
   const getdata = async () => {
+    
     try {
-
-      const response = await axios.post('http://localhost:3000/api/v1/johndoe@example.com/Userdetails', {}, {
+      
+      const response = await axios.post(`http://localhost:3000/api/v1/${Emailforurl}/Userdetails`, {}, {
         headers: {
-          'Authorization': `${response.data.data.accessToken}` // Ensure you include 'Bearer' if needed
+          'Authorization': `${accessToken}` // Ensure you include 'Bearer' if needed
         }
       });
       console.log("good", response.data);
@@ -69,7 +76,10 @@ const LoginUserProfile = () => {
 
   // Fetch data on component mount
   useEffect(() => {
-    getdata();
+    if(accessToken){
+      getdata();
+    }
+    
   }, []); // Empty dependency array ensures it runs only on mount
 
   // Render loading state or user data

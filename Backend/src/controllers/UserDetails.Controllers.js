@@ -38,7 +38,7 @@ const Showuserdeatils=AsyncHandler(async(req,res)=>{
         // const newuser = await User.findById(userid)
         // .populate('projects')       
         // .populate('awards'); 
-        console.log("user",user);
+        //console.log("user",user);
         
         const likes=await Likes.find({likedUserId:userobjectid}).select('likedBy');        
         const comments=await Comments.find({commentonId:userobjectid}).select('commentbyId content');

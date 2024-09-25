@@ -3,34 +3,43 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { setAccessToken } from "./Store/UserDataSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { setAccessToken ,setEmails } from "./Store/UserDataSlice";
 const Login = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState();
   const [error, setError] = useState("");
   const history = useNavigate();
   const dispatch = useDispatch();
+  
+
   const handleSubmit = async (e) => {
     alert("hi");
 
     e.preventDefault();
-    const accessTokens='';
+    let accessTokens='';
     try {
+      console.log(email,password);
+
       const response = await axios.post("http://localhost:3000/api/v1/users/login", {
         email,
         password,
       });
     //   console.log(response);
     
-      console.log(response.data.data.accessToken);
+      
       
 
       if (response.data.data.accessToken) {
-        accessTokens =response.data.data.accessToken;
-        dispatch(setAccessToken(accessTokens));
-        localStorage.setItem("token", response.data.data.accessToken);
         alert("Login successful");
+        accessTokens =response.data.data.accessToken;
+        console.log(accessTokens);
+        //localStorage.setItem("token", response.data.data.accessToken);
+        dispatch(setEmails(email));
+        
+        // FullfillthesccessTokenandemail(email,accessTokens);
+        dispatch(setAccessToken(accessTokens));
+        
         history("/"); // Redirect to home or another route after login
       }
     } catch (err) {

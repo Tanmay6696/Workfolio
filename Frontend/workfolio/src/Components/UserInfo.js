@@ -3,7 +3,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import '../Componentcss/UserInfo.css';
 
 const UserInfo = ({ user }) => {
-  console.log("user info", user);
+  //console.log("user info", user);
 
   return (
     <div className="UserInfo">
