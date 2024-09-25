@@ -17,7 +17,7 @@ function App() {
       <Routes>
         
         <Route path="/" element={<AllComponentfile/>}/>
-        <Route path="/Login" element={<LoginorSignupfile/>}/>
+        <Route path="/userprofile" element={<LoginorSignupfile/>}/>
 
         {/* <Route path="/userprofile" element={<LoginUserProfile/>}>
         </Route> */}

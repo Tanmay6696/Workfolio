@@ -20,6 +20,7 @@ const UserDataSlice = createSlice({
         status:'idle',
         userdata:[],
         error:null,
+        accessToken:'',
     },
     reducers:{
         setUserdata:(state,action)=>{
@@ -27,6 +28,9 @@ const UserDataSlice = createSlice({
             
             state.userdata=action.payload;
         },
+        setAccessToken:(state,action)=>{
+            state.accessToken=action.payload;
+        }
     },
     extraReducers:(builder)=>{
         builder
@@ -44,5 +48,5 @@ const UserDataSlice = createSlice({
 
     },
 });
-export const {setUserdata}=UserDataSlice.actions;
+export const {setUserdata,setAccessToken}=UserDataSlice.actions;
 export  default UserDataSlice.reducer;

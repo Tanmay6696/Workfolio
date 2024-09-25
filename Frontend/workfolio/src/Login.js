@@ -3,25 +3,32 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from 'react-redux';
+import { setAccessToken } from "./Store/UserDataSlice";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const history = useNavigate();
-
+  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
+    alert("hi");
+
     e.preventDefault();
+    const accessTokens='';
     try {
       const response = await axios.post("http://localhost:3000/api/v1/users/login", {
         email,
         password,
       });
     //   console.log(response);
+    
       console.log(response.data.data.accessToken);
       
-     
+
       if (response.data.data.accessToken) {
+        accessTokens =response.data.data.accessToken;
+        dispatch(setAccessToken(accessTokens));
         localStorage.setItem("token", response.data.data.accessToken);
         alert("Login successful");
         history("/"); // Redirect to home or another route after login
@@ -35,7 +42,6 @@ const Login = () => {
   return (
     <div >
       <div >
-        <h2>Login</h2>
         {error && <p>{error}</p>}
         <form onSubmit={handleSubmit}>
           <input
@@ -55,9 +61,7 @@ const Login = () => {
           <button type="submit">
             Login
           </button>
-          <p>
-            Don't have an account? <a href="/">Sign Up</a>
-          </p>
+          
         </form>
       </div>
     </div>
