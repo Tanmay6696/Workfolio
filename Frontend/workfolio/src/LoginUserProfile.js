@@ -24,20 +24,17 @@ import Editeducationmodel from './Components/EducationModels.js';
 const LoginUserProfile = () => {
   const dispatch = useDispatch();
   
-  //const [userdata, setUsersdata] = useState(null); // Initialize as null to handle loading state
   const [isEmailEditable,setisEmailEditable]=useState(false);
   const [newemail,setemail]=useState('tanmay1@gmail.com');
   console.log("initialState", useSelector((state) => state.userdata));
 
   const { userdata } = useSelector(state => state.userdata);
   console.log("userdata",userdata);
-  //const token = ""; // Replace this with your actual token
   
   let accessToken = useSelector((state) => state.userdata.accessToken);
   console.log("accessToken",accessToken);
   let Emailforurl=useSelector(state => state.userdata.email);
   console.log("Emailforurl",Emailforurl);
-  // Function to fetch user data
   const getdata = async () => {
     
     try {
