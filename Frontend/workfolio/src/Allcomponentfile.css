@@ -21,11 +21,14 @@ html, body {
   }
 .main
 {
-    height: 90vh;
-    width:100%;
-    
-    
+    height: 92vh;
+    width:96vw;
+    margin-bottom: 2%;
+    border-radius: 25px;
+    /* background-color: red; */
     display: flex;
+    margin-left:  auto;
+    margin-right: auto;
     justify-content: center;
 }
 .interactive-card {

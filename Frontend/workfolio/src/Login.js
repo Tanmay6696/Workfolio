@@ -5,6 +5,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { setAccessToken ,setEmails } from "./Store/UserDataSlice";
+import './Login.css';
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState();
@@ -14,7 +16,7 @@ const Login = () => {
   
 
   const handleSubmit = async (e) => {
-    alert("hi");
+    
 
     e.preventDefault();
     let accessTokens='';
@@ -25,13 +27,13 @@ const Login = () => {
         email,
         password,
       });
-    //   console.log(response);
+    
     
       
       
 
       if (response.data.data.accessToken) {
-        alert("Login successful");
+        
         accessTokens =response.data.data.accessToken;
         console.log(accessTokens);
         //localStorage.setItem("token", response.data.data.accessToken);
@@ -51,15 +53,49 @@ const Login = () => {
   return (
     <div >
       <div >
-        {error && <p>{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+      <>
+          <main class="container">
+              <h2>Login</h2>
+              {error && <p>{error}</p>}
+              <form onSubmit={handleSubmit}>
+                  <div class="input-field">
+                      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+            required  name="username" id="username"
+                          placeholder="Enter Your Username or Email"/>
+                      <div class="underline"></div>
+                  </div>
+                  <div class="input-field">
+                      <input type="text" value={password} onChange={(e) => setPassword(e.target.value)}
+            required  name="password" id="password"
+                          placeholder="Enter Your Passwords"/>
+                      <div class="underline"></div>
+                  </div>
+
+                  <input type="submit" value="Continue"/>
+              </form>
+
+              {/* <div class="footer">
+                  <span>Or Connect With Social Media</span>
+                  <div class="social-fields">
+                      <div class="social-field twitter">
+                          <a href="#">
+                              <i class="fab fa-twitter"></i>
+                              Sign in with Twitter
+                          </a>
+                      </div>
+                      <div class="social-field facebook">
+                          <a href="#">
+                              <i class="fab fa-facebook-f"></i>
+                              Sign in with Facebook
+                          </a>
+                      </div>
+                  </div>
+              </div> */}
+          </main>
+      </>
+        
+        {/* <form onSubmit={handleSubmit}>
+          
           <input
             type="password"
             placeholder="Password"
@@ -71,7 +107,7 @@ const Login = () => {
             Login
           </button>
           
-        </form>
+        </form> */}
       </div>
     </div>
   );

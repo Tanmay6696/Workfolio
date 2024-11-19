@@ -216,11 +216,12 @@ const LoginUser=AsyncHandler(async(req,res)=>{
     //if no then show error 
     //console.log("req ",req.body);
     const {email,username,password}=req.body;
+    console.log("email ",email," password ",password);
     if(!email){
         throw new APiError(400,"email is not present");
     }
     const findUser=await User.findOne({ email });
-    //console.log("findUser",findUser);
+    console.log("findUser",findUser);
     if(!findUser){
         throw new APiError(400,"User  is not present");
     }

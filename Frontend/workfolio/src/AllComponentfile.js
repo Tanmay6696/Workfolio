@@ -26,10 +26,14 @@ const AllComponentfile = () => {
   let content;
   if (userstatus === 'succeeded') {
     content = allusersdata.map((user, index) => (
-      <div className='main' key={index}>
-        <Video user={user} />
-        <Profilesection user={user} />
+      <div  key={index}>
+        <div className='main'>
+          <Video user={user} />
+          <Profilesection user={user} />
+        </div>
+        
       </div>
+      
     ));
   } else if (userstatus === 'loading') {
     content = <div>Loading...</div>;
