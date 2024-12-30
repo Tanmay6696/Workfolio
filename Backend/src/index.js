@@ -4,7 +4,7 @@ import app from './App.js'
 const port = process.env.PORT || 8000;
 
 dotenv.config({
-    path:'./env'
+    
 })
 import connectDB from './db/Indexnew.js'
 connectDB()
