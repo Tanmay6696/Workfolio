@@ -10,7 +10,7 @@ import connectDB from './db/Indexnew.js'
 connectDB()
 .then(()=>{
     app.listen(port , ()=>{
-        console.log("server is running " ,process.env.PORT);
+        console.log(`Example app listening on port ${port}`)
     })
 })
 .catch((err)=>{ 
