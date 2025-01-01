@@ -70,7 +70,7 @@ const Editmodel = ({index}) => {
     try {
       // Make the API request
       const response = await axios.post(
-        'http://localhost:3000/api/v1/users/tanmay117@example.com/projectsupdate',
+        'https://workfoliobackend.onrender.com/api/v1/users/tanmay117@example.com/projectsupdate',
         updateProject,
         {
           headers: {

@@ -83,7 +83,7 @@ const EditAchievementsModel = ({index}) => {
     try {
       // Make the API request
       const response = await axios.post(
-        'http://localhost:3000/api/v1/users/tanmay117@example.com/achievementsupdate',
+        'https://workfoliobackend.onrender.com/api/v1/users/tanmay117@example.com/achievementsupdate',
         updateAchievement,
         {
           headers: {

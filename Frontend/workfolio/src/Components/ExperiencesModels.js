@@ -75,7 +75,7 @@ const EditExperienceModel = ({index}) => {
     try {
       // Make the API request
       const response = await axios.post(
-        'http://localhost:3000/api/v1/users/tanmay117@example.com/Experienceupdate',
+        'https://workfoliobackend.onrender.com/api/v1/users/tanmay117@example.com/Experienceupdate',
         updateExperience,
         {
           headers: {

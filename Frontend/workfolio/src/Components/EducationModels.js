@@ -77,7 +77,7 @@ const Editeducationmodel = ({index}) => {
     try {
       // Make the API request
       const response = await axios.post(
-        'http://localhost:3000/api/v1/users/tanmay117@example.com/educationupdate',
+        'https://workfoliobackend.onrender.com/api/v1/users/tanmay117@example.com/educationupdate',
         updateEducation,
         {
           headers: {

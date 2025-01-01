@@ -27,10 +27,9 @@ const LoginorSignupfile = () => {
   };
   //let Emailforurl=useSelector((state) => state.email);
   const getdata = async () => {
-    alert("hu");
     try {
       console.log("No Error fetching user data 1");
-      const response = await axios.post(`http://localhost:3000/api/v1/${Emailforurl}/Userdetails`, {}, {
+      const response = await axios.post(`https://workfoliobackend.onrender.com/api/v1/${Emailforurl}/Userdetails`, {}, {
         headers: {
           'Authorization': `${accessToken}` // Ensure you include 'Bearer' if needed
         }
@@ -47,15 +46,13 @@ const LoginorSignupfile = () => {
     }
   };
   useEffect(() => {
-    alert("j");
     if(accessToken ||Emailforurl){
       getdata();
     }
     
     console.log(accessToken," ",Emailforurl);
     
-    alert("accessToken",accessToken);
-    alert("Emailforurl",Emailforurl);
+    
       
     
     

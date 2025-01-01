@@ -7,7 +7,7 @@ export const fetchusersdata=createAsyncThunk(
     async()=>{
         console.log("hi1");
         
-        const response=await axios.get('http://localhost:3000/api/v1/getotherUserdetails');
+        const response=await axios.get('https://workfoliobackend.onrender.com/api/v1/getotherUserdetails');
         console.log("hi2" ,response);
 
         return response.data;

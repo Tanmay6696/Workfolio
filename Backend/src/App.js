@@ -5,7 +5,7 @@ import UserRouter from './routes/Users.Routes.js'
 import UserDetailsRoutes from './routes/UserDetails.Routes.js'
 app.use(cors(
   {
-    origin: 'http://localhost:300https://workfolio-nu.vercel.app',
+    origin: '*',
   }
 ));
 app.use(express.json());
