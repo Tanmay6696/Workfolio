@@ -5,10 +5,10 @@ import Constant from '../Constant.js';
 //async to call data
 export const fetchusersdata=createAsyncThunk(
     'users/fetchusersdata',
-    async()=>{
-        console.log("hi1");
+    async(usersss)=>{
+        console.log("hi1",usersss);
         
-        const response=await axios.get(`${Constant}/api/v1/getotherUserdetails`);
+        const response=await axios.get(`${Constant}/api/v1/getotherUserdetails?usersss=${usersss}`);
         console.log("hi2" ,response);
 
         return response.data;
@@ -45,7 +45,7 @@ const UserDataSlice = createSlice({
         })
         .addCase(fetchusersdata.fulfilled,(state,action)=>{
             state.status='succeeded';
-            state.allusersdata=action.payload;
+            state.allusersdata=[...state.allusersdata, ...action.payload];
         })
         .addCase(fetchusersdata.rejected,(state,action)=>{
             state.status='failed';

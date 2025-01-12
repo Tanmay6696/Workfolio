@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from './Components/Navbar';
 import Video from './Components/Video';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,10 +11,12 @@ const AllComponentfile = () => {
   const dispatch=useDispatch();
   const allusersdata=useSelector(
     (state)=>state.userdata.allusersdata);
+    const [data,setData]=useState([allusersdata]);
   const userstatus=useSelector((state)=>state.userdata.status);
   console.log("allusersdata ",allusersdata);
   console.log("userstatus ",userstatus);
-  
+  let page=0;
+
   useEffect(()=>{
     if(userstatus=='idle'){
       console.log("hi0");
@@ -23,7 +25,27 @@ const AllComponentfile = () => {
       
     }
   },[userstatus,dispatch]);
+  
+  const infiniteScroll=async(e) => {
+    // console.log(document.documentElement.scrollHeight, window.innerHeight, document.documentElement.scrollTop);
+      e.preventDefault();
+    if ((document.documentElement.scrollHeight -200 )<= (window.innerHeight + document.documentElement.scrollTop)){
+      
+        page=page+1;
+      dispatch(fetchusersdata(page));
+      
+
+        }
+    
+  }
+  useEffect(()=>{
+    window.addEventListener("scroll",infiniteScroll);
+    return()=> window.removeEventListener("scroll",infiniteScroll);
+
+  },[]);
   let content;
+  
+  
   if (userstatus === 'succeeded') {
     content = allusersdata.map((user, index) => (
       <div  key={index}>

@@ -17,7 +17,7 @@ import axios from 'axios';
 import Awards from './Awards';
 
 const Profilesection = ({user}) => {
-  console.log("user ",user);
+  // console.log("user ",user);
   
   return (
     <div className='Profilesection'> 

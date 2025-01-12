@@ -114,8 +114,9 @@ const isCurrentUserLikebyme=AsyncHandler(async(req,res)=>{
     }
 })
 const GetOtherUserDetails=AsyncHandler(async(req,res)=>{
+    const { usersss = 1, limit = 3 } = req.query; 
     try{
-        const users=await User.find().limit(5)
+        const users=await User.find().skip((usersss - 1) * limit).limit(3)
         .populate('educations')      // Populates the educations field
         .populate('experiences') // Populates the social media profiles
         .populate('achievements')
