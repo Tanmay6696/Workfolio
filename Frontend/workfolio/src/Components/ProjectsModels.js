@@ -2,6 +2,7 @@ import React, { useState ,useEffect} from 'react';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import Constant from '../Constant';
 
 const customStyles = {
   content: {
@@ -70,7 +71,7 @@ const Editmodel = ({index}) => {
     try {
       // Make the API request
       const response = await axios.post(
-        'https://workfoliobackend.onrender.com/api/v1/users/tanmay117@example.com/projectsupdate',
+        `${Constant}/api/v1/users/tanmay117@example.com/projectsupdate`,
         updateProject,
         {
           headers: {

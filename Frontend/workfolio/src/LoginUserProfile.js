@@ -21,6 +21,8 @@ import SocialMediaprofile from './Components/SocialMediaprofile.js';
 import Editmodel from './Components/ProjectsModels.js';
 
 import Editeducationmodel from './Components/EducationModels.js';
+import Constant from "./Constant.js";
+
 const LoginUserProfile = () => {
   const dispatch = useDispatch();
   
@@ -39,7 +41,7 @@ const LoginUserProfile = () => {
     
     try {
       
-      const response = await axios.post(`https://workfoliobackend.onrender.com/api/v1/${Emailforurl}/Userdetails`, {}, {
+      const response = await axios.post(`${Constant}/api/v1/${Emailforurl}/Userdetails`, {}, {
         headers: {
           'Authorization': `${accessToken}` // Ensure you include 'Bearer' if needed
         }

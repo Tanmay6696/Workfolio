@@ -26,10 +26,8 @@
 .mainskilldiv{
     
     display: flex;
-    background-color: rgb(164, 48, 48);
     height: 100%;
     width: 100%;
-    /* max-width: 100%; */
     gap:5%;
     padding: 2% auto;
     flex-wrap: wrap;

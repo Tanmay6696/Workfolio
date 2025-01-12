@@ -1,23 +1,18 @@
 .SkillsItemdiv{
-    width:20%;
-    height: 25%;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    border-radius: 60px;
-    border: 1px solid #240e6d;
+    display: flex
+;
+    width: 10rem;
+    justify-content: space-around;
+    gap: 0.5rem;
 }
 .SkillsItemdiv2{
-    position: absolute;
-    width: 90%;
-    height: 90%;
-    background-color: #fff123;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex
+;
+    text-align: initial;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 2.5rem;
+    justify-content: space-around;
 }
 .SkillsItemdiv span{
     color: blue;

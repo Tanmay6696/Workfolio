@@ -92,3 +92,13 @@
     border-radius: 80%;
     /* background-color: white; */
 }
+@media (max-width: 768px) {
+    .box {
+      flex: 1 1 calc(50% - 20px); /* 2 columns for tablets */
+    }
+  }
+  @media (max-width: 480px) {
+    .box {
+      flex: 1 1 100%; /* 1 column for mobile */
+    }
+  }

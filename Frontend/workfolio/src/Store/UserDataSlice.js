@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
+import Constant from '../Constant.js';
 
 //async to call data
 export const fetchusersdata=createAsyncThunk(
@@ -7,7 +8,7 @@ export const fetchusersdata=createAsyncThunk(
     async()=>{
         console.log("hi1");
         
-        const response=await axios.get('https://workfoliobackend.onrender.com/api/v1/getotherUserdetails');
+        const response=await axios.get(`${Constant}/api/v1/getotherUserdetails`);
         console.log("hi2" ,response);
 
         return response.data;

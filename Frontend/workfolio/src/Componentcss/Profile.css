@@ -8,3 +8,14 @@
     margin-left: 1%;
     /* background-color: rgb(175, 167, 167); */
 }
+@media (max-width: 768px) {
+    .Profilesection {
+      background-color: rgb(175, 167, 167);
+      width: 0%;
+    }
+  }
+  @media (max-width: 480px) {
+    .Profilesection {
+      background-color: rgb(175, 167, 167);
+    }
+  }

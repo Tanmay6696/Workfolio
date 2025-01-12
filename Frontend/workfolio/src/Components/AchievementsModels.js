@@ -2,7 +2,7 @@ import React, { useState ,useEffect} from 'react';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-
+import Constant from '../Constant';
 const customStyles = {
   content: {
     top: '50%',
@@ -83,7 +83,7 @@ const EditAchievementsModel = ({index}) => {
     try {
       // Make the API request
       const response = await axios.post(
-        'https://workfoliobackend.onrender.com/api/v1/users/tanmay117@example.com/achievementsupdate',
+        `${Constant}/api/v1/users/tanmay117@example.com/achievementsupdate`,
         updateAchievement,
         {
           headers: {
@@ -116,7 +116,7 @@ const EditAchievementsModel = ({index}) => {
     style={customStyles}
     contentLabel="Edit Achievement"
   >
-    <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Edit Achievement</h2>
+    <button ref={(_subtitle) => (subtitle = _subtitle)}>Edit Achievement</button>
     <button onClick={closeModal}>Close</button>
     <form onSubmit={savetheChanges}>
       <input

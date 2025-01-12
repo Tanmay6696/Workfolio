@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { setAccessToken ,setEmails } from "./Store/UserDataSlice";
 import './Login.css';
-
+import Constant from "./Constant.js";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState();
@@ -22,8 +22,10 @@ const Login = () => {
     let accessTokens='';
     try {
       console.log(email,password);
+      console.log(Constant);
+      
 
-      const response = await axios.post("https://workfoliobackend.onrender.com/api/v1/users/login", {
+      const response = await axios.post(`${Constant}/api/v1/users/login`, {
         email,
         password,
       });
@@ -54,38 +56,38 @@ const Login = () => {
     <div >
       <div >
       <>
-          <main class="container">
+          <main className="container">
               <h2>Login</h2>
               {error && <p>{error}</p>}
               <form onSubmit={handleSubmit}>
-                  <div class="input-field">
+                  <div className="input-field">
                       <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
             required  name="username" id="username"
                           placeholder="Enter Your Username or Email"/>
-                      <div class="underline"></div>
+                      <div className="underline"></div>
                   </div>
-                  <div class="input-field">
+                  <div className="input-field">
                       <input type="text" value={password} onChange={(e) => setPassword(e.target.value)}
             required  name="password" id="password"
                           placeholder="Enter Your Passwords"/>
-                      <div class="underline"></div>
+                      <div className="underline"></div>
                   </div>
 
                   <input type="submit" value="Continue"/>
               </form>
 
-              {/* <div class="footer">
+              {/* <div className="footer">
                   <span>Or Connect With Social Media</span>
-                  <div class="social-fields">
-                      <div class="social-field twitter">
+                  <div className="social-fields">
+                      <div className="social-field twitter">
                           <a href="#">
-                              <i class="fab fa-twitter"></i>
+                              <i className="fab fa-twitter"></i>
                               Sign in with Twitter
                           </a>
                       </div>
-                      <div class="social-field facebook">
+                      <div className="social-field facebook">
                           <a href="#">
-                              <i class="fab fa-facebook-f"></i>
+                              <i className="fab fa-facebook-f"></i>
                               Sign in with Facebook
                           </a>
                       </div>
