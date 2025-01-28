@@ -6,11 +6,7 @@ import Constant from '../Constant.js';
 export const fetchusersdata=createAsyncThunk(
     'users/fetchusersdata',
     async(usersss)=>{
-        console.log("hi1",usersss);
-        
-        const response=await axios.get(`${Constant}/api/v1/getotherUserdetails?usersss=${usersss}`);
-        console.log("hi2" ,response);
-
+        const response=await axios.get(`${Constant}/api/v1/getotherUserdetails?usersss=${usersss}`);     
         return response.data;
     }
 )
@@ -22,21 +18,30 @@ const UserDataSlice = createSlice({
         userdata:[],
         error:null,
         accessToken:'',
-        email:''
+        email:'',
+        searchresultshownornot:false,
+        searchlist:[] ,
+        searchclickuserdata:[]
     },
     reducers:{
-        setUserdata:(state,action)=>{
-            console.log("hi");
-            
+        setUserdata:(state,action)=>{            
             state.userdata=action.payload;
         },
         setAccessToken:(state,action)=>{
             state.accessToken=action.payload;
         },
         setEmails:(state,action)=>{
-            console.log("inside the email");
             state.email=action.payload;
         },
+        setSearchResultShownOrNot:(state,action)=>{
+            state.searchresultshownornot=action.payload;
+        },
+        setsearchlist:(state,action)=>{
+            state.searchlist=action.payload;
+        },
+        setsearchclickuserdata:(state,action)=>{
+            state.searchclickuserdata=action.payload;
+        }
     },
     extraReducers:(builder)=>{
         builder
@@ -54,5 +59,5 @@ const UserDataSlice = createSlice({
 
     },
 });
-export const {setUserdata,setAccessToken,setEmails}=UserDataSlice.actions;
+export const {setUserdata,setAccessToken,setEmails,setSearchResultShownOrNot,setsearchlist,setsearchclickuserdata}=UserDataSlice.actions;
 export  default UserDataSlice.reducer;

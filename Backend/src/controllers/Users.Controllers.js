@@ -59,7 +59,37 @@ const Details =AsyncHandler(async(req,res)=>{
 
 });
 
-
+const searchUser = async (req, res) => {
+    // get the username from the request
+    // find the user from the database
+    // if user is present then return the user
+    // if user is not present then return the error
+    try {
+        const username = req.body.email;
+        console.log("inside the searchUser", req.body, req.params);
+        if (username == null) {
+            return res.status(401).json({ message: "data is empty" });
+        }
+        let userfind = await User.findOne({ username })
+            .populate('educations')      // Populates the educations field
+            .populate('experiences')     // Populates the experiences field
+            .populate('achievements')
+            .populate('skills')      
+            .populate('projects')
+            .populate('socialMediaProfiles')
+            .populate('codingProfiles')
+            .populate('awards');         // Populates the awards field
+        console.log("inside the searchUser", userfind);
+        if (userfind != null) {
+            return res.status(200).json(userfind);
+        }
+        return res.status(404).json({ message: "User not found" });
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+};
+    
+    
 const RegisteredUser=AsyncHandler(async(req,res)=>{
     //get data from Users
     //checked for the mandatory data
@@ -1118,4 +1148,4 @@ const deleteUserSkills = async (req, res) => {
     }
 };
 
-export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateRating,updateComment,updateUserExperience,unlikeUser,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,Details,deleteUserEducation,addUserExperience,deleteUserExperience,updateLike}
+export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateRating,updateComment,updateUserExperience,unlikeUser,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,Details,deleteUserEducation,addUserExperience,deleteUserExperience,updateLike,searchUser}

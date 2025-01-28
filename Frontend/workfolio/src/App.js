@@ -8,19 +8,26 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginorSignupfile from './LoginorSignupfile';
 import Login from './Login';
 import LoginUserProfile from './LoginUserProfile';
-
+import { useDispatch, useSelector } from 'react-redux';
+import IndividualUser from './IndividualUser';
+import { setSearchResultShownOrNot ,setsearchlist } from './Store/UserDataSlice';
 function App() {
-  
+  const dispatch = useDispatch();
+  function clickonappcomponent(){
+    dispatch(setSearchResultShownOrNot(false));
+    dispatch(setsearchlist([]));
+    console.log("app")
+  }
   return (
-    <div className="App">
+    <div className="App" onClick={clickonappcomponent}>
       <BrowserRouter>
       <Routes>
         
         <Route path="/" element={<AllComponentfile/>}/>
-        <Route path="/userprofile" element={<LoginorSignupfile/>}/>
+        <Route path="/searchuserprofile" element={<IndividualUser/>}/>
 
-        {/* <Route path="/userprofile" element={<LoginUserProfile/>}>
-        </Route> */}
+        <Route path="/userprofile" element={<LoginUserProfile/>}>
+        </Route>
       </Routes>
     </BrowserRouter>
      

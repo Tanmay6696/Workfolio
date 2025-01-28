@@ -11,38 +11,78 @@ const AllComponentfile = () => {
   const dispatch=useDispatch();
   const allusersdata=useSelector(
     (state)=>state.userdata.allusersdata);
-    const [data,setData]=useState([allusersdata]);
+  const [loading,setLoading]=useState(0);
+  const [Page,setPage]=useState(1);
   const userstatus=useSelector((state)=>state.userdata.status);
-  console.log("allusersdata ",allusersdata);
-  console.log("userstatus ",userstatus);
-  let page=0;
-
   useEffect(()=>{
-    if(userstatus=='idle'){
-      console.log("hi0");
-      dispatch(fetchusersdata());
-      console.log("userstatus ",allusersdata);
+    console.log('Attaching scroll listener 1');
+    const fetchdata=async()=>{
+      if(!loading){
+        
+        setLoading((loading)=>!loading);
+        dispatch(fetchusersdata(Page));
+        setLoading((loading)=>!loading);
+      }
+    }
+    
+    fetchdata();
+  },[Page]);
+  
+  // const infiniteScroll = () => {
+  //   if (loading) return;
+  //   const scrollTop = document.documentElement.scrollTop;
+  //   const scrollHeight = document.documentElement.scrollHeight;
+  //   const clientHeight = window.innerHeight;
+
+  //   if (scrollHeight - 200 < scrollTop + clientHeight && !loading) {
+      
+  //     console.log("inside infinitescroll");
+      
+  //     setPage(Page=>Page + 1); // Load the next page
+      
+      
+  //   }
+  // };
+  useEffect(() => {
+    console.log("Attaching scroll listener");
+    function infiniteScrolls() {
+        if (loading) return;
+      const scrollTop = document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = window.innerHeight;
+
+      if (scrollHeight - 200 < scrollTop + clientHeight && !loading) {
+        
+        console.log("inside infinitescroll");
+        
+        setLoading((loading)=>!loading);
+          dispatch(fetchusersdata(Page));
+          setLoading((loading)=>!loading);
+        
+        
+      }
       
     }
-  },[userstatus,dispatch]);
-  
-  const infiniteScroll=async(e) => {
-    // console.log(document.documentElement.scrollHeight, window.innerHeight, document.documentElement.scrollTop);
-      e.preventDefault();
-    if ((document.documentElement.scrollHeight -200 )<= (window.innerHeight + document.documentElement.scrollTop)){
-      
-        page=page+1;
-      dispatch(fetchusersdata(page));
-      
+    window.addEventListener('scroll', infiniteScrolls);
 
-        }
+    return () => {
+      window.removeEventListener('scroll', infiniteScrolls);
+    };
+  }, []);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  // useEffect(() => {
+  //   function handleMove(e) {
+  //     setPosition({ x: e.clientX, y: e.clientY });
+  //   }
+  //   console.log("attach");
     
-  }
-  useEffect(()=>{
-    window.addEventListener("scroll",infiniteScroll);
-    return()=> window.removeEventListener("scroll",infiniteScroll);
-
-  },[]);
+  //   window.addEventListener('pointermove', handleMove);
+  //   return () => {
+  //     console.log("deattach");
+  //     window.removeEventListener('pointermove', handleMove);
+  //   };
+  // }, []);
   let content;
   
   

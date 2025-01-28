@@ -8,9 +8,14 @@ import '../Allcomponentfile.css'
 import Editeducationmodel from './EducationModels.js';
 import { SiShowwcase } from 'react-icons/si';
 
+import { useDispatch, useSelector } from 'react-redux';
 
 const Education = ({user}) => {
+  
+  const searchresultshownornot=useSelector(
+    (state)=>state.userdata.searchclickuserdata);
   let User=user.educations;
+  console.log("user",searchresultshownornot);
   const options={year:'numeric',month:'long',day:'numeric'};
   const [editindex,seteditindex]=useState(0);
   const [showeditmodel,setshoweditmodel]=useState(0);
