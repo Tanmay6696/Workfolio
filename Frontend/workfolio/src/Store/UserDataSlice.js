@@ -17,7 +17,7 @@ const UserDataSlice = createSlice({
         status:'idle',
         userdata:[],
         error:null,
-        accessToken:'',
+        accessToken:null,
         email:'',
         searchresultshownornot:false,
         searchlist:[] ,
@@ -41,7 +41,18 @@ const UserDataSlice = createSlice({
         },
         setsearchclickuserdata:(state,action)=>{
             state.searchclickuserdata=action.payload;
-        }
+        },
+        loginSuccess: (state, action) => {
+            state.userdata = action.payload.user;
+            state.accessToken = action.payload.accessToken;
+          },
+          logout: (state) => {
+            state.userdata = [];
+            state.accessToken = null;
+          },
+          updateAccessToken: (state, action) => {
+            state.accessToken = action.payload;
+          },
     },
     extraReducers:(builder)=>{
         builder
@@ -59,5 +70,5 @@ const UserDataSlice = createSlice({
 
     },
 });
-export const {setUserdata,setAccessToken,setEmails,setSearchResultShownOrNot,setsearchlist,setsearchclickuserdata}=UserDataSlice.actions;
+export const {setUserdata,setAccessToken,setEmails,setSearchResultShownOrNot,setsearchlist,setsearchclickuserdata,loginSuccess, logout, updateAccessToken}=UserDataSlice.actions;
 export  default UserDataSlice.reducer;

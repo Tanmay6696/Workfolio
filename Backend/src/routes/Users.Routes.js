@@ -1,7 +1,7 @@
 import {Router} from "express";
 const router=Router();
 import { verifedJWT } from "../middlewares/Auth.middlewares.js";
-import {RegisteredUser,LoginUser,logout, updateUserSummary,addUserExperience,updateRating,addUserEducation,addUserAwards,addUserProject,unlikeUser,addUserCodingProfiles,updateUserEducation,updateUserExperience,addUserSkills,deleteUserCodingprofiles,addUserAchievements,deleteUserAchievements,deleteUserEducation, updateUserSkills,updateUserAwards,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,updateUserProjects,deleteUserProjects,updateUserCodingprofiles, deleteUserSkills, deleteUserSummary,deleteUserExperience,deleteUserAwards, Details,addUserSocialMedia,updateLike, updateComment,searchUser} from "../controllers/Users.Controllers.js"
+import {RegisteredUser,LoginUser,logout, updateUserSummary,addUserExperience,updateRating,addUserEducation,addUserAwards,addUserProject,unlikeUser,addUserCodingProfiles,updateUserEducation,updateUserExperience,addUserSkills,deleteUserCodingprofiles,addUserAchievements,deleteUserAchievements,deleteUserEducation, updateUserSkills,updateUserAwards,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,updateUserProjects,deleteUserProjects,updateUserCodingprofiles, deleteUserSkills, deleteUserSummary,deleteUserExperience,deleteUserAwards, Details,addUserSocialMedia,updateLike, updateComment,searchUser,refreshAccessToken} from "../controllers/Users.Controllers.js"
 import {upload} from '../middlewares/multer.middleware.js'
 router.route("/RegisterUser").post(
     upload.fields([
@@ -18,6 +18,9 @@ router.route("/RegisterUser").post(
     ]),
     RegisteredUser
 );
+
+router.route("/refreshaccesstoken").post(refreshAccessToken);
+
 router.route("/finduser").post(searchUser);
 router.route("/getdetails").get(Details);
 router.route("/login").post(LoginUser);

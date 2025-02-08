@@ -4,7 +4,10 @@ import Header from './Header'
 import '../Allcomponentfile.css';
 import Buttons from './Buttons.js';
 import Editmodel from './ProjectsModels.js';
+import  { useSelector } from 'react-redux';
 const Projects = ({ user }) => {
+  let userdata=useSelector((state)=>state.userdata.userdata);
+
   let User = user.projects;
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const [editindex,seteditindex]=useState(0);
@@ -21,7 +24,7 @@ const Projects = ({ user }) => {
         {User != undefined ?
           User.map((project, index) => (
             <div className='item' key={index}>
-              <Buttons buttonname="Edit" onClick={()=>{edittheproject(index);}}/>
+              {userdata && userdata?.username!=User.username &&  <Buttons buttonname="Edit" onClick={()=>{edittheproject(index);}}/>}
 
               <div className='name'>
                 <span>{project.title ? project.title : ""}</span>

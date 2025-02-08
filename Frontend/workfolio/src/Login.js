@@ -4,48 +4,77 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { setAccessToken ,setEmails } from "./Store/UserDataSlice";
+import { setAccessToken ,setEmails ,loginSuccess } from "./Store/UserDataSlice";
 import './Login.css';
 import Constant from "./Constant.js";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState();
   const [error, setError] = useState("");
-  const history = useNavigate();
   const dispatch = useDispatch();
-  
-
-  const handleSubmit = async (e) => {
-    
-
-    e.preventDefault();
-    let accessTokens='';
-    try {
-      console.log(email,password);
-      console.log(Constant);
+  const history=useNavigate();
+  const clickonforrefreshaccesstoken=async()=>{
+    try{
+      console.log("before refreshAccessToken");
+      await refreshAccessToken();
+      console.log("refreshAccessToken");
       
+    }
+    catch(error){
+      console.error('Failed to refresh access token', error);
+    }
+  }
+  const refreshAccessToken = async () => {
+    try {
+        const refreshToken = localStorage.getItem('refreshToken');  // Get refresh token
+        console.log("refreshToken", refreshToken);
+        
+        const response = await axios.post(
+            `${Constant}/api/v1/users/refreshaccesstoken`,
+            {},
+            {
+                headers: { 'x-refresh-token': refreshToken }  // Send refresh token in custom header
+            }
+        );
 
+        const { accessToken, newRefreshToken } = response.data;
+        console.log("response", response);
+        console.log("accessToken", accessToken, "newRefreshToken", newRefreshToken);
+        
+
+        // Update tokens in localStorage
+        localStorage.setItem('accessToken', accessToken);
+        if (response.data.refreshToken) {
+            localStorage.setItem('refreshToken', response.data.refreshToken);  // Optional: if refresh tokens are rotated
+        }
+
+        return accessToken;
+    } catch (error) {
+        console.error('Failed to refresh access token', error);
+        // Handle token refresh failure (e.g., log out user)
+        throw error;
+    }
+};
+
+
+
+  const handleSubmit = async (e) => {    
+    e.preventDefault();
+    let accessTokens;
+    try {
       const response = await axios.post(`${Constant}/api/v1/users/login`, {
         email,
         password,
       });
     
-    
+        accessTokens=response.data.data.accessToken;
+        localStorage.setItem("accessToken", response.data.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.data.refreshToken);
+        console.log("accessToken",response.data.data.accessToken);
+        const payload = JSON.parse(atob(accessTokens.split('.')[1]));
+        console.log("payload",payload);        
+         //history("/"); // Redirect to home or another route after login
       
-      
-
-      if (response.data.data.accessToken) {
-        
-        accessTokens =response.data.data.accessToken;
-        console.log(accessTokens);
-        //localStorage.setItem("token", response.data.data.accessToken);
-        dispatch(setEmails(email));
-        
-        // FullfillthesccessTokenandemail(email,accessTokens);
-        dispatch(setAccessToken(accessTokens));
-        
-        history("/"); // Redirect to home or another route after login
-      }
     } catch (err) {
       setError("Invalid email or password");
       console.error(err);
@@ -74,7 +103,9 @@ const Login = () => {
                   </div>
 
                   <input type="submit" value="Continue"/>
+
               </form>
+              <button onClick={clickonforrefreshaccesstoken}>click</button>
 
               {/* <div className="footer">
                   <span>Or Connect With Social Media</span>

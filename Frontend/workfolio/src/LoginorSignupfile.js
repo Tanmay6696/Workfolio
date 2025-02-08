@@ -7,9 +7,10 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import Constant from "./Constant.js";
 
-
+import { setAccessToken } from './Store/UserDataSlice';
 
 const LoginorSignupfile = () => {
+  const dispatch = useDispatch();
   const [isaccesstokencorrect,setisaccesstokencorrect]=useState(false);
   const [isLogin, setIsLogin] = useState(true); // Controls whether to show login or signup
   //const accessToken = useSelector((state) => state.accessToken);
@@ -31,12 +32,13 @@ const LoginorSignupfile = () => {
   const getdata = async () => {
     try {
       console.log("No Error fetching user data 1");
-      const response = await axios.post(`${Constant}/api/v1/${Emailforurl}/Userdetails`, {}, {
-        headers: {
+      const response = await axios.post(`${Constant}/api/v1/refreshaccesstoken`, {}, {
+        cookie: {
           'Authorization': `${accessToken}` // Ensure you include 'Bearer' if needed
         }
-      });
-      console.log("No Error fetching user data 2");
+      }); 
+      dispatch(setAccessToken(response.data.accessToken));
+      console.log("No Error fetching user data 2",response.data);
       setisaccesstokencorrect(true);
       console.log("No Error fetching user data 3");
       
@@ -51,14 +53,7 @@ const LoginorSignupfile = () => {
     if(accessToken ||Emailforurl){
       getdata();
     }
-    
-    console.log(accessToken," ",Emailforurl);
-    
-    
-      
-    
-    
-  }, [1]);
+  }, []);
 
   return (
     <div >

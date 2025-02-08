@@ -4,10 +4,10 @@ import '../Allcomponentfile.css';
 import Header from './Header.js';
 import Buttons from './Buttons.js';
 import EditAchievementsModel from './AchievementsModels.js';
-
+import { useSelector } from 'react-redux';
 const Achievements = ({ user,title, description, date_awarded, category, issuer, certificate_url, level }) => {
   let User=user.achievements;
-  
+  let userdata=useSelector((state)=>state.userdata.userdata);
   const options={year:'numeric',month:'long',day:'numeric'};
   const [editindex,seteditindex]=useState(0);
   const [showeditmodel,setshoweditmodel]=useState(0);
@@ -27,8 +27,8 @@ const Achievements = ({ user,title, description, date_awarded, category, issuer,
               <div className='name'>
                 <span>{user.title ? user.title : "Achievement Title"}</span>
               </div>
-              <Buttons buttonname="Edit" onClick={() => edittheachievement(index)} />
-              <div className='details'>
+              {userdata && userdata?.username!=User.username &&  <Buttons buttonname="Edit" onClick={() => edittheachievement(index)} />
+              }<div className='details'>
                 <div className='detailsname'>
                   <span>{user.description ? user.description : "Achievement Description"}</span>
                 </div>

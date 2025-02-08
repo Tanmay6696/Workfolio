@@ -66,7 +66,8 @@ const Editmodel = ({index}) => {
     };
   
     // JWT Token
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJlM2M2N2ZkZi0xYWYxLTQ0ZWUtYTU2OS1iMGI5MDg3NzNkYmEiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImpvaG5kb2UiLCJmdWxsTmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzI2NzY2NTAxLCJleHAiOjE3MjY4NTI5MDF9.ddzLUyRikRqRCuAVGSFpjv2AriSwjH-rhyvWrnAxs5I";
+    const token = localStorage.getItem('accessToken');
+
   
     try {
       // Make the API request

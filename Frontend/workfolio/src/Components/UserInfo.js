@@ -1,10 +1,11 @@
 import React from 'react';
 import { FaRegUserCircle } from "react-icons/fa";
 import '../Componentcss/UserInfo.css';
+import  { useSelector } from 'react-redux';
 
 const UserInfo = ({ user }) => {
   //console.log("user info", user);
-
+  let userdata=useSelector((state)=>state.userdata.userdata);
   return (
     <div className="UserInfo">
       <div className="UserPhoto">
@@ -18,7 +19,7 @@ const UserInfo = ({ user }) => {
       </div>
       <div className="UserSummary">
         <div className="name">
-          <span className="names">{user && user.fullName ? user.fullName : "Sample Name"}</span>
+          <span className="names" color={userdata?.username!=user.username ?'white':'black' }>{user && user.fullName ? user.fullName : "Sample Name"}</span>
         </div>
         <div className="role">
           <span className="roles">

@@ -73,7 +73,8 @@ const Editeducationmodel = ({index}) => {
     };
   
     // JWT Token
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJlM2M2N2ZkZi0xYWYxLTQ0ZWUtYTU2OS1iMGI5MDg3NzNkYmEiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImpvaG5kb2UiLCJmdWxsTmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzI3MDI4ODEwLCJleHAiOjE3MjcxMTUyMTB9.D-TFJbw8FQokUz9shLl6VQY3VRWmcnrrmzA3R61WJmk";
+    const token = localStorage.getItem('accessToken');
+
   
     try {
       // Make the API request

@@ -6,8 +6,10 @@ import Buttons from './Buttons.js';
 import '../Allcomponentfile.css'
 import Header from './Header.js'
 import EditExperienceModel from './ExperiencesModels.js';
+import  {useSelector} from 'react-redux';
 const Experiences = ({user}) => {
-  
+  let userdata=useSelector((state)=>state.userdata.userdata);
+
   let User=user.experiences;
   const options={year:'numeric',month:'long',day:'numeric'};
   const [editindex,seteditindex]=useState(0);
@@ -33,7 +35,7 @@ const Experiences = ({user}) => {
             <FaBriefcase className='icon' />
             <span>{experience.companyName?experience.companyName:"Cognizant"}</span>
           </div>
-          <Buttons buttonname="Edit" onClick={()=>{editTheExperience(index);}}/>
+          {userdata && userdata?.username!=User.username && <Buttons buttonname="Edit" onClick={()=>{editTheExperience(index);}}/>}
           <div className='experience-details'>
             <div className='experience-title'>
               <span>{experience.role?experience.role:"Programmer Anlayst"}</span>

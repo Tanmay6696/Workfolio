@@ -56,7 +56,7 @@ const AllComponentfile = () => {
         console.log("inside infinitescroll");
         
         setLoading((loading)=>!loading);
-          dispatch(fetchusersdata(Page));
+        setPage((Page)=>Page + 1);
           setLoading((loading)=>!loading);
         
         

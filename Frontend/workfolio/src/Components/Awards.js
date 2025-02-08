@@ -4,7 +4,10 @@ import '../Componentcss/Awardss.css'
 import Header from './Header'
 import EditAwardsModel from './AwardsModels.js';
 import Constant from '../Constant.js';
+import { useSelector } from 'react-redux';
 const Awards = ({user,awardName, issuingOrganization, issueDate, awardDescription}) => {
+  let userdata=useSelector((state)=>state.userdata.userdata);
+
   let User=user.awards;
   const options={year:'numeric',month:'long',day:'numeric'};
   const [editindex,seteditindex]=useState(0);
@@ -25,7 +28,7 @@ const Awards = ({user,awardName, issuingOrganization, issueDate, awardDescriptio
             <div className='awardname'>
               <span>{award.awardName ? award.awardName :"Award Name"}</span>
             </div>
-            <Buttons buttonname="Edit" onClick={() => edittheaward(index)} />
+            {userdata && userdata?.username!=User.username &&  <Buttons buttonname="Edit" onClick={() => edittheaward(index)} />}
             <div className='Awarddetails'>
               <div className='issuedate'>
                 <span>{award.issuingOrganization ? award.issuingOrganization : "issuingOrganization"}</span>

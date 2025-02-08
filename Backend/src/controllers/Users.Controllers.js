@@ -5,6 +5,7 @@ import {AsyncHandler} from '../utils/AsyncHandler.js'
 import {Skill} from '../Models/Skills.Models.js'
 import {awards} from '../Models/Awards.Models.js'
 import {Education} from '../Models/Education.Models.js'
+
 import {Achivements} from '../Models/Achivements.Models.js'
 import {Tags} from '../Models/Tags.Models.js'
 import {uploadoncloudinary} from '../utils/Cloudinary.js';
@@ -19,7 +20,8 @@ import { Rating } from '../Models/Rating.Models.js';
 import ApiResponse from '../utils/ApiResponse.js'
 import { Likes } from '../Models/Likes.Models.js';
 import { UuidToString } from '../utils/UuidToString.js';
-
+import dotenv from 'dotenv';
+dotenv.config();
 const generateaccessandrefershtokens =async(UserId)=>{
     
     try{
@@ -43,6 +45,62 @@ const generateaccessandrefershtokens =async(UserId)=>{
     }
 
 }
+
+const refreshAccessToken = async (req, res) => {
+    let refreshToken;
+
+    // Check if the refresh token is in the cookies
+    if (req.cookies && req.cookies.refreshToken) {
+        refreshToken = req.cookies.refreshToken;        
+    }
+
+    // If not found in cookies, check the Authorization header
+    if (!refreshToken && req.headers.authorization) {
+        console.log("refreshToken headers",req.headers.authorization.split(" "));
+        refreshToken = req.headers.authorization.split(" ")[1]; // Extract token from "Bearer <token>"
+        
+        
+    }
+    if (req.headers['x-refresh-token']) {
+        console.log("refreshToken headers x-refresh",req.headers['x-refresh-token']);
+        
+        refreshToken = req.headers['x-refresh-token'];
+    }
+    if (!refreshToken) {
+        return res.status(401).json({ message: "Refresh Token required" });
+    }
+    
+    
+    
+
+    try {
+        console.log("process.env.REFRESH_TOKEN_SECRET",process.env.REFRESH_TOKRN_SECRET,process.env.REFRESH_TOKEN_SECRET);
+        const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+        console.log("decoded", decoded);
+
+        // Generate new tokens
+        const newAccessToken = jwt.sign({ id: decoded._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRAY });
+        const newRefreshToken = jwt.sign({ id: decoded._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: process.env.REFRESH_TOKRN_EXPIRAY });
+
+        // Store new Refresh Token in database (optional)
+        await User.updateOne({ _id: decoded._id }, { refreshtoken: newRefreshToken });
+
+        // Set new Refresh Token in HTTP-Only Cookie
+        res.cookie("refreshToken", newRefreshToken, { httpOnly: true, secure: true });
+
+        // Send new tokens to client
+        console.log("newAccessToken", newAccessToken);
+        console.log("newRefreshToken", newRefreshToken);
+        
+        
+        res.json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
+    } catch (error) {
+        console.log("Error:", error);
+        return res.status(403).json({ message: "Invalid Refresh Token" });
+    }
+};
+
+
 const Details =AsyncHandler(async(req,res)=>{
     
     try{
@@ -1148,4 +1206,4 @@ const deleteUserSkills = async (req, res) => {
     }
 };
 
-export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateRating,updateComment,updateUserExperience,unlikeUser,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,Details,deleteUserEducation,addUserExperience,deleteUserExperience,updateLike,searchUser}
+export {RegisteredUser,logout,LoginUser,addUserCodingProfiles,updateUserSummary,updateRating,updateComment,updateUserExperience,unlikeUser,addUserSkills,addUserAchievements,updateUserSkills,addUserAwards,updateUserAwards,deleteUserAchievements,addUserSocialMedia,deleteUserProjects,deleteUserAwards,addUserEducation,updateUserEducation,updateUserAchievements,updateUserSocialMedia,deleteUserSocialMedia,addUserProject,updateUserProjects,deleteUserCodingprofiles,updateUserCodingprofiles,deleteUserSkills,deleteUserSummary,Details,refreshAccessToken,deleteUserEducation,addUserExperience,deleteUserExperience,updateLike,searchUser}
