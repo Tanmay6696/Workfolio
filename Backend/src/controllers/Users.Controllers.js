@@ -27,9 +27,12 @@ const generateaccessandrefershtokens =async(UserId)=>{
     try{
         
         const user =await User.findById(UserId)
+        
         const accessToken=user.generateAccessToken()
-        const refreshToken=user.generateRefreshToken()
         console.log("accessToken in accessToken ",accessToken);
+        
+        const refreshToken=user.generateRefreshToken()
+        console.log("accessToken in refreshToken ",refreshToken);
         
         user.refreshtoken=refreshToken
        // console.log("UserId1",user.refreshtoken);
@@ -40,7 +43,7 @@ const generateaccessandrefershtokens =async(UserId)=>{
     catch(error){
         console.log("UserId2",error);
 
-        throw new ApiError(500, "Something went wrong while generating referesh and access token");
+        throw new APiError(500, "Something went wrong while generating referesh and access token");
         
     }
 
@@ -76,7 +79,7 @@ const refreshAccessToken = async (req, res) => {
     try {
         console.log("process.env.REFRESH_TOKEN_SECRET",process.env.REFRESH_TOKRN_SECRET,process.env.REFRESH_TOKEN_SECRET);
         const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-        console.log("decoded", decoded);
+        console.log("decoded", decoded._id);
 
         // Generate new tokens
         const newAccessToken = jwt.sign({ id: decoded._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRAY });
@@ -104,9 +107,33 @@ const refreshAccessToken = async (req, res) => {
 const Details =AsyncHandler(async(req,res)=>{
     
     try{
-        console.log("inside the details");
-        const hi="hi";
-        res.status(201).json({ message: "Comment added successfully", data: hi });
+        let accessToken;
+
+        // Check if the refresh token is in the cookies
+        if (req.cookies && req.cookies.refreshToken) {
+            accessToken = req.cookies.refreshToken;        
+        }
+
+        // If not found in cookies, check the Authorization header
+        if (!accessToken && req.headers.authorization) {
+            accessToken = req.headers.authorization.split(" ")[1]; // Extract token from "Bearer <token>"
+            
+            
+        }
+        console.log("refreshToken",accessToken ,"process.env.ACCESS_TOKEN_SECRET",process.env.ACCESS_TOKEN_SECRET);
+        const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+        console.log("decoded", decoded);
+        const Userinfo=await User.findOne({ _id: decoded._id })
+        .populate('educations')      // Populates the educations field
+        .populate('experiences') // Populates the social media profiles
+        .populate('achievements')
+        .populate('skills')      
+        .populate('projects')
+        .populate('socialMediaProfiles')
+        .populate('codingProfiles')
+        .populate('awards')
+        .populate('ratings');         
+        res.status(201).json({ message: "Comment added successfully", data: Userinfo });
     }
     catch(error){
         console.log("UserId2",error);
@@ -631,14 +658,15 @@ const addUserAwards = async (req, res) => {
 
   const updateUserAwards = async (req, res) => {
     
-    const { awardName,issuingOrganization,issueDate,description,awardidfromuser } = req.body;
+    const { awardId,awardName,issuingOrganization,issueDate,description } = req.body;
     try {
         let editawardidindex;
         let allawards=req.user?.awards;
         for(let i=0;i<allawards.length;i++)
         {
-            const currawardid=req.user?.awards[0]?._id.toString();
-            if(currawardid==awardidfromuser){
+            const currawardid=req.user?.awards[i]?._id.toString();
+            console.log(currawardid,awardId);
+            if(currawardid==awardId){
                 editawardidindex=i;
                 break;
             }
@@ -709,14 +737,18 @@ const addUserEducation = async (req, res) => {
 };
 
   const updateUserEducation = async (req, res) => {
+    console.log("req inside the updateUserEducation",req.body);
     const { educationId, instituteName, education, course, specialization, courseDuration, gradingSystem } = req.body;
     //console.log("req",req.user);
     try {
         let editEducationIndex;
         let allEducations = req.user?.educations; // Assuming user's educations are stored in req.user.educations
         
+        
+        
         for (let i = 0; i < allEducations.length; i++) {
             const currEducationId = req.user?.educations[i]?._id.toString();
+            console.log("allEducations",currEducationId,educationId);
             if (currEducationId == educationId) {
                 editEducationIndex = i;
                 break;
@@ -800,7 +832,7 @@ const addUserAchievements = async (req, res) => {
 
   const updateUserAchievements = async (req, res) => {
     const { achievementId, title, description, date_awarded, category, issuer, certificate_url, level, tags, public_visibility } = req.body;
-    //console.log(req.user);
+    console.log(req.body);
     try {
         let editAchievementIndex;
         let allAchievements = req.user?.achievements; // Assuming user's achievements are stored in req.user.achievements

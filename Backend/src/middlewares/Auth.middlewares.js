@@ -5,7 +5,8 @@ import { APiError } from "../utils/ApiError.js";
 export const verifedJWT = AsyncHandler(async (req, res, next) => {
     console.log("verifedJWT");
     try {
-        const Token = req.headers?.accesstoken|| req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer", " ")
+        
+        const Token = req.headers?.accesstoken|| req.cookies?.accessToken || req.headers.authorization.split(" ")[1];
         
 
         if (!Token) {
@@ -13,11 +14,13 @@ export const verifedJWT = AsyncHandler(async (req, res, next) => {
         }
         
 
-        const decodedToken = jwt.verify(Token, process.env.ACCESS_TOKEN_SECRET)
+        const decodedToken = jwt.verify(Token, process.env.ACCESS_TOKEN_SECRET);
+        // console.log("decodedToken",decodedToken);
         
         const user = await User.findById(decodedToken?._id).select("-password -refreshtoken")
+        // console.log("user",user);
         const users = await User.findById(decodedToken?._id);
-        
+        // console.log("users",users);
         if (!user) {
 
             //frontend discussion 

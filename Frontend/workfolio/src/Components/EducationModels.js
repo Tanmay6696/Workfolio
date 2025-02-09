@@ -19,9 +19,11 @@ const customStyles = {
 };
 const Editeducationmodel = ({index}) => {
   let subtitle;
+  console.log("index inside the Editeducationmodel",index);
   const [modalIsOpen, setIsOpen] = useState(false);
-
+  const [educationId, setEducationId] = useState('');
   const [instituteName, setInstituteName] = useState('');
+  const [email, setEmail] = useState('');
   const [course, setCourse] = useState('');
   const [education, setEducation] = useState('');
   const [specialization, setSpecialization] = useState('');
@@ -29,15 +31,15 @@ const Editeducationmodel = ({index}) => {
   const [gradingSystem, setGradingSystem] = useState('');
 
 
-  const educationInfo = useSelector((state) => state?.userdata?.userdata?.educations?.[index]);
-  console.log("educationInforr  ",educationInfo);
-
+  const EducationInfo = useSelector((state) => state?.userdata?.userdata);
+  
   useEffect(() => {
-    // console.log("educationInforrdadsdadjafgjadjadjsj  ",educationInfo);
-
+    if(EducationInfo){
+      setEmail(EducationInfo.email);
+    
+    const educationInfo=EducationInfo.educations[index];
     if (educationInfo) {
-      console.log("educationInfo.title",educationInfo.instituteName);
-      
+      setEducationId(educationInfo._id); 
       setInstituteName(educationInfo.instituteName);
     //   console.log("instituteName" ,instituteName ," ");
       setEducation(educationInfo.education);
@@ -48,7 +50,8 @@ const Editeducationmodel = ({index}) => {
       
       openModal();
     }
-  }, [educationInfo]);
+  }
+  }, [EducationInfo,index]);
 
   function openModal() {
     setIsOpen(true);
@@ -63,7 +66,7 @@ const Editeducationmodel = ({index}) => {
   const savetheChanges = async (e) => {
     e.preventDefault();
     const updateEducation = {
-      "educationId": "669cb78f3066dd02d47e2084", // Replace with the actual project ID you want to update
+      "educationId": educationId, // Replace with the actual project ID you want to update
       "instituteName": instituteName,
       "course": course,
       "education": education,
@@ -79,7 +82,7 @@ const Editeducationmodel = ({index}) => {
     try {
       // Make the API request
       const response = await axios.post(
-        `${Constant}/api/v1/users/tanmay117@example.com/educationupdate`,
+        `${Constant}/api/v1/users/${email}/educationupdate`,
         updateEducation,
         {
           headers: {

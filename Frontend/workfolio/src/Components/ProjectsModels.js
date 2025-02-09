@@ -18,7 +18,9 @@ const customStyles = {
   },
 };
 const Editmodel = ({index}) => {
+  console.log("index inside the Editmodel",index);
   let subtitle;
+  const [ProjectId, setProjectId] = useState('');
   const [modalIsOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [dateFrom, setDateFrom] = useState('');
@@ -26,23 +28,29 @@ const Editmodel = ({index}) => {
   const [description, setDescription] = useState('');
   const [url, setUrl] = useState('');
   const [ID, setID] = useState('');
+  const [email, setEmail] = useState('');
 
-  const projectInfo = useSelector((state) => state?.userdata?.userdata?.projects?.[index]);
-  console.log("projectInforr  ",projectInfo);
+  const ProjectInfo = useSelector((state) => state?.userdata?.userdata);
+  console.log("projectInforr  ",ProjectInfo);
   useEffect(() => {
-    if (projectInfo) {
-  
-      console.log("projectInfo.title",projectInfo.title);
+    if (ProjectInfo) {
+      setEmail(ProjectInfo.email);
+      const projectInfo=ProjectInfo.projects[index]
+      if(projectInfo){
+        console.log("projectInfo",projectInfo.index,ProjectInfo);
+        console.log("projectInfo.title",projectInfo.title);
+        setProjectId(projectInfo._id);
+        setTitle(projectInfo.title);
+        console.log("title" ,title ," ");
+        setDateFrom(projectInfo.durationFrom);
+        setDateTo(projectInfo.durationTo);
+        setDescription(projectInfo.description);
+        setUrl(projectInfo.url);
+        openModal();
+      }
       
-      setTitle(projectInfo.title);
-      console.log("title" ,title ," ");
-      setDateFrom(projectInfo.durationFrom);
-      setDateTo(projectInfo.durationTo);
-      setDescription(projectInfo.description);
-      setUrl(projectInfo.url);
-      openModal();
     }
-  }, [projectInfo]);
+  }, [ProjectInfo,index]);
 
   function openModal() {
     setIsOpen(true);
@@ -57,7 +65,7 @@ const Editmodel = ({index}) => {
   const savetheChanges = async (e) => {
     e.preventDefault();
     const updateProject = {
-      "projectId": "66d40f6258275839663d2707", // Replace with the actual project ID you want to update
+      "projectId": ProjectId, // Replace with the actual project ID you want to update
       "title": title,
       "description": description,
       "url": url,

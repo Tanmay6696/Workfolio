@@ -1,22 +1,25 @@
-import React, { useState ,useEffect} from 'react';
-import '../Componentcss/Projectss.css'
-import Header from './Header'
+import React, { useState, useEffect } from 'react';
+import '../Componentcss/Projectss.css';
+import Header from './Header';
 import '../Allcomponentfile.css';
 import Buttons from './Buttons.js';
 import Editmodel from './ProjectsModels.js';
-import  { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+
 const Projects = ({ user }) => {
-  let userdata=useSelector((state)=>state.userdata.userdata);
+  let userdata = useSelector((state) => state.userdata.userdata);
 
   let User = user.projects;
+  console.log("User", User[0]);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  const [editindex,seteditindex]=useState(0);
-  const [showeditmodel,setshoweditmodel]=useState(0);
-  const edittheproject=(index)=>{
+  const [editindex, seteditindex] = useState(0);
+  const [showeditmodel, setshoweditmodel] = useState(false);
+
+  const edittheproject = (index) => {
+    console.log("index", index);
     seteditindex(index);
-    setshoweditmodel(1);
-    
-  }
+    setshoweditmodel(true);
+  };
 
   return (
     <>
@@ -24,7 +27,7 @@ const Projects = ({ user }) => {
         {User != undefined ?
           User.map((project, index) => (
             <div className='item' key={index}>
-              {userdata && userdata?.username!=User.username &&  <Buttons buttonname="Edit" onClick={()=>{edittheproject(index);}}/>}
+              {userdata && userdata?.username != User.username && <Buttons buttonname="Edit" onClick={() => { edittheproject(index); }} />}
 
               <div className='name'>
                 <span>{project.title ? project.title : ""}</span>
@@ -37,7 +40,6 @@ const Projects = ({ user }) => {
                   <div className='dateandbutton'>
                     <div className='projectsdetailsofdateandurl'>
                       <span>{`${project.durationFrom ? new Date(project.durationFrom).toLocaleDateString(undefined, options) : ""} to ${project.durationTo ? new Date(project.durationTo).toLocaleDateString(undefined, options) : ""}`}</span>
-                      
                     </div>
 
                     <Buttons className="btn-outline-warning" src={project.url ? project.url : ''} buttonname="View More" />
@@ -45,12 +47,14 @@ const Projects = ({ user }) => {
                 </div>
               </div>
             </div>
-          )) : <></>}
-
+          ))
+          :
+          <></>
+        }
       </div>
-      {showeditmodel?<Editmodel index={editindex}/>:<></>}
+      {showeditmodel ? <Editmodel index={editindex} /> : <></>}
     </>
-  )
-}
+  );
+};
 
-export default Projects
+export default Projects;

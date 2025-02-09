@@ -19,7 +19,8 @@ const customStyles = {
 const EditAchievementsModel = ({index}) => {
   let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
-
+  const [email, setEmail] = useState('');
+  const [AchievementID, setAchievementID] = useState('');  
   const [description, setDescription] = useState('');
   const [title, setTitle] = useState('');
   const [date_awarded, setDate_awarded] = useState('');
@@ -30,28 +31,34 @@ const EditAchievementsModel = ({index}) => {
   const [public_visibility, setPublic_visibility] = useState('');
 
 
-  const achievementInfo = useSelector((state) => state?.userdata?.userdata?.achievements?.[index]);
-  console.log("achievementInforrrrr  ",achievementInfo);
+  const AchievementInfo = useSelector((state) => state?.userdata?.userdata);
+  console.log("achievementInforrrrr  ",AchievementInfo);
 
   useEffect(() => {
-    // console.log("educationInforrdadsdadjafgjadjadjsj  ",educationInfo);
+    console.log("educationInforrdadsdadjafgjadjadjsj  ",AchievementInfo);
 
-    if (achievementInfo) {
-      console.log("achievementInfo.title",achievementInfo.description);
+    if (AchievementInfo) {
+      setEmail(AchievementInfo.email);
+      const achievementInfo=AchievementInfo.achievements[index];
+      console.log("educationInforrdadsdadjafgjadjadjsj  ",achievementInfo);
+      if(achievementInfo){
+        console.log("achievementInfo.title",achievementInfo.description);      
+        setDescription(achievementInfo.description);
+        console.log("AchievementID",AchievementID)
+        setAchievementID(achievementInfo._id)
+        setTitle(achievementInfo.title);
+        setDate_awarded(achievementInfo.date_awarded);
+        setCategory(achievementInfo.category);
+        setIssuer(achievementInfo.issuer);
+        setCertificate_url(achievementInfo.certificate_url);
+        setLevel(achievementInfo.level);
+        setPublic_visibility(achievementInfo.public_visibility);
+        
+        openModal();
+      }
       
-      setDescription(achievementInfo.description);
-    //   console.log("instituteName" ,instituteName ," ");
-      setTitle(achievementInfo.title);
-      setDate_awarded(achievementInfo.date_awarded);
-      setCategory(achievementInfo.category);
-      setIssuer(achievementInfo.issuer);
-      setCertificate_url(achievementInfo.certificate_url);
-      setLevel(achievementInfo.level);
-      setPublic_visibility(achievementInfo.public_visibility);
-      
-      openModal();
     }
-  }, [achievementInfo]);
+  }, [AchievementInfo]);
 
   function openModal() {
     setIsOpen(true);
@@ -66,7 +73,7 @@ const EditAchievementsModel = ({index}) => {
   const savetheChanges = async (e) => {
     e.preventDefault();
     const updateAchievement = {
-      "achievementId": "669cb78f3066dd02d47e2088", // Replace with the actual project ID you want to update
+      "achievementId": AchievementID, // Replace with the actual project ID you want to update
       "description": description,
       "title": title,
       "date_awarded": date_awarded,
@@ -78,12 +85,14 @@ const EditAchievementsModel = ({index}) => {
     };
   
     // JWT Token
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJlM2M2N2ZkZi0xYWYxLTQ0ZWUtYTU2OS1iMGI5MDg3NzNkYmEiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImpvaG5kb2UiLCJmdWxsTmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzI3MTcxNzU5LCJleHAiOjE3MjcyNTgxNTl9.y9oB5ghRMDCdOhT6teddhOmmJykojA2jpnigDHMGdsI";
+    console.log("updateAchievement",updateAchievement);
+    const token = localStorage.getItem('accessToken');
+    
   
     try {
       // Make the API request
       const response = await axios.post(
-        `${Constant}/api/v1/users/tanmay117@example.com/achievementsupdate`,
+        `${Constant}/api/v1/users/${email}/achievementsupdate`,
         updateAchievement,
         {
           headers: {

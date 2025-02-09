@@ -20,7 +20,8 @@ const customStyles = {
 const EditAwardsModel = ({index}) => {
   let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
-
+    const [email, setEmail] = useState('');
+  const [awardId, setawardId] = useState('');
   const [awardName, setAwardName] = useState('');
   const [issuingOrganization, setIssuingOrganization] = useState('');
   const [issueDate, setIssueDate] = useState('');
@@ -28,14 +29,15 @@ const EditAwardsModel = ({index}) => {
   
 
 
-  const awardsInfo = useSelector((state) => state?.userdata?.userdata?.awards?.[index]);
-  console.log("awardsInforrrrrrrrrrr  ",awardsInfo);
+  const AwardsInfo = useSelector((state) => state?.userdata?.userdata);
+  console.log("awardsInforrrrrrrrrrr  ",AwardsInfo);
 
   useEffect(() => {
-
+    const awardsInfo=AwardsInfo?.awards?.[index];
+    setEmail(AwardsInfo.email);
     if (awardsInfo) {
       console.log("achievementInfo.title",awardsInfo.awardName);
-      
+      setawardId(awardsInfo._id);
       setAwardName(awardsInfo.awardName);
     //   console.log("instituteName" ,instituteName ," ");
     setIssuingOrganization(awardsInfo.issuingOrganization);
@@ -45,7 +47,7 @@ const EditAwardsModel = ({index}) => {
       
       openModal();
     }
-  }, [awardsInfo]);
+  }, [AwardsInfo,index]);
 
   function openModal() {
     setIsOpen(true);
@@ -60,7 +62,7 @@ const EditAwardsModel = ({index}) => {
   const savetheChanges = async (e) => {
     e.preventDefault();
     const updateAward = {
-      "awardId": "669cb78f3066dd02d47e2088", // Replace with the actual project ID you want to update
+      "awardId": awardId, // Replace with the actual project ID you want to update
       "awardName": awardName,
       "issuingOrganization": issuingOrganization,
       "issueDate": issueDate,
@@ -74,7 +76,7 @@ const EditAwardsModel = ({index}) => {
     try {
       // Make the API request
       const response = await axios.post(
-        `${Constant}/api/v1/users/tanmay117@example.com//awardsupdate`,
+        `${Constant}/api/v1/users/${email}/awardsupdate`,
         updateAward,
         {
           headers: {

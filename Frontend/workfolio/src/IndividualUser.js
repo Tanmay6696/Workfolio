@@ -22,13 +22,12 @@ import Editmodel from './Components/ProjectsModels.js';
 
 import Editeducationmodel from './Components/EducationModels.js';
 import Constant from "./Constant.js";
-const IndividualUser = () => {
-      const userdata=useSelector(
-              (state)=>state.userdata.searchclickuserdata);
+const IndividualUser = ({userdata}) => {
+      
     
   return (
     <div><>
-    <Editmodel />
+    
     <UserInfo user={userdata} />
     <Header name="Resume" />
     <Resume user={userdata} />
@@ -42,6 +41,7 @@ const IndividualUser = () => {
     <Header name="Achievements" />
     <Achievements user={userdata} />
     <Header name="Projects" />
+    <Editmodel />
     <Projects user={userdata} />
     <Header name="Ratings" />
     <Ratings user={userdata} />
