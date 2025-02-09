@@ -18,10 +18,25 @@ import Awards from './Awards';
 
 const Profilesection = ({user}) => {
   // console.log("user ",user);
-  
+  const Like = () => {
+    console.log("Liked");
+    const heartIcon = document.querySelector('.ri-heart-fill');
+
+    heartIcon.style.transform = 'translate(-50%, -50%) scale(0)';
+    heartIcon.style.opacity = 0.8;
+
+    const reflow = heartIcon.offsetHeight;
+
+    heartIcon.style.transform = 'translate(-50%, -50%) scale(2)';
+    setTimeout(() => {
+      heartIcon.style.transform = 'translate(-50%, -50%) scale(0)';
+      heartIcon.style.opacity = 0;
+    }, 3000);
+    // self email and another id
+  };
   return (
     <div className='Profilesection'> 
-        <div >
+        <div onDoubleClick={Like}>
           
           <UserInfo user={user}/>
           <Header name="Resume" />
@@ -47,6 +62,7 @@ const Profilesection = ({user}) => {
           <Header name="SocialMediaprofile" />
           <SocialMediaprofile user={user}/>
         </div>
+        <i class="ri-heart-fill"></i>
     </div>
 
     

@@ -10,7 +10,6 @@ const Projects = ({ user }) => {
   let userdata = useSelector((state) => state.userdata.userdata);
 
   let User = user.projects;
-  console.log("User", User[0]);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const [editindex, seteditindex] = useState(0);
   const [showeditmodel, setshoweditmodel] = useState(false);

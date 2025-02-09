@@ -92,6 +92,7 @@ const AllComponentfile = () => {
         <div className='main'>
           <Video user={user} />
           <Profilesection user={user} />
+          
         </div>
         
       </div>
