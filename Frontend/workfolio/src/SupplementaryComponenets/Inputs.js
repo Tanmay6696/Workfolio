@@ -1,10 +1,13 @@
 import React from 'react'
 
-const Inputs = () => {
+const Inputs = ({name,type}) => {
   return (
-    <div>
-        <input placeholder="enter the filed"/>
-    </div>
+    <div className="input-field">
+    <input type={type} 
+      required name="username" id="username"
+      placeholder={name} />
+    <div className="underline"></div>
+  </div>
   )
 }
 

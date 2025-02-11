@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { setAccessToken ,setEmails ,loginSuccess } from "./Store/UserDataSlice";
+import { setAccessToken, setEmails, loginSuccess } from "./Store/UserDataSlice";
 import './Login.css';
 import Constant from "./Constant.js";
 const Login = () => {
@@ -12,53 +12,53 @@ const Login = () => {
   const [password, setPassword] = useState();
   const [error, setError] = useState("");
   const dispatch = useDispatch();
-  const history=useNavigate();
-  const clickonforrefreshaccesstoken=async()=>{
-    try{
+  const history = useNavigate();
+  const clickonforrefreshaccesstoken = async () => {
+    try {
       console.log("before refreshAccessToken");
       await refreshAccessToken();
       console.log("refreshAccessToken");
-      
+
     }
-    catch(error){
+    catch (error) {
       console.error('Failed to refresh access token', error);
     }
   }
   const refreshAccessToken = async () => {
     try {
-        const refreshToken = localStorage.getItem('refreshToken');  // Get refresh token
-        console.log("refreshToken", refreshToken);
-        
-        const response = await axios.post(
-            `${Constant}/api/v1/users/refreshaccesstoken`,
-            {},
-            {
-                headers: { 'x-refresh-token': refreshToken }  // Send refresh token in custom header
-            }
-        );
+      const refreshToken = localStorage.getItem('refreshToken');  // Get refresh token
+      console.log("refreshToken", refreshToken);
 
-        const { accessToken, newRefreshToken } = response.data;
-        console.log("response", response);
-        console.log("accessToken", accessToken, "newRefreshToken", newRefreshToken);
-        
-
-        // Update tokens in localStorage
-        localStorage.setItem('accessToken', accessToken);
-        if (response.data.refreshToken) {
-            localStorage.setItem('refreshToken', response.data.refreshToken);  // Optional: if refresh tokens are rotated
+      const response = await axios.post(
+        `${Constant}/api/v1/users/refreshaccesstoken`,
+        {},
+        {
+          headers: { 'x-refresh-token': refreshToken }  // Send refresh token in custom header
         }
+      );
 
-        return accessToken;
+      const { accessToken, newRefreshToken } = response.data;
+      console.log("response", response);
+      console.log("accessToken", accessToken, "newRefreshToken", newRefreshToken);
+
+
+      // Update tokens in localStorage
+      localStorage.setItem('accessToken', accessToken);
+      if (response.data.refreshToken) {
+        localStorage.setItem('refreshToken', response.data.refreshToken);  // Optional: if refresh tokens are rotated
+      }
+
+      return accessToken;
     } catch (error) {
-        console.error('Failed to refresh access token', error);
-        // Handle token refresh failure (e.g., log out user)
-        throw error;
+      console.error('Failed to refresh access token', error);
+      // Handle token refresh failure (e.g., log out user)
+      throw error;
     }
-};
+  };
 
 
 
-  const handleSubmit = async (e) => {    
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let accessTokens;
     try {
@@ -66,15 +66,15 @@ const Login = () => {
         email,
         password,
       });
-    
-        accessTokens=response.data.data.accessToken;
-        localStorage.setItem("accessToken", response.data.data.accessToken);
-        localStorage.setItem("refreshToken", response.data.data.refreshToken);
-        console.log("accessToken",response.data.data.accessToken);
-        const payload = JSON.parse(atob(accessTokens.split('.')[1]));
-        console.log("payload",payload);        
-         //history("/"); // Redirect to home or another route after login
-      
+
+      accessTokens = response.data.data.accessToken;
+      localStorage.setItem("accessToken", response.data.data.accessToken);
+      localStorage.setItem("refreshToken", response.data.data.refreshToken);
+      console.log("accessToken", response.data.data.accessToken);
+      const payload = JSON.parse(atob(accessTokens.split('.')[1]));
+      console.log("payload", payload);
+      //history("/"); // Redirect to home or another route after login
+
     } catch (err) {
       setError("Invalid email or password");
       console.error(err);
@@ -83,66 +83,28 @@ const Login = () => {
 
   return (
     <div >
-      <div >
-      <>
-          <main className="container">
-              <h2>Login</h2>
-              {error && <p>{error}</p>}
-              <form onSubmit={handleSubmit}>
-                  <div className="input-field">
-                      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-            required  name="username" id="username"
-                          placeholder="Enter Your Username or Email"/>
-                      <div className="underline"></div>
-                  </div>
-                  <div className="input-field">
-                      <input type="text" value={password} onChange={(e) => setPassword(e.target.value)}
-            required  name="password" id="password"
-                          placeholder="Enter Your Passwords"/>
-                      <div className="underline"></div>
-                  </div>
+      <main className="container">
+        <h2>Login</h2>
+        {error && <p>{error}</p>}
+        <form className="form_container" onSubmit={handleSubmit}>
+          <div className="input-field">
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+              required name="username" id="username"
+              placeholder="Enter Your Username or Email" />
+            <div className="underline"></div>
+          </div>
+          <div className="input-field">
+            <input type="text" value={password} onChange={(e) => setPassword(e.target.value)}
+              required name="password" id="password"
+              placeholder="Enter Your Passwords" />
+            <div className="underline"></div>
+          </div>
 
-                  <input type="submit" value="Continue"/>
-
-              </form>
-              <button onClick={clickonforrefreshaccesstoken}>click</button>
-
-              {/* <div className="footer">
-                  <span>Or Connect With Social Media</span>
-                  <div className="social-fields">
-                      <div className="social-field twitter">
-                          <a href="#">
-                              <i className="fab fa-twitter"></i>
-                              Sign in with Twitter
-                          </a>
-                      </div>
-                      <div className="social-field facebook">
-                          <a href="#">
-                              <i className="fab fa-facebook-f"></i>
-                              Sign in with Facebook
-                          </a>
-                      </div>
-                  </div>
-              </div> */}
-          </main>
-      </>
-        
-        {/* <form onSubmit={handleSubmit}>
-          
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button type="submit">
-            Login
-          </button>
-          
-        </form> */}
-      </div>
+          <input type="submit" value="Continue" />
+        </form>
+      </main>
     </div>
+
   );
 };
 

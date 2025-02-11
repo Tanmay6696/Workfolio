@@ -12,11 +12,15 @@
 
 main.container {
     background: white;
-    min-width: 320px;
-    min-height: 40vh;
+    width: 50vw;
+    margin-left: 30%;
+    min-height: 50vh;
     padding: 2rem;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
+}
+.form_container{
+    margin: 6% 0 0 0;
 }
 
 main h2 {

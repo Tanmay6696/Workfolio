@@ -34,10 +34,10 @@ const Editeducationmodel = ({index}) => {
   const EducationInfo = useSelector((state) => state?.userdata?.userdata);
   
   useEffect(() => {
-    if(EducationInfo){
+    if(EducationInfo.length){
       setEmail(EducationInfo.email);
     
-    const educationInfo=EducationInfo.educations[index];
+    const educationInfo=EducationInfo?.educations[index];
     if (educationInfo) {
       setEducationId(educationInfo._id); 
       setInstituteName(educationInfo.instituteName);

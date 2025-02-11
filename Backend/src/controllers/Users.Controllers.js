@@ -123,7 +123,7 @@ const Details =AsyncHandler(async(req,res)=>{
         console.log("refreshToken",accessToken ,"process.env.ACCESS_TOKEN_SECRET",process.env.ACCESS_TOKEN_SECRET);
         const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
         console.log("decoded", decoded);
-        const Userinfo=await User.findOne({ _id: decoded._id })
+        const Userinfo=await User.findOne({ _id: decoded.id })
         .populate('educations')      // Populates the educations field
         .populate('experiences') // Populates the social media profiles
         .populate('achievements')

@@ -1,0 +1,15 @@
+.InputBox{
+    margin: 5px;
+    width: 100%;
+}
+.InputBox label{
+    margin: 5px;
+    font: bold  30px sans-serif ;
+    width: 20%;
+}
+.InputBox input{
+    margin: 5px;
+    width: 80%;
+    border: black 1px solid;
+    
+}

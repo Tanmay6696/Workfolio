@@ -33,15 +33,16 @@ const Editmodel = ({index}) => {
   const ProjectInfo = useSelector((state) => state?.userdata?.userdata);
   console.log("projectInforr  ",ProjectInfo);
   useEffect(() => {
-    if (ProjectInfo) {
+    console.log("ProjectInfo",ProjectInfo);
+    if (ProjectInfo.length) {
+      console.log("ProjectInfo inside",ProjectInfo);
       setEmail(ProjectInfo.email);
-      const projectInfo=ProjectInfo.projects[index]
+      const projectInfo=ProjectInfo?.projects[index]
       if(projectInfo){
         console.log("projectInfo",projectInfo.index,ProjectInfo);
         console.log("projectInfo.title",projectInfo.title);
         setProjectId(projectInfo._id);
         setTitle(projectInfo.title);
-        console.log("title" ,title ," ");
         setDateFrom(projectInfo.durationFrom);
         setDateTo(projectInfo.durationTo);
         setDescription(projectInfo.description);

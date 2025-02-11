@@ -26,13 +26,14 @@ const Profilesection = ({user}) => {
     heartIcon.style.opacity = 0.8;
 
     const reflow = heartIcon.offsetHeight;
-
+    console.log(heartIcon.style.transform);
     heartIcon.style.transform = 'translate(-50%, -50%) scale(2)';
     setTimeout(() => {
+      alert("Liked");
       heartIcon.style.transform = 'translate(-50%, -50%) scale(0)';
       heartIcon.style.opacity = 0;
+      console.log(heartIcon.style.transform);
     }, 3000);
-    // self email and another id
   };
   return (
     <div className='Profilesection'> 

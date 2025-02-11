@@ -1,0 +1,45 @@
+input-field {
+    position: relative;
+}
+
+form .input-field:first-child {
+    margin-bottom: 1.5rem;
+}
+
+.input-field .underline::before {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    bottom: -5px;
+    left: 0;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.input-field .underline::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    bottom: -5px;
+    left: 0;
+    background: linear-gradient(45deg, #8e2de2, #4a00e0);
+    transform: scaleX(0);
+    transition: all .3s ease-in-out;
+    transform-origin: left;
+}
+
+.input-field input:focus ~ .underline::after {
+    transform: scaleX(1);
+}
+
+.input-field input {
+    outline: none;
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+}
+
+.input-field input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}

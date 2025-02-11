@@ -13,14 +13,25 @@ function App() {
     const [islogin, setislogin] = useState(false);
     const [elementpath, setelementpath] = useState("/userprofile");
     const [elementvalue, setelementvalue] = useState(<LoginorSignupfile />);
+    const [index,Setindex]=useState(0);
     const dispatch = useDispatch();
     const history = useNavigate();
-
+    const paths=[
+        {
+            name:"/Profile",
+            component:<IndividualUser userdata={user} />
+        },
+        {
+            name:"/userprofile",
+            component:<LoginorSignupfile />
+        }
+    ];
     const fetchUserData = async (token) => {
         try {
             const response = await axios.get(`${Constant}/api/v1/users/getdetails`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
+            console.log("fetchUserData", response.data.data);
             setUser(response.data.data);
             
             dispatch(setUserdata(response.data.data));
@@ -34,6 +45,8 @@ function App() {
     const isTokenExpired = (token) => {
         if (!token) return true;  // If no token, consider it expired
         const payload = JSON.parse(atob(token.split('.')[1]));  // Decode JWT payload
+        console.log("isTokenExpired ", payload.exp * 1000 < Date.now());
+
         return payload.exp * 1000 < Date.now();  // Compare expiration time with current time
     };
 
@@ -72,9 +85,7 @@ function App() {
         if (isTokenExpired(token)) {
             if (!localStorage.getItem('refreshToken')) {
                 history('/userprofile');
-            } else {
-                token = await refreshAccessToken();  // Get a new token if expired
-            }
+            } 
         }
 
         if (token) {
@@ -89,16 +100,41 @@ function App() {
         const initializeUser = async () => {
             try {
                 let token = localStorage.getItem('accessToken');
+                console.log("token", token);
+                let indexvalue=0;
                 if (token) {
                     if (isTokenExpired(token)) {
                         token = await refreshAccessToken();
-                    }
-                    const userData = await fetchUserData(token);
-                    setUser(userData.data);
+                    }                    
                     setislogin(true);
-                    setelementpath("/profile");
-                    setelementvalue(<IndividualUser userdata={userData.data} />);
+                    indexvalue=0;
+                    
                 }
+                else{                   
+                    console.log("refreshToken", localStorage.getItem('refreshToken'));
+                    if(!localStorage.getItem('refreshToken')){
+                        history('/userprofile');
+                        indexvalue=1;
+                        
+                    }
+                    else{
+                        token = await refreshAccessToken();
+                        indexvalue=0;
+                    }
+                      
+                    
+                    
+                    
+                }
+                console.log("token", token);
+                if(token){
+                    const userData = await fetchUserData(token);
+                    console.log("userData", userData);
+                    setUser(userData.data);
+                }
+                
+                
+                Setindex(indexvalue);
             } catch (error) {
                 console.error('Failed to initialize user', error);
             }
@@ -121,14 +157,7 @@ function App() {
         <div className="App" onClick={clickonappcomponent}>
             <Routes>
                 <Route path="/" element={<AllComponentfile />} exact />
-                <Route path={elementpath} element={elementvalue} />
-                {/* {!user && <Route path="/userprofile" element={<LoginorSignupfile />} />}
-                {user && <Route path="/profile" element={<IndividualUser userdata={user} />} />}
-                {user ? (
-                    <Route path="/profile" element={<IndividualUser userdata={user} />} />
-                ) : (
-                    <></>
-                )} */}
+                <Route path={paths[index].name} element={paths[index].component} />                
             </Routes>
         </div>
     );
