@@ -1,20 +1,25 @@
 import React from 'react';
 import InputContainer from '../SmallContainer/InputContainer';
 
-const ExperienceComponent = ({ formData, setFormData }) => {
+const ExperienceComponent = ({ formData, setFormData ,errors}) => {
   const removeExperience = (index) => {
     const updatedExperiences = formData.experiences.filter((_, expIndex) => expIndex !== index);
     setFormData({ ...formData, experiences: updatedExperiences });
   };
 
   const addExperience = () => {
-    setFormData({
-      ...formData,
-      experiences: [
-        ...formData.experiences,
-        { companyName: '', role: '', description: '', DurationFrom: '', DurationTo: '' },
-      ],
-    });
+    console.log(Object.keys(errors).length)
+    let length_of_error=Object.keys(errors).length;
+    if(length_of_error==0){
+      setFormData({
+        ...formData,
+        experiences: [
+          ...formData.experiences,
+          { companyName: '', role: '', description: '', DurationFrom: '', DurationTo: '' },
+        ],
+      });
+    }
+    
   };
 
   const handleExperienceChange = (index, e) => {

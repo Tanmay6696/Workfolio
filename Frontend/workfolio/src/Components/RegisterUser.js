@@ -13,6 +13,13 @@ import SocialMediaProfilescomponent from './RegisterUserComponent/SocialMediaPro
 import SignUpcomponent from './RegisterUserComponent/SignUpcomponent.js';
 
 const UserForm = () => {
+  function valid(email) {
+    console.log("email",email);
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    console.log("pattern.test(email)",pattern.test(email));
+    
+    return pattern.test(email);
+  }
   const [formData, setFormData] = useState({
     username: "",
     fullName: "",
@@ -91,44 +98,142 @@ const UserForm = () => {
     ],
     feed: ""
   });
-  
+  const [errors,setErrors]=useState({})
   const [activeTab,setActiveTab]=useState(0);
   const Tabs=[
     {
       name:"signup",
-      componenet:SignUpcomponent
+      componenet:SignUpcomponent,
+      Validation:()=>{
+        console.log("enter in validation",formData.fullName,valid(formData.email));
+        
+        const err={};
+        if(!formData.username) err.username="username is empty";
+        if(!formData.fullName) err.fullName="fullName is empty";
+        if((!formData.email)||formData.email && !valid(formData.email)) err.email="Email is not correct";
+        if(!formData.password) err.password="Password is empty";
+        if(!formData.summary) err.summary="Summary is empty";
+        console.log(Object.keys(err).length);
+        
+        setErrors(err);
+        console.log("errors",errors);
+        
+        return Object.keys(err).length===0;
+      }
     },
     {
       name:"Experiences",
-      componenet:Experiencescomponent
+      componenet:Experiencescomponent,
+      Validation: () => {
+        const err = {};
+        formData.experiences.forEach((exp, index) => {
+          if (!exp.companyName) err[`experience_${index}_companyName`] = "Company Name is required";
+          if (!exp.role) err[`experience_${index}_role`] = "Role is required";
+          if (!exp.DurationFrom) err[`experience_${index}_DurationFrom`] = "Start Date is required";
+          if (!exp.DurationTo) err[`experience_${index}_DurationTo`] = "End Date is required";
+        });
+        console.log("Validation",Object.keys(err).length);
+        
+        setErrors(err);
+        return Object.keys(err).length === 0;
+      },
     },
     {
       name:"Achievements",
-      componenet:Achievementscomponent
+      componenet:Achievementscomponent,
+      Validation: () => {
+        const err = {};
+        formData.achievements.forEach((ach, index) => {
+          if (!ach.title) err[`achievement_${index}_title`] = "Title is required";
+          if (!ach.description) err[`achievement_${index}_description`] = "Description is required";
+        });
+  
+        setErrors(err);
+        return Object.keys(err).length === 0;
+      },
     },
     {
       name:"Awards",
-      componenet:Awardscomponent
+      componenet:Awardscomponent,
+      Validation: () => {
+        const err = {};
+        formData.Awards.forEach((award, index) => {
+          if (!award.awardName) err[`award_${index}_awardName`] = "Award Name is required";
+          if (!award.issuingOrganization) err[`award_${index}_issuingOrganization`] = "Issuing Organization is required";
+        });
+  
+        setErrors(err);
+        return Object.keys(err).length === 0;
+      },
     },
     {
       name:"Coding Profiles",
-      componenet:CodingProfilecomponent
+      componenet:CodingProfilecomponent,
+      Validation: () => {
+        const err = {};
+        formData.codingProfiles.forEach((profile, index) => {
+          if (!profile.profileName) err[`codingProfile_${index}_profileName`] = "Profile Name is required";
+          if (!profile.profileUrl) err[`codingProfile_${index}_profileUrl`] = "Profile URL is required";
+        });
+  
+        setErrors(err);
+        return Object.keys(err).length === 0;
+      },
     },
     {
       name:"Education",
-      componenet:Educationcomponent
+      componenet:Educationcomponent,
+      Validation: () => {
+        const err = {};
+        formData.educations.forEach((edu, index) => {
+          if (!edu.instituteName) err[`education_${index}_instituteName`] = "Institute Name is required";
+          if (!edu.course) err[`education_${index}_course`] = "Course is required";
+        });
+  
+        setErrors(err);
+        return Object.keys(err).length === 0;
+      },
     },
     {
       name:"Skills",
-      componenet:Skillscomponent
+      componenet:Skillscomponent,
+      Validation: () => {
+        const err = {};
+        formData.skills.forEach((skill, index) => {
+          if (!skill.skillName) err[`skill_${index}_skillName`] = "Skill Name is required";
+        });
+  
+        setErrors(err);
+        return Object.keys(err).length === 0;
+      },
     },
     {
       name:"Social Media Profiles",
-      componenet:SocialMediaProfilescomponent
+      componenet:SocialMediaProfilescomponent,
+      Validation: () => {
+        const err = {};
+        formData.socialMedia.forEach((profile, index) => {
+          if (!profile.profileName) err[`socialMedia_${index}_profileName`] = "Profile Name is required";
+          if (!profile.profileUrl) err[`socialMedia_${index}_profileUrl`] = "Profile URL is required";
+        });
+  
+        setErrors(err);
+        return Object.keys(err).length === 0;
+      },
     },
     {
       name:"Projects",
-      componenet:Projectscomponent
+      componenet:Projectscomponent,
+      Validation: () => {
+        const err = {};
+        formData.projects.forEach((project, index) => {
+          if (!project.title) err[`project_${index}_title`] = "Project Title is required";
+          if (!project.description) err[`project_${index}_description`] = "Project Description is required";
+        });
+  
+        setErrors(err);
+        return Object.keys(err).length === 0;
+      },
     }
 
 
@@ -158,6 +263,7 @@ const UserForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form Data: ", formData);
+    console.log("ActiveTab: ", activeTab);
     // Add your API call logic here to submit the form
     try {
       const response = await fetch(`${Constant}/api/v1/users/RegisterUser`, {
@@ -179,23 +285,50 @@ const UserForm = () => {
       alert('Error:', error);
     }
   };
+  const Go_to_the_Next_Tab=(e,index)=>{
+
+    console.log("Hi",activeTab);
+    setActiveTab(index);
+  }
+  const NextTabHandler=(e)=>{
+    
+    e.preventDefault();
+    if(Tabs[activeTab].Validation()){
+      setActiveTab(prev=>prev+1);
+    }
+    console.log("errors",errors)
+
+  }  
+  const PrevTabHandler=(e)=>{
+    e.preventDefault();
+    setActiveTab(prev=>prev-1);
+  }
+  console.log("His",activeTab);
   const ActiveDataComponet=Tabs[activeTab].componenet;
   return (
     <form onSubmit={handleSubmit}>
       {/* Other user details fields */}
       <div className='tabHeadingContainer'>
       {Tabs.map((val,index)=>(
-        <div className="tabHeading" key={index} onClick={()=>setActiveTab(index)} >
+        <div className="tabHeading" key={index} onClick={(e)=>Go_to_the_Next_Tab(e,index)} >
           {val.name}
           </div>
       ))}
       </div>
+      
       <div className='containerdata'>
-        <ActiveDataComponet formData={formData} setFormData={setFormData} /></div>
+        <ActiveDataComponet formData={formData} setFormData={setFormData} errors={errors} /></div>
+        {Object.keys(errors).length > 0 && Object.values(errors).map((error, index) => (
+        <p key={index} style={{ color: "red" }}>{error}</p>
+      )) }
+        {(activeTab>=0 &&activeTab<Tabs.length-1) ?<button onClick={(e)=>NextTabHandler(e)}>next</button>:''}
+        {(activeTab<Tabs.length-1 && activeTab>0)?<button onClick={(e)=>PrevTabHandler(e)}>prev</button>:""}
+        {activeTab===Tabs.length-1?<button type="submit">Submit</button>:''}
+        
       
 
       
-      {activeTab==8 && <button type="submit">Submit</button>}
+      
 
     </form>
   );

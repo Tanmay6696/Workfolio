@@ -113,17 +113,19 @@ const Details =AsyncHandler(async(req,res)=>{
         if (req.cookies && req.cookies.refreshToken) {
             accessToken = req.cookies.refreshToken;        
         }
+        console.log("accessToken",accessToken);
+        
 
         // If not found in cookies, check the Authorization header
         if (!accessToken && req.headers.authorization) {
             accessToken = req.headers.authorization.split(" ")[1]; // Extract token from "Bearer <token>"
-            
+            console.log("accessTokenthroghtautorization",accessToken);
             
         }
         console.log("refreshToken",accessToken ,"process.env.ACCESS_TOKEN_SECRET",process.env.ACCESS_TOKEN_SECRET);
         const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
         console.log("decoded", decoded);
-        const Userinfo=await User.findOne({ _id: decoded.id })
+        const Userinfo=await User.findOne({ _id: decoded._id })
         .populate('educations')      // Populates the educations field
         .populate('experiences') // Populates the social media profiles
         .populate('achievements')
@@ -151,7 +153,7 @@ const searchUser = async (req, res) => {
     // if user is not present then return the error
     try {
         const username = req.body.email;
-        console.log("inside the searchUser", req.body, req.params);
+        console.log("inside the searchUser", req.body, username);
         if (username == null) {
             return res.status(401).json({ message: "data is empty" });
         }

@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import InputContainer from '../SmallContainer/InputContainer'
-const SignUpcomponent = ({formData,setFormData}) => {
-  const [errors, setErrors] = useState({});
+const SignUpcomponent = ({formData,setFormData,errors}) => {
   const handleChange=(e)=>{
     
     const {name,value}=e.target;
     setFormData({ ...formData,[name]:value })
-    setErrors({ ...errors, [name]: value.trim() ? "" : "This field is required" });
   }
 
   return (

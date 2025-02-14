@@ -26,7 +26,7 @@ const IndividualUser = ({userdata}) => {
       
     
   return (
-    <div><>
+    <div className='Indiviual' style={{backgroundColor:"black"}}>
     
     <UserInfo user={userdata} />
     <Header name="Resume" />
@@ -53,7 +53,7 @@ const IndividualUser = ({userdata}) => {
     </div>
     <Header name="SocialMediaprofile" />
     <SocialMediaprofile user={userdata} />
-  </></div>
+  </div>
   )
 }
 

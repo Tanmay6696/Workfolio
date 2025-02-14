@@ -9,14 +9,15 @@ const Awardscomponent = ({formData,setFormData}) => {
     setFormData({ ...formData, Awards: updatedAwards });
   };
   const removeAward = (index) => {
-    const updatedAwards = formData.awards.filter((_, awIndex) => awIndex !== index);
-    setFormData({ ...formData, awards: updatedAwards });
+    const updatedAwards = formData.Awards.filter((_, awIndex) => awIndex !== index);
+    setFormData({ ...formData, Awards: updatedAwards });
   };
   const addAward = () => {
+    
     setFormData({
       ...formData,
-      awards: [
-        ...formData.awards,
+      Awards: [
+        ...formData.Awards,
         { awardName: "", issuingOrganization: "", issueDate: "", description: "" }
       ]
     });

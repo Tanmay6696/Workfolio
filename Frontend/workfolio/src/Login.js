@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { setAccessToken, setEmails, loginSuccess } from "./Store/UserDataSlice";
+import { setAccessToken, setEmails, loginSuccess,setUserdata } from "./Store/UserDataSlice";
 import './Login.css';
 import Constant from "./Constant.js";
 const Login = () => {
@@ -71,9 +71,20 @@ const Login = () => {
       localStorage.setItem("accessToken", response.data.data.accessToken);
       localStorage.setItem("refreshToken", response.data.data.refreshToken);
       console.log("accessToken", response.data.data.accessToken);
+      console.log(response.data.data);
+    
+      const userdata = {
+        ...response.data.data.findUser,
+        accessToken: response.data.data.accessToken,
+        refreshToken: response.data.data.refreshToken,
+      };
+      
+      
+      dispatch(setUserdata(userdata));
+      
       const payload = JSON.parse(atob(accessTokens.split('.')[1]));
       console.log("payload", payload);
-      //history("/"); // Redirect to home or another route after login
+      history("/"); // Redirect to home or another route after login
 
     } catch (err) {
       setError("Invalid email or password");
